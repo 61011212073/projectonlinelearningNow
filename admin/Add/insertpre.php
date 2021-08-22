@@ -16,6 +16,16 @@
     }
     $prename = clean($_POST["prename"]);
 	// $status_prename = $_POST["status_prename"];
+    //เช็คช่องว่าง
+    $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
+    $result = mysqli_query($conn, $query);
+    if($prename=="") {
+        echo "<script type=\"text/javascript\">";
+        echo "alert(\"กรุณากรอกข้อมูล\");";
+        echo "window.history.back();";
+        echo "</script>";
+        exit();
+    }
 //เช็คข้อมูลซ้ำ
     $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
     $result = mysqli_query($conn, $query);

@@ -226,8 +226,8 @@ if ($pagenum > 1) {
               <th scope="col">ลำดับ</th>
               <th scope="col">คำนำหน้าชื่อ</th>
               <th scope="col">สถานะการใช้งาน</th>
-              <th scope="col">แก้ไขข้อมูล</th>
               <th scope="col">รายละเอียด</th>
+              <th scope="col">แก้ไขข้อมูล</th>
             </tr>
           </thead>
           <tbody>
@@ -236,6 +236,12 @@ if ($pagenum > 1) {
               <td data-label="ลำดับ"><?php echo $i;?></td>
               <td data-label="คำนำหน้าชื่อ"><?php echo $row["preName_name"];?></td>
               <td data-label="สถานะการใช้งาน">
+                <!-- <div>
+                  <div class="form-check form-switch" >
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                  </div>
+                </div> -->
                 <?php
                       if ($row['preName_status'] == "1") {
                          echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
@@ -245,8 +251,108 @@ if ($pagenum > 1) {
                      }
                ?>
               </td>
-              <td><input type="button" name="edit" value="Edit" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
+              <td data-label="รายละเอียด">
+                <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
+            <i class="fa fa-eye"></i>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <!-- modal-fullscreen เต็มจอ modal-xl-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลคำนำหน้าชื่อ</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">หัวข้อ</th>
+                        <th scope="col">ข้อมูล</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <div>
+                        <tr>
+                          <th scope="row">ลำดับ</th>
+                          <td><?php echo $i;?></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">คำนำหน้าชื่อ</th>
+                          <td><?php echo $row["preName_name"];?></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">สถานะการใช้งาน</th>
+                          <td>
+                          <?php
+                                if ($row["preName_status"] == "1") {
+                                    echo "เปิดการใช้งาน";
+                                }
+                                else{
+                                    echo "ปิดการใช้งาน";
+                                }
+                          ?>
+                          </td>
+                        </tr>
+                      </div>
+                     
+                    </tbody>
+                  </table>
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- modal -->
+    </td>
+              <td data-label="แก้ไขข้อมูล">
+                <button type="button" class="btn btn-primary editbtn" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="background-color: #036666; border-color: #036666;" >
+                  <i class="fa fa-edit"></i>
+                </button>
+
+                
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title font-color">แก้ไขข้อมูลคำนำหน้าชื่อ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="row g-3 needs-validation" novalidate>
+                          <div >
+                            <label for="validationCustom01" class="form-label" >คำนำหน้าชื่อ</label>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required>
+                          </div>
+                          <!-- <div class="col-12">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                              <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
+                            </div>
+                          </div> -->
+                          <div class="form-group" style="font-family: Kanit, sans-serif;">
+                              <label for="pwd" style="font-family: Kanit, sans-serif;">สถานะ :</label>
+                              <input type="radio" required name="status_prename" value="1"> เปิดการใช้งาน
+                              <input type="radio" name="status_prename" value="0"> ปิดการใช้งาน
+                        </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-success">แก้ไข</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
             <?php } ?>
           </tbody>
@@ -296,134 +402,6 @@ if ($pagenum > 1) {
     });
     </script>
 
-<script>  
- $(document).ready(function(){  
-      $('#add').click(function(){  
-           $('#insert').val("Insert");  
-           $('#insert_form')[0].reset();  
-      });  
-      $(document).on('click', '.edit_data', function(){  
-           var employee_id = $(this).attr("id");  
-           $.ajax({  
-                url:"fetch.php",  
-                method:"POST",  
-                data:{employee_id:employee_id},  
-                dataType:"json",  
-                success:function(data){  
-                     $('#name').val(data.name);  
-                     $('#address').val(data.address);  
-                     $('#gender').val(data.gender);  
-                     $('#designation').val(data.designation);  
-                     $('#age').val(data.age);  
-                     $('#employee_id').val(data.id);  
-                     $('#insert').val("Update");  
-                     $('#add_data_Modal').modal('show');  
-                }  
-           });  
-      });  
-      $('#insert_form').on("submit", function(event){  
-           event.preventDefault();  
-           if($('#name').val() == "")  
-           {  
-                alert("Name is required");  
-           }  
-           else if($('#address').val() == '')  
-           {  
-                alert("Address is required");  
-           }  
-           else if($('#designation').val() == '')  
-           {  
-                alert("Designation is required");  
-           }  
-           else if($('#age').val() == '')  
-           {  
-                alert("Age is required");  
-           }  
-           else  
-           {  
-                $.ajax({  
-                     url:"insert.php",  
-                     method:"POST",  
-                     data:$('#insert_form').serialize(),  
-                     beforeSend:function(){  
-                          $('#insert').val("Inserting");  
-                     },  
-                     success:function(data){  
-                          $('#insert_form')[0].reset();  
-                          $('#add_data_Modal').modal('hide');  
-                          $('#employee_table').html(data);  
-                     }  
-                });  
-           }  
-      });  
-      $(document).on('click', '.view_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"select.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},  
-                     success:function(data){  
-                          $('#employee_detail').html(data);  
-                          $('#dataModal').modal('show');  
-                     }  
-                });  
-           }            
-      });  
- });  
- </script>
+
 </body>
 </html>
-<div id="dataModal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title">ตารางแสดงข้อมูลคำนำหน้าชื่อ</h4>  
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>  
- <!-- <div id="add_data_Modal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">PHP Ajax Update MySQL Data Through Bootstrap Modal</h4>  
-                </div>  
-                <div class="modal-body">  
-                     <form method="post" id="insert_form">  
-                          <label>Enter Employee Name</label>  
-                          <input type="text" name="name" id="name" class="form-control" />  
-                          <br />  
-                          <label>Enter Employee Address</label>  
-                          <textarea name="address" id="address" class="form-control"></textarea>  
-                          <br />  
-                          <label>Select Gender</label>  
-                          <select name="gender" id="gender" class="form-control">  
-                               <option value="Male">Male</option>  
-                               <option value="Female">Female</option>  
-                          </select>  
-                          <br />  
-                          <label>Enter Designation</label>  
-                          <input type="text" name="designation" id="designation" class="form-control" />  
-                          <br />  
-                          <label>Enter Age</label>  
-                          <input type="text" name="age" id="age" class="form-control" />  
-                          <br />  
-                          <input type="hidden" name="employee_id" id="employee_id" />  
-                          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />  
-                     </form>  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>   -->

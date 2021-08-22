@@ -16,6 +16,24 @@
     $preName_id=$_POST["preName_id"];
     $prename = clean($_POST["prename"]);
 	$status_prename = $_POST["status_prename"];
+    $massage ='';
+    if($_POST["employee_id"] != ''){
+        $query = "
+        UPDATE prename
+        SET preName_id='$preName_id'
+        preName_name='$preName_name'
+        preName_status='$preName_status'
+        WHERE id='".$_POST["employee_id"]."'";
+        $massage = 'Data Update';
+    else{
+        $query ="
+        INSERT INTO prename(preName_id,preName_name,preName_status)
+        VALUE($preName_id,$preName_name,$preName_status);
+        ";
+        $massage = 'Data Insert';
+    }    
+
+    }
 //เช็คข้อมูลซ้ำ
     $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
     $result = mysqli_query($conn, $query);
