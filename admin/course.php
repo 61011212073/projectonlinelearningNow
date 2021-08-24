@@ -42,7 +42,7 @@
  
 	$limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
  
-	$nquery=mysqli_query($conn,"SELECT course.course_thname,course.course_engname,course.course_thcode,course.course_engcode,course.course_year_mco2,univercity.univercity_name,faculty.faculty_name,department.department_name,course.course_status 
+	$nquery=mysqli_query($conn,"SELECT course.course_id,course.course_thname,course.course_engname,course.course_thcode,course.course_engcode,course.course_year_mco2,univercity.univercity_thname,faculty.faculty_name,department.department_name,course.course_status 
     FROM course 
     INNER JOIN univercity ON course.course_univercity_id=univercity.univercity_id 
     INNER JOIN department ON course.course_dpm_id=department.department_id 
@@ -100,6 +100,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
   <link href="../demo/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
   <script src="../demo/main.js"></script>
   <script src="jquery.main.js"></script>
 	<script type="text/javascript">
@@ -326,171 +327,8 @@
                       }
                       ?>
                   </td>
-                  <td data-label="รายละเอียด">
-                    <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                  <!-- modal-fullscreen เต็มจอ modal-xl-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลหลักสูตร</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table table-borderless" >
-                        <thead>
-                          <tr>
-                            <th scope="col">หัวข้อ</th>
-                            <th scope="col">ข้อมูล</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <th scope="row">ลำดับ</th>
-                              <td><?php echo $i;?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ชื่อหลักสูตรภาษาไทย</th>
-                              <td><?php echo $row[0]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ชื่อหลักสูตรภาษาอังกฤษ</th>
-                              <td><?php echo $row[1]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ตัวย่อหลักสูตรภาษาไทย</th>
-                              <td><?php echo $row[2]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ตัวย่อหลักสูตรภาษาอังกฤษ</th>
-                              <td><?php echo $row[3]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ปีมคอ.2</th>
-                              <td><?php echo $row[4]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">มหาวิทยาลัย</th>
-                              <td><?php echo $row['univercity_name']?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">คณะ</th>
-                              <td><?php echo $row[6]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ภาควิชา</th>
-                              <td><?php echo $row[7]?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">สถานะการใช้งาน</th>
-                              <td><?php
-                                    if ($row['course_status'] == "1") {
-                                        echo "เปิดการใช้งาน";
-                                    }
-                                    else{
-                                          echo "ปิดการใช้งาน";
-                                    }
-                                ?>
-                                </td>
-                            </tr>
-                          </div>
-                          
-                         
-                        </tbody>
-                      </table>
-                </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-         <!-- Modal -->
-         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลหลักสูตร</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form class="row g-3 needs-validation" novalidate>
-                  <div >
-                      <label for="validationCustom01" class="form-label" >ชื่อหลักสูตรภาษาไทย</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาไทย" required>
-                      
-                    </div>
-                    <div >
-                      <label for="validationCustom01" class="form-label" >ชื่อหลักสูตรภาษาอังกฤษ</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาอังกฤษ" required>
-                      
-                    </div>
-                    <div >
-                      <label for="validationCustom01" class="form-label" >ตัวย่อหลักสูตรภาษาไทย</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาไทย" required>
-                      
-                    </div>
-                    <div >
-                      <label for="validationCustom01" class="form-label" >ตัวย่อหลักสูตรภาษาอังกฤษ</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาอังกฤษ" required>
-                      
-                    </div>
-                    <div >
-                      <label for="validationCustom01" class="form-label" >ปีมคอ.2</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกปีมคอ.2" required>
-                      
-                    </div>
-                    <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                  <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>เลือกมหาวิทยาลัย</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select> 
-                    <label for="validationCustom01" class="form-label" >คณะ</label>
-                  <select class="form-select form-control" aria-label="Default select example">
-                      <option selected>เลือกคณะ</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select> 
-                    <label for="validationCustom01" class="form-label" >ภาควิชา</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected>เลือกภาควิชา</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select> 
-                    
-                  <div class="col-12">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                      <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </td>
+                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["course_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["course_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>
                 </tr>
                 
                           
@@ -529,5 +367,38 @@
         });
     </script>
 
+<script>  
+ $(document).ready(function(){  
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/course/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });   
+ });  
+ </script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div> 

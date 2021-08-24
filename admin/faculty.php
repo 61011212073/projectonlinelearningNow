@@ -43,7 +43,7 @@
  
   $limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
  
-  $nquery=mysqli_query($conn,"SELECT univercity.univercity_name,faculty.faculty_name,faculty.faculty_status FROM faculty
+  $nquery=mysqli_query($conn,"SELECT faculty.faculty_id,univercity.univercity_thname,faculty.faculty_name,faculty.faculty_status FROM faculty
   INNER JOIN univercity ON faculty.faculty_uivarcity_id=univercity.univercity_id $limit");
  
   $paginationCtrls = '';
@@ -94,6 +94,7 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
      <script src="../demo/main.js"></script>
    </head>
 
@@ -213,12 +214,12 @@
                             <input type="text" class="form-control only" id="validationCustom01" placeholder="กรอกคณะ" required name="faculty_name">
                             
                           </div>
-                          <div class="form-group" style="font-family: 'Kanit', sans-serif;">
+                          <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                             <label for="pwd">สถานะ :</label>
-                            <!-- <input type="text" class="form-control" name="status_prename"> -->
+                            
                             <input type="radio" required name="faculty_status" value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
                             <input type="radio" name="faculty_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                        </div>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -249,7 +250,7 @@
                 <?php $i=0; while($row=mysqli_fetch_array($nquery)){ $i=$i+1 ?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i;?></td>
-                  <td data-label="มหาวิทยาลัย"><?php echo $row[0];?></td>
+                  <td data-label="มหาวิทยาลัย"><?php echo $row[1];?></td>
                   <td data-label="คณะ"><?php echo $row['faculty_name'];?></td>
                   <td data-label="สถานะการใช้งาน">
                     <!-- <div>
@@ -267,118 +268,8 @@
                          }
                    ?>
                   </td>
-                  <td data-label="รายละเอียด">
-                    <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                  <!-- modal-fullscreen เต็มจอ modal-xl-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลคณะ</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table table-borderless" >
-                        <thead>
-                          <tr>
-                            <th scope="col">หัวข้อ</th>
-                            <th scope="col">ข้อมูล</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <th scope="row">ลำดับ</th>
-                              <td><?php echo $i;?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">มหาวิทยาลัย</th>
-                              <td><?php echo $row[0];?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">คณะ</th>
-                              <td><?php echo $row['faculty_name'];?></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">สถานะการใช้งาน</th>
-                              <td>
-                                <?php
-                                    if ($row['faculty_status'] == "1") {
-                                        echo "เปิดการใช้งาน";
-                                    }
-                                    else{
-                                          echo "ปิดการใช้งาน";
-                                    }
-                                ?>
-                              </td>
-                            </tr>
-                          </div>
-                          
-                         
-                        </tbody>
-                      </table>
-                </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-          <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลคณะ</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form class="row g-3 needs-validation" novalidate>
-                    <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected>เลือกมหาวิทยาลัย</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                      
-                 
-                    <div >
-                        <label for="validationCustom01" class="form-label" >คณะ</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคณะ" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
-                      
-                    <!-- <div class="col-12">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                      </div>
-                    </div> -->
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                  <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
+                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -391,14 +282,14 @@
       
       
      
-
-  <script src="../dist/vertical-responsive-menu.min.js"></script>
+          <script src="menu/script.js"></script>
+  <!-- <script src="../dist/vertical-responsive-menu.min.js"></script> -->
   <script type="text/javascript">
         function input(inputclass,filter){
             for (var i = 0; i < inputclass.length; i++) {
                 ["input"].forEach(function(event){
                     inputclass[i].addEventListener(event, function(){
-                        // console.log(this.value);
+                        console.log(this.value);
                         if (!filter(this.value)) {
                             this.value="";
                         }
@@ -407,12 +298,58 @@
 
             }
         }
-        input(document.getElementsByClassName("only"),function (value) {
-            // return /^[0-9]*$/.test(value); สำหรับตัวเลข
-            // return /^[a-zA-Z\s]+$/.test(value); สำหรับภาษาอังกฤษ
-            return /^[ก-๏\s]+$/.test(value);// สำหรับภาษาไทย
+        input(document.getElementsByClassName("th"),function (value) {
+            return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
+        });
+        input(document.getElementsByClassName("eng"),function (value) {
+            return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
+        });
+        input(document.getElementsByClassName("number"),function (value) {
+            return /^[0-9]*$/.test(value); //สำหรับตัวเลข
         });
     </script>
+    <script>
+    $(document).ready(function(){
+    $('.editbtn').on('click', function(){
+        // $('#editmodal').modla('show');
+        console.log("Hello");
 
+    });
+    });
+    </script>
+
+<script>  
+ $(document).ready(function(){  
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/faculty/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });   
+ });  
+ </script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคณะ</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div> 

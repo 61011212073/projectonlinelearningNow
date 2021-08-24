@@ -305,7 +305,7 @@ if ($pagenum > 1) {
       $(document).on('click', '.edit_data', function(){  
            var employee_id = $(this).attr("id");  
            $.ajax({  
-                url:"fetch.php",  
+                url:"../BasicData/prename/fetch.php",  
                 method:"POST",  
                 data:{employee_id:employee_id},  
                 dataType:"json",  
@@ -364,7 +364,7 @@ if ($pagenum > 1) {
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"select.php",  
+                     url:"../BasicData/prename/select.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  

@@ -25,7 +25,7 @@
 	$teacher_department_id  = $_POST["teacher_department_id"];
     $teacher_username = clean($_POST["teacher_username"]);
 	$teacher_password = $_POST["teacher_password"];
-	$teacher_status = $_POST["teacher_status"];
+	// $teacher_status = $_POST["teacher_status"];
 
     //เช็คข้อมูลซ้ำ
     // $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
@@ -42,7 +42,7 @@
                             $sql = "INSERT INTO teacher(teacher_prename_id, teacher_fname,teacher_lname,teacher_phone,teacher_email,teacher_univercity_id,
                                     teacher_faculty_id,teacher_department_id,teacher_username,teacher_password,teacher_status)
                                         VALUES ('$teacher_prename_id', '$teacher_fname', '$teacher_lname', '$teacher_phone', '$teacher_email', '$teacher_univercity_id'
-                                        , '$teacher_faculty_id', '$teacher_department_id', '$teacher_username', '$teacher_password', '$teacher_status' )";  
+                                        , '$teacher_faculty_id', '$teacher_department_id', '$teacher_username', '$teacher_password', 1 )";  
                                 mysqli_set_charset($conn, 'utf8');     
                                 if(mysqli_query($conn, $sql)){
                                 echo "<script type=\"text/javascript\">";

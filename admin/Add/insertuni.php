@@ -17,7 +17,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $univercity = clean($_POST["univercity"]);
     $univercity_thcode = clean($_POST["univercity_thcode"]);
     $univercity_engcode = clean($_POST["univercity_engcode"]);
-	$status_univercity = $_POST["status_univercity"];
+	// $status_univercity = $_POST["status_univercity"];
     //เช็คข้อมูลซ้ำ
     $query = "SELECT univercity_name,univercity_thcode,univercity_engcode FROM univercity WHERE univercity_name='$univercity'";
     $result = mysqli_query($conn, $query);
@@ -37,7 +37,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
             }
             else{
                     $sql1 = "INSERT INTO univercity(univercity_name,univercity_thcode,univercity_engcode,univercity_status )
-                            VALUES ('$univercity','$univercity_thcode','$univercity_engcode','$status_univercity')";
+                            VALUES ('$univercity','$univercity_thcode','$univercity_engcode',1)";
                     if(mysqli_query($conn, $sql1)){
                     //    echo "Records added successfully.";
                     echo "<script type=\"text/javascript\">";

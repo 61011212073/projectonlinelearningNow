@@ -27,7 +27,7 @@
     $student_department_id = $_POST["student_department_id"];
     $student_username = $_POST["student_username"];
     $student_password = $_POST["student_password"];
-	$student_status = $_POST["student_status"];
+	// $student_status = $_POST["student_status"];
     //เช็คข้อมูลซ้ำ
     $query = "SELECT student_id FROM student WHERE student_id='$student_id'";
     $result = mysqli_query($conn, $query);
@@ -45,7 +45,7 @@
                                     student_username,student_password,student_status)
                                         VALUES ('$student_id', '$student_prename_id','$student_fname','$student_lname','$student_phone','$student_facebook',
                                         '$student_email','$student_univercity_id','$student_faculty_id','$student_department_id','$student_username',
-                                        '$student_password','$student_status')";  
+                                        '$student_password',1)";  
                                 mysqli_set_charset($conn, 'utf8');     
                                 if(mysqli_query($conn, $sql)){
                                 

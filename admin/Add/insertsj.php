@@ -20,7 +20,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $subject_course_id  = $_POST["subject_course_id"];
 	$subject_detail_thai = clean($_POST["subject_detail_thai"]);
     $subject_detail_english	 = clean($_POST["subject_detail_english"]);
-    $subject_status = $_POST["subject_status"];
+    // $subject_status = $_POST["subject_status"];
 
     //เช็คข้อมูลซ้ำ
     $query = "SELECT subject_engname FROM subject WHERE subject_engname='$subject_engname'";
@@ -41,7 +41,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         }
                         else{
                                 $sql1 = "INSERT INTO subject(subject_id,subject_engname,subject_thname,subject_course_id,subject_detail_thai,subject_detail_english,subject_status)
-                                        VALUES ('$subject_id','$subject_engname','$subject_thname','$subject_course_id','$subject_detail_thai','$subject_detail_english','$subject_status')";
+                                        VALUES ('$subject_id','$subject_engname','$subject_thname','$subject_course_id','$subject_detail_thai','$subject_detail_english',1)";
                                 if(mysqli_query($conn, $sql1)){
                                 //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";

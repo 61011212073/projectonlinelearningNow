@@ -16,7 +16,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     }
     $faculty_uivarcity_id  = $_POST["faculty_uivarcity_id"];
     $faculty_name = clean($_POST["faculty_name"]);
-	$faculty_status = $_POST["faculty_status"];
+	// $faculty_status = $_POST["faculty_status"];
 
     //เช็คข้อมูลซ้ำ
     $query = "SELECT faculty_name FROM faculty WHERE faculty_name='$faculty_name'";
@@ -37,7 +37,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         }
                         else{
                                 $sql1 = "INSERT INTO faculty(faculty_uivarcity_id,faculty_name,faculty_status )
-                                        VALUES ('$faculty_uivarcity_id','$faculty_name','$faculty_status')";
+                                        VALUES ('$faculty_uivarcity_id','$faculty_name',1)";
                                 if(mysqli_query($conn, $sql1)){
                                 //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";
