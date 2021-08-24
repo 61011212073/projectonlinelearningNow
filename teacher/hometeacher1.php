@@ -116,7 +116,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
       <?php while($row=mysqli_fetch_array($result)){ ?>
     <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name" style="font-family: 'Kanit', sans-serif; size: 16px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
         <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
     </a>
