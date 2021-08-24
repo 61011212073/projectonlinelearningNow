@@ -144,7 +144,7 @@
 
     <div class="wrapper">
 
-    <section>
+    <section> 
       <div class="container-fluid">
         <h3>ตารางแสดงเอกสารการสอน</h3>
 

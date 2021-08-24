@@ -35,7 +35,7 @@
  INNER JOIN student ON study.study_student_id=student.student_id";
  $result1 = mysqli_query($conn,$sql1);
 
-?>
+?> 
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
