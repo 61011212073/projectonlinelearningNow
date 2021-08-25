@@ -7,6 +7,8 @@
     $sql1="SELECT * FROM document ORDER BY document_id DESC";
     $result1 = mysqli_query($conn,$sql1);
 
+    echo $_GET['subject'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
