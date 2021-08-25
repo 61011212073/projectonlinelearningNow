@@ -29,7 +29,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     }
     else if (mysqli_num_rows($result)<1) {
         echo "<script type=\"text/javascript\">";
-        echo "alert(\"ไม่พบนิสิตคนนี้\");";
+        echo "alert(\"กรุณากรอกข้อมูล\");";
         echo "window.history.back();";
         echo "</script>";
     }

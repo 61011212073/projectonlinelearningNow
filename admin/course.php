@@ -90,20 +90,24 @@
   <head>
     <meta charset="UTF-8">
     <title> Online Education </title>
+    
     <link rel="stylesheet" href="menu/menu.css">
     <link rel="shortcut icon" type="image/x-icon" href="../assets1/images/logo3.png">
     <!-- Boxiocns CDN Link -->
+    
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
-  <link href="../demo/style.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-  <script src="../demo/main.js"></script>
-  <script src="jquery.main.js"></script>
-	<script type="text/javascript">
+     <link href="../demo/style.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+     <script src="../demo/main.js"></script>
+     <script type="text/javascript">
 		$(document).ready(function(){
 			$("#authors").change(function(){
 				var aid = $("#authors").val();
@@ -124,7 +128,7 @@
 	</script>
    </head>
 <body>
-  <div class="sidebar close">
+<div class="sidebar close">
     <div class="logo-details">
       <i><img src="image/logo1.png" alt="profileImg" style="width: 40px;  height:40px;"></i>
       <!-- <img src="image/logo1.png" alt="profileImg" style="width: 50px;  height:12px;"> -->
@@ -133,12 +137,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="homeadmin.php">
+        <a href="#">
           <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">HOME</span>
+          <span class="link_name">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="homeadmin.php">HOME</a></li>
+          <li><a class="link_name" href="homeadmin.php">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
@@ -180,21 +184,23 @@
       </li>
       <li>
     <div class="profile-details">
-      <div class="profile-content">
+    <div class="profile-content">
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result)){ ?>
+      <?php while($row=mysqli_fetch_array($result2)){ ?>
+    <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
-        <div class="job"><?php echo $row['admin_lname'];?></div>
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
+    </a>
       <?php }?>
-      <a href="homeadmin.php?logout='1'">
+      <a href="hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
-  </li>
+  </li> 
 </ul>
   </div>
   <section class="home-section">
@@ -202,14 +208,14 @@
       <i class='bx bx-menu' ></i>
       <span class="text">Online Education</span>
     </div>
-    <div class="wrapper">
+  <div class="wrapper">
 
     <section>
       <div class="container-fluid">
         <h3>ตารางแสดงข้อมูลหลักสูตร</h3>
               <br>
               
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-family: 'Kanit', sans-serif;">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลหลักสูตร
               </button>
               
@@ -225,27 +231,27 @@
                       <form class="row g-3 needs-validation" novalidate action="./Add/insertco.php" method="post">
                         <div >
                             <label for="validationCustom01" class="form-label" >ชื่อหลักสูตรภาษาไทย</label>
-                            <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาไทย" required>
+                            <input type="text" class="form-control th" name="course_thname" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาไทย" required>
                             
                           </div>
                           <div >
                             <label for="validationCustom01" class="form-label" >ชื่อหลักสูตรภาษาอังกฤษ</label>
-                            <input type="text" class="form-control eng" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาอังกฤษ" required>
+                            <input type="text" class="form-control" name="course_engname" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาอังกฤษ" required>
                             
                           </div>
                           <div >
                             <label for="validationCustom01" class="form-label" >ตัวย่อหลักสูตรภาษาไทย</label>
-                            <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาไทย" required>
+                            <input type="text" class="form-control" name="course_thcode" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาไทย" required>
                             
                           </div>
                           <div >
                             <label for="validationCustom01" class="form-label" >ตัวย่อหลักสูตรภาษาอังกฤษ</label>
-                            <input type="text" class="form-control eng" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาอังกฤษ" required>
+                            <input type="text" class="form-control" name="course_engcode" id="validationCustom01" placeholder="กรอกตัวย่อหลักสูตรภาษาอังกฤษ" required>
                             
                           </div>
                           <div >
                             <label for="validationCustom01" class="form-label" >ปีมคอ.2</label>
-                            <input type="text" class="form-control number" id="validationCustom01" placeholder="กรอกปีมคอ.2" required>
+                            <input type="text" class="form-control number" name="course_year_mco2" id="validationCustom01" placeholder="กรอกปีมคอ.2" required>
                             
                           </div>
                           <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
@@ -255,7 +261,7 @@
                               require 'data.php';
                               $authors = loadAuthors();
                               foreach ($authors as $author) {
-                                echo "<option id='".$author['univercity_id']."' value='".$author['univercity_id']."'>".$author['univercity_name']."</option>";
+                                echo "<option id='".$author['univercity_id']."' value='".$author['univercity_id']."'>".$author['univercity_thname']."</option>";
                               }
 		                    	 ?>
                           </select> 
@@ -265,23 +271,28 @@
                             </select> 
                           
                           <label for="validationCustom01" class="form-label" >ภาควิชา</label>
-                          <select class="form-select form-control" aria-label="Default select example">
+                          <select class="form-select form-control" aria-label="Default select example" name="course_dpm_id">
                               <option selected>เลือกภาควิชา</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
+                              <?php
+                                  while($rows=mysqli_fetch_row($resultss)){
+                                      $uni_id=$rows[0];
+                                      $uni_name=$rows[1];
+                                      echo "<option value='$uni_id'>$uni_name</option>";
+                                  }
+                              ?> 
+                            </select> 
                             </select> 
                             <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                                 <label for="pwd">สถานะ :</label>
+                                <input type="text" class="form-control" name="status_prename">
                                 <input type="radio" required name="course_status" value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
                                 <input type="radio" name="course_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
                             </div> -->
-                        
-                      </form>
-                    </div>
-                    <div class="modal-footer">
+                         <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                      <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
+                      <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                    </div>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -308,9 +319,9 @@
               <?php $i=0; while($row=mysqli_fetch_array($nquery)){ $i=$i+1 ?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i;?></td>
-                  <td data-label="ชื่อหลักสูตรภาษาไทย"><?php echo $row[0]?></td>
-                  <td data-label="ชื่อหลักสูตรภาษาอังกฤษ"><?php echo $row[1]?></td>
-                  <td data-label="ภาควิชา"><?php echo $row[7]?></td>
+                  <td data-label="ชื่อหลักสูตรภาษาไทย"><?php echo $row[1]?></td>
+                  <td data-label="ชื่อหลักสูตรภาษาอังกฤษ"><?php echo $row[2]?></td>
+                  <td data-label="ภาควิชา"><?php echo $row[8]?></td>
                   <td data-label="สถานะการใช้งาน">
                     <!-- <div>
                       <div class="form-check form-switch" >
@@ -319,12 +330,12 @@
                       </div>
                     </div> -->
                     <?php
-                        if ($row['course_status'] == "1") {
+                         if ($row['course_status'] == "1") {
                           echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                        }
+                       else{
+                          echo "<a style='color:red;'>ปิดการใช้งาน</a>";
                        }
-                      else{
-                         echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                      }
                       ?>
                   </td>
                   <td><input type="button" name="edit" value="Edit" id="<?php echo $row["course_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
@@ -339,66 +350,74 @@
             </table>
     
           </div>
-  </section>
+      
+      
+     
 
-  <script src="menu/script.js"></script>
+          </section>
+
+<script src="menu/script.js"></script>
+  <script src="../dist/vertical-responsive-menu.min.js"></script>
   <script type="text/javascript">
-        function input(inputclass,filter){
-            for (var i = 0; i < inputclass.length; i++) {
-                ["input"].forEach(function(event){
-                    inputclass[i].addEventListener(event, function(){
-                        // console.log(this.value);
-                        if (!filter(this.value)) {
-                            this.value="";
-                        }
-                    });
-                });
+      function input(inputclass,filter){
+          for (var i = 0; i < inputclass.length; i++) {
+              ["input"].forEach(function(event){
+                  inputclass[i].addEventListener(event, function(){
+                      console.log(this.value);
+                      if (!filter(this.value)) {
+                          this.value="";
+                      }
+                  });
+              });
 
-            }
-        }
-        input(document.getElementsByClassName("th"),function (value) {
-            return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
-        });
-        input(document.getElementsByClassName("eng"),function (value) {
-            return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
-        });
-        input(document.getElementsByClassName("number"),function (value) {
-            return /^[0-9]*$/.test(value); //สำหรับตัวเลข
-        });
-    </script>
+          }
+      }
+      input(document.getElementsByClassName("th"),function (value) {
+          return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
+      });
+      input(document.getElementsByClassName("eng"),function (value) {
+          return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
+      });
+      input(document.getElementsByClassName("number"),function (value) {
+          return /^[0-9]*$/.test(value); //สำหรับตัวเลข
+      });
+  </script>
 
 <script>  
- $(document).ready(function(){  
-      $(document).on('click', '.view_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"../BasicData/course/select.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},  
-                     success:function(data){  
-                          $('#employee_detail').html(data);  
-                          $('#dataModal').modal('show');  
-                     }  
-                });  
-           }            
-      });   
- });  
- </script>
+$(document).ready(function(){  
+   
+    $(document).on('click', '.view_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/course/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail').html(data);  
+                        $('#dataModal').modal('show');  
+                   }  
+              });  
+         }            
+    });  
+});  
+</script>
 </body>
 </html>
 <div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-               
-           </div>  
-      </div>  
- </div> 
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+
+

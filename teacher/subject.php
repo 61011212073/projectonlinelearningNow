@@ -72,142 +72,140 @@
    $results = mysqli_query($conn,$sql1);
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <title>Online Education System</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,500' rel='stylesheet'>
-  <link href='../src/vendor/normalize.css/normalize.css' rel='stylesheet'>
-  <link href='../src/vendor/fontawesome/css/font-awesome.min.css' rel='stylesheet'>
-  <link href="../dist/vertical-responsive-menu.min.css" rel="stylesheet">
-  <link href="Prename.css" rel="stylesheet">
-  <!-- <link href="../dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <script src="../dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> -->
-  <link href="../demo/style.css" rel="stylesheet">
-  <script src="../demo/main.js"></script>
-  
-  
-
-
- 
-</head>
-<style>
-  .font-color{
-    color: #081c15;
-  }
-</style>
-
-<body style="font-family: Kanit, sans-serif;">
-
-  <header class="header clearfix">
-    <button type="button" id="toggleMenu" class="toggle_menu">
-      <i class="fa fa-bars" style="color: white;"></i>
-    </button>
-    <h1 style="color: white;">Online Education System</h1>
-    <button type="button" id="toggleMenu" class="toggle_menu">
-      <i class="fas fa-door-open"></i>
-    </button>
-   
-  </header>
-  
-  <div class="">
-    <nav class="vertical_nav">
-      <ul id="js-menu" class="menu">
-        <li class="menu--item">
-          <!-- <br> -->
-          <a href="hometeacher.php" class="menu--link" title="Item 2">
-            <i class="menu--icon  fa fa-fw fa-home"></i>
-            <span class="menu--label">Home</span>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Online Education </title>
+    
+    <link rel="stylesheet" href="menu/menu.css">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets1/images/logo3.png">
+    <!-- Boxiocns CDN Link -->
+    
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="Prename1.css" rel="stylesheet">
+     <link href="../demo/style.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+     <script src="../demo/main.js"></script>
+     <script type="text/javascript">
+		$(document).ready(function(){
+			$("#authors").change(function(){
+				var aid = $("#authors").val();
+				$.ajax({
+					url: 'data.php',
+					method: 'post',
+					data: 'aid=' + aid
+				}).done(function(books){
+					console.log(books);
+					books = JSON.parse(books);
+					$('#books').empty();
+					books.forEach(function(book){
+						$('#books').append('<option value="'+book.faculty_id+'">' + book.faculty_name + '</option>')
+					})
+				})
+			})
+		})
+	</script>
+   </head>
+<body>
+<div class="sidebar close">
+    <div class="logo-details">
+      <i><img src="image/logo1.png" alt="profileImg" style="width: 40px;  height:40px;"></i>
+      <!-- <img src="image/logo1.png" alt="profileImg" style="width: 50px;  height:12px;"> -->
+      <span class="logo_name">MSU Education</span>
+      <!-- <img src="image/logo.png" alt="profileImg" style="width: 150px;  height:212px; float:top;"> -->
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="student.php">
+          <!-- <i class='bx bx-line-chart' ></i> -->
+          <i class='bx bx-user' ></i>
+          <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="student.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name" style="font-family: 'Kanit', sans-serif;">การทำงานอาจารย์</span>
           </a>
-        </li>
-        <!-- <li class="menu--item">
-          <a href="teacher.php" class="menu--link" title="Item 2">
-            <i class="menu--icon  fa fa-fw fa-user"></i>
-            <span class="menu--label">จัดการข้อมูลอาจารย์</span>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">การทำงานอาจารย์</a></li>
+          <li><a href="opensubject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชาที่เปิดสอน</a></li>
+          <li><a href="addstudentinsubject.php" style="font-family: 'Kanit', sans-serif;">- นิสิตในรายวิชา</a></li>
+          <li><a href="../adddocument.php" style="font-family: 'Kanit', sans-serif;">- เอกสารการสอน</a></li>
+          <li><a href="../addvdo.php" style="font-family: 'Kanit', sans-serif;">- วีดิทัศน์</a></li>
+          <li><a href="../addexam.php" style="font-family: 'Kanit', sans-serif;">- แบบฝึกหัด</a></li>
+          <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
+          <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
+          <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+          <i class='bx bx-data'></i>
+            <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลพื้นฐาน</span>
           </a>
-        </li>
-        <li class="menu--item">
-          <a href="student.php" class="menu--link" title="Item 2">
-            <i class="menu--icon  fa fa-fw fa-user"></i>
-            <span class="menu--label">จัดการข้อมูลนิสิต</span>
-          </a>
-        </li> -->
-        <li class="menu--item  menu--item__has_sub_menu">
-
-<label class="menu--link" title="Item 4">
-  <i class="menu--icon  fa fa-pencil fa-fw"></i>
-  <span class="menu--label">การทำงานอาจารย์</span>
-</label>
-
-<ul class="sub_menu">
-  <li class="sub_menu--item">
-    <a href="opensubject.php" class="sub_menu--link">- รายวิชาที่เปิดสอน</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="addstudentinsubject.php" class="sub_menu--link">- นิสิตในรายวิชา</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="../adddocument.php" class="sub_menu--link">- เอกสารการสอน</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="../addvdo.php" class="sub_menu--link">- วิดีทัศน์</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="../addexam.php" class="sub_menu--link">- แบบฝึกหัด</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="addstream.php" class="sub_menu--link">- ไลฟ์</a>
-  </li>
-  <li class="sub_menu--item">
-    <a href="exampaper.php" class="sub_menu--link">- ข้อสอบ</a>
-  </li>
-  
-  <li class="sub_menu--item">
-    <a href="http://localhost:5000/teacher" class="sub_menu--link">- ตรวจข้อสอบ</a>
-  </li>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลพื้นฐาน</a></li>
+          <li ><a href="Prename.php" style="font-family: 'Kanit', sans-serif;">- คำนำหน้าชื่อ</a></li>
+          <li><a href="univercity.php" style="font-family: 'Kanit', sans-serif;">- มหาวิทยาลัย</a></li>
+          <li><a href="faculty.php" style="font-family: 'Kanit', sans-serif;">- คณะ</a></li>
+          <li><a href="department.php" style="font-family: 'Kanit', sans-serif;">- ภาควิชา</a></li>
+          <li><a href="course.php" style="font-family: 'Kanit', sans-serif;">- หลักสูตร</a></li>
+          <li><a href="subject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชา</a></li>
+        </ul>
+      </li>
+      <li>
+    <div class="profile-details">
+    <div class="profile-content">
+        <!-- <img src="image/profile.jpg" alt="profileImg"> -->
+        <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
+      </div>
+      <?php while($row=mysqli_fetch_array($result2)){ ?>
+    <a href="editprofile.php">
+      <div class="name-job">
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
+      </div>
+    </a>
+      <?php }?>
+      <a href="hometeacher1.php?logout='1'">
+        <i class='bx bx-log-out' ></i>
+      </a>
+    </div>
+  </li> 
 </ul>
-</li>
-</li>
-        <li class="menu--item  menu--item__has_sub_menu">
-
-          <label class="menu--link" title="Item 4">
-            <i class="menu--icon  fa fa-fw fa-database"></i>
-            <span class="menu--label">ข้อมูลพื้นฐาน</span>
-          </label>
-
-          <ul class="sub_menu">
-            <li class="sub_menu--item">
-              <a href="Prename.php" class="sub_menu--link">- คำนำหน้าชื่อ</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="univercity.php" class="sub_menu--link">- มหาวิทยาลัย</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="faculty.php" class="sub_menu--link">- คณะ</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="department.php" class="sub_menu--link">- ภาควิชา</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="course.php" class="sub_menu--link">- หลักสูตร</a>
-            </li>
-            <li class="sub_menu--item">
-              <a href="subject.php" class="sub_menu--link">- รายวิชา</a>
-            </li>
-          </ul>
-        </li>
-
-      <button id="collapse_menu" class="collapse_menu">
-        <i class="collapse_menu--icon  fa fa-fw"></i>
-        <span class="collapse_menu--label">ปิด</span>
-      </button>
-
-    </nav>
   </div>
+  <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu' ></i>
+      <span class="text">Online Education</span>
+    </div>
   
 
 
@@ -293,9 +291,10 @@
                   <th scope="col">ลำดับ</th>
                   <th scope="col">ชื่อวิชาภาษาไทย</th>
                   <th scope="col">ชื่อวิชาภาษาอังกฤษ</th>
-                  <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
+                  <th scope="col">สถานะการใช้งาน</th> 
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -313,169 +312,15 @@
                     </div> -->
                     <?php
                         if ($row['subject_status'] == "1") {
-                          echo "<a style='color:#228B22;'>Active</a>";
+                          echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
                         }
                        else{
-                          echo "<a style='color:red;'>Inactive</a>";
+                          echo "<a style='color:red;'>ปิดการใช้งาน</a>";
                        }
                       ?>
                   </td>
-                  <td data-label="รายละเอียด">
-                    <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                  <!-- modal-fullscreen เต็มจอ modal-xl-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลรายวิชา</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <!-- <table>
-                        <thead>
-                          <tr>
-                            <th scope="col">ลำดับ</th>
-                            <th scope="col">ชื่อวิชาภาษาไทย</th>
-                            <th scope="col">ชื่อวิชาภาษาอังกฤษ</th>
-                            <th scope="col">หลักสูตร</th>
-                            <th scope="col">คำอธิบายรายวิชาภาษาไทย</th>
-                            <th scope="col">คำอธิบายรายวิชาภาษาอังกฤษ</th>
-                            <th scope="col">สถานะการใช้งาน</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td data-label="ลำดับ">1</td>
-                            <td data-label="มหาวิทยาลัย">กรุงเทพ</td>
-                            <td data-label="คณะ">วิทยาการสาสนเทศ</td>
-                            <td data-label="สถานะการใช้งาน">ใช้งาน</td>
-                            <td data-label="คณะ">วิทยาการสาสนเทศ</td>
-                            <td data-label="สถานะการใช้งาน">ใช้งาน</td>
-                            <td data-label="สถานะการใช้งาน">ใช้งาน</td>
-                          </tr>
-                         
-                    </tbody>
-                  </table> -->
-                  <table class="table table-borderless" >
-                    <thead>
-                      <tr>
-                        <th scope="col">หัวข้อ</th>
-                        <th scope="col">ข้อมูล</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <div>
-                        <tr>
-                          <th scope="row">รหัสรายวิชา</th>
-                          <td><?php echo $row[0]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ชื่อหลักสูตรภาษาไทย</th>
-                          <td><?php echo $row[2]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ชื่อหลักสูตรภาษาอังกฤษ</th>
-                          <td><?php echo $row[1]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">หลักสูตร</th>
-                          <td><?php echo $row[3]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">คำอธิบายรายวิชาภาษาไทย</th>
-                          <td><?php echo $row[4]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">คำอธิบายรายวิชาภาษาอังกฤษ</th>
-                          <td><?php echo $row[5]?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">สถานะการใช้งาน</th>
-                          <td><?php
-                                    if ($row['subject_status'] == "1") {
-                                      echo "<a style='color:#228B22;'>Active</a>";
-                                    }
-                                   else{
-                                      echo "<a style='color:red;'>Inactive</a>";
-                                   }
-                                ?>
-                          </td>
-                        </tr>
-                      </div>
-                      
-                     
-                    </tbody>
-                  </table>
-                </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลรายวิชา</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form class="row g-3 needs-validation" novalidate>
-                      <div >
-                          <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาไทย</label>
-                          <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อวิชาภาษาไทย" required>
-                        </div>
-                        <div >
-                          <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาอังกฤษ</label>
-                          <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อวิชาภาษาอังกฤษ" required>
-                        </div>
-                        <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>เลือกมหาวิทยาลัย</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select> 
-                        <div >
-                          <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาไทย)</label>
-                          <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาไทย)" required>
-                        </div>
-                        <div >
-                          <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาอังกฤษ)</label>
-                          <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)" required>
-                        </div>
-                  
-                        
-                      <!-- <div class="col-12">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                          <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                        </div>
-                      </div> -->
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                    <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["subject_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["subject_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -487,31 +332,70 @@
       
      
 
+          </section>
+
+<script src="menu/script.js"></script>
   <script src="../dist/vertical-responsive-menu.min.js"></script>
-  <!-- <script type="text/javascript">
-        function input(inputclass,filter){
-            for (var i = 0; i < inputclass.length; i++) {
-                ["input"].forEach(function(event){
-                    inputclass[i].addEventListener(event, function(){
-                        // console.log(this.value);
-                        if (!filter(this.value)) {
-                            this.value="";
-                        }
-                    });
-                });
+  <script type="text/javascript">
+      function input(inputclass,filter){
+          for (var i = 0; i < inputclass.length; i++) {
+              ["input"].forEach(function(event){
+                  inputclass[i].addEventListener(event, function(){
+                      console.log(this.value);
+                      if (!filter(this.value)) {
+                          this.value="";
+                      }
+                  });
+              });
 
-            }
-        }
-        input(document.getElementsByClassName("th"),function (value) {
-            return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
-        });
-        input(document.getElementsByClassName("eng"),function (value) {
-            return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
-        });
-        input(document.getElementsByClassName("number"),function (value) {
-            return /^[0-9]*$/.test(value); //สำหรับตัวเลข
-        });
-    </script> -->
+          }
+      }
+      input(document.getElementsByClassName("th"),function (value) {
+          return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
+      });
+      input(document.getElementsByClassName("eng"),function (value) {
+          return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
+      });
+      input(document.getElementsByClassName("number"),function (value) {
+          return /^[0-9]*$/.test(value); //สำหรับตัวเลข
+      });
+  </script>
 
+<script>  
+$(document).ready(function(){  
+   
+    $(document).on('click', '.view_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/subject/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail').html(data);  
+                        $('#dataModal').modal('show');  
+                   }  
+              });  
+         }            
+    });  
+});  
+</script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลรายวิชา</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+
+

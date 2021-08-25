@@ -37,7 +37,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         }
                         else{
                                 $sql1 = "INSERT INTO faculty(faculty_uivarcity_id,faculty_name,faculty_status )
-                                        VALUES ('$faculty_uivarcity_id','$faculty_name','$faculty_status')";
+                                        VALUES ('$faculty_uivarcity_id','$faculty_name',1)";
                                 if(mysqli_query($conn, $sql1)){
                                 //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";

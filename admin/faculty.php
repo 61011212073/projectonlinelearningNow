@@ -80,13 +80,16 @@
   $results = mysqli_query($conn,$sql1);
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+  <head>
     <meta charset="UTF-8">
     <title> Online Education </title>
+    
     <link rel="stylesheet" href="menu/menu.css">
     <link rel="shortcut icon" type="image/x-icon" href="../assets1/images/logo3.png">
     <!-- Boxiocns CDN Link -->
+    
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,10 +98,12 @@
      <link href="Prename1.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
      <script src="../demo/main.js"></script>
    </head>
-
-<body style="font-family: Kanit, sans-serif;">
+<body>
 <div class="sidebar close">
     <div class="logo-details">
       <i><img src="image/logo1.png" alt="profileImg" style="width: 40px;  height:40px;"></i>
@@ -108,12 +113,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="homeadmin.php">
+        <a href="#">
           <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">HOME</span>
+          <span class="link_name">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="homeadmin.php">HOME</a></li>
+          <li><a class="link_name" href="homeadmin.php">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
@@ -155,21 +160,23 @@
       </li>
       <li>
     <div class="profile-details">
-      <div class="profile-content">
+    <div class="profile-content">
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result)){ ?>
+      <?php while($row=mysqli_fetch_array($result2)){ ?>
+    <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
-        <div class="job"><?php echo $row['admin_lname'];?></div>
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
+    </a>
       <?php }?>
-      <a href="homeadmin.php?logout='1'">
+      <a href="hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
-  </li>
+  </li> 
 </ul>
   </div>
   <section class="home-section">
@@ -177,9 +184,12 @@
       <i class='bx bx-menu' ></i>
       <span class="text">Online Education</span>
     </div>
-    <div class="wrapper">
+  
 
-<section>
+
+  <div class="wrapper">
+
+    <section>
       <div class="container-fluid">
         <h3>ตารางแสดงข้อมูลคณะ</h3>
               <br>
@@ -216,7 +226,7 @@
                           </div>
                           <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                             <label for="pwd">สถานะ :</label>
-                            
+                            <input type="text" class="form-control" name="status_prename">
                             <input type="radio" required name="faculty_status" value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
                             <input type="radio" name="faculty_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
                         </div> -->
@@ -261,7 +271,7 @@
                     </div> -->
                     <?php
                           if ($row['faculty_status'] == "1") {
-                             echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                            echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
                           }
                          else{
                             echo "<a style='color:red;'>ปิดการใช้งาน</a>";
@@ -282,74 +292,71 @@
       
       
      
-          <script src="menu/script.js"></script>
-  <!-- <script src="../dist/vertical-responsive-menu.min.js"></script> -->
+
+          </section>
+
+<script src="menu/script.js"></script>
+  <script src="../dist/vertical-responsive-menu.min.js"></script>
   <script type="text/javascript">
-        function input(inputclass,filter){
-            for (var i = 0; i < inputclass.length; i++) {
-                ["input"].forEach(function(event){
-                    inputclass[i].addEventListener(event, function(){
-                        console.log(this.value);
-                        if (!filter(this.value)) {
-                            this.value="";
-                        }
-                    });
-                });
+      function input(inputclass,filter){
+          for (var i = 0; i < inputclass.length; i++) {
+              ["input"].forEach(function(event){
+                  inputclass[i].addEventListener(event, function(){
+                      console.log(this.value);
+                      if (!filter(this.value)) {
+                          this.value="";
+                      }
+                  });
+              });
 
-            }
-        }
-        input(document.getElementsByClassName("th"),function (value) {
-            return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
-        });
-        input(document.getElementsByClassName("eng"),function (value) {
-            return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
-        });
-        input(document.getElementsByClassName("number"),function (value) {
-            return /^[0-9]*$/.test(value); //สำหรับตัวเลข
-        });
-    </script>
-    <script>
-    $(document).ready(function(){
-    $('.editbtn').on('click', function(){
-        // $('#editmodal').modla('show');
-        console.log("Hello");
-
-    });
-    });
-    </script>
+          }
+      }
+      input(document.getElementsByClassName("th"),function (value) {
+          return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
+      });
+      input(document.getElementsByClassName("eng"),function (value) {
+          return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
+      });
+      input(document.getElementsByClassName("number"),function (value) {
+          return /^[0-9]*$/.test(value); //สำหรับตัวเลข
+      });
+  </script>
 
 <script>  
- $(document).ready(function(){  
-      $(document).on('click', '.view_data', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"../BasicData/faculty/select.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},  
-                     success:function(data){  
-                          $('#employee_detail').html(data);  
-                          $('#dataModal').modal('show');  
-                     }  
-                });  
-           }            
-      });   
- });  
- </script>
+$(document).ready(function(){  
+   
+    $(document).on('click', '.view_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/faculty/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail').html(data);  
+                        $('#dataModal').modal('show');  
+                   }  
+              });  
+         }            
+    });  
+});  
+</script>
 </body>
 </html>
 <div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคณะ</h4>  
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-               
-           </div>  
-      </div>  
- </div> 
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคณะ</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+
+

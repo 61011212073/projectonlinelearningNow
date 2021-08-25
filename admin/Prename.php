@@ -110,12 +110,12 @@ if ($pagenum > 1) {
     </div>
     <ul class="nav-links">
       <li>
-        <a href="homeadmin.php">
+        <a href="#">
           <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">HOME</span>
+          <span class="link_name">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="homeadmin.php">HOME</a></li>
+          <li><a class="link_name" href="homeadmin.php">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
@@ -157,21 +157,23 @@ if ($pagenum > 1) {
       </li>
       <li>
     <div class="profile-details">
-      <div class="profile-content">
+    <div class="profile-content">
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result)){ ?>
+      <?php while($row=mysqli_fetch_array($result2)){ ?>
+    <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
-        <div class="job"><?php echo $row['admin_lname'];?></div>
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
+    </a>
       <?php }?>
-      <a href="homeadmin.php?logout='1'">
+      <a href="hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
-  </li>
+  </li> 
 </ul>
   </div>
   <section class="home-section">
@@ -286,79 +288,10 @@ if ($pagenum > 1) {
             return /^[0-9]*$/.test(value); //สำหรับตัวเลข
         });
     </script>
-    <script>
-    $(document).ready(function(){
-    $('.editbtn').on('click', function(){
-        // $('#editmodal').modla('show');
-        console.log("Hello");
-
-    });
-    });
-    </script>
 
 <script>  
  $(document).ready(function(){  
-      $('#add').click(function(){  
-           $('#insert').val("Insert");  
-           $('#insert_form')[0].reset();  
-      });  
-      $(document).on('click', '.edit_data', function(){  
-           var employee_id = $(this).attr("id");  
-           $.ajax({  
-                url:"../BasicData/prename/fetch.php",  
-                method:"POST",  
-                data:{employee_id:employee_id},  
-                dataType:"json",  
-                success:function(data){  
-                     $('#prename').val(data.prename);  
-                    //  $('#address').val(data.address);  
-                    //  $('#gender').val(data.gender);  
-                    //  $('#designation').val(data.designation);  
-                    //  $('#age').val(data.age);  
-                    //  $('#employee_id').val(data.id);  
-                     $('#insert').val("Update");  
-                     $('#dataModal').modal('show');  
-                }  
-           });  
-      });  
-      
-
-
-      $('#insert_form').on("submit", function(event){  
-           event.preventDefault();  
-           if($('#name').val() == "")  
-           {  
-                alert("Name is required");  
-           }  
-           else if($('#address').val() == '')  
-           {  
-                alert("Address is required");  
-           }  
-           else if($('#designation').val() == '')  
-           {  
-                alert("Designation is required");  
-           }  
-           else if($('#age').val() == '')  
-           {  
-                alert("Age is required");  
-           }  
-           else  
-           {  
-                $.ajax({  
-                     url:"insert.php",  
-                     method:"POST",  
-                     data:$('#insert_form').serialize(),  
-                     beforeSend:function(){  
-                          $('#insert').val("Inserting");  
-                     },  
-                     success:function(data){  
-                          $('#insert_form')[0].reset();  
-                          $('#add_data_Modal').modal('hide');  
-                          $('#employee_table').html(data);  
-                     }  
-                });  
-           }  
-      });  
+     
       $(document).on('click', '.view_data', function(){  
            var employee_id = $(this).attr("id");  
            if(employee_id != '')  
@@ -393,54 +326,4 @@ if ($pagenum > 1) {
       </div>  
  </div>  
 
- <div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคำนำหน้าชื่อ</h4>  
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>  
-                <div class="modal-body" id="employee_detail">  
-                </div>  
-               
-           </div>  
-      </div>  
- </div>  
- <!-- <div id="add_data_Modal" class="modal fade">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <button type="button" class="close" data-dismiss="modal">&times;</button>  
-                     <h4 class="modal-title">PHP Ajax Update MySQL Data Through Bootstrap Modal</h4>  
-                </div>  
-                <div class="modal-body">  
-                     <form method="post" id="insert_form">  
-                          <label>Enter Employee Name</label>  
-                          <input type="text" name="name" id="name" class="form-control" />  
-                          <br />  
-                          <label>Enter Employee Address</label>  
-                          <textarea name="address" id="address" class="form-control"></textarea>  
-                          <br />  
-                          <label>Select Gender</label>  
-                          <select name="gender" id="gender" class="form-control">  
-                               <option value="Male">Male</option>  
-                               <option value="Female">Female</option>  
-                          </select>  
-                          <br />  
-                          <label>Enter Designation</label>  
-                          <input type="text" name="designation" id="designation" class="form-control" />  
-                          <br />  
-                          <label>Enter Age</label>  
-                          <input type="text" name="age" id="age" class="form-control" />  
-                          <br />  
-                          <input type="hidden" name="employee_id" id="employee_id" />  
-                          <input type="submit" name="insert" id="insert" value="Insert" class="btn btn-success" />  
-                     </form>  
-                </div>  
-                <div class="modal-footer">  
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
-                </div>  
-           </div>  
-      </div>  
- </div>   -->
+ 

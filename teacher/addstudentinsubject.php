@@ -40,11 +40,13 @@
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
   <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title> Online Education </title>
+    
     <link rel="stylesheet" href="menu/menu.css">
     <link rel="shortcut icon" type="image/x-icon" href="../assets1/images/logo3.png">
     <!-- Boxiocns CDN Link -->
+    
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,11 +54,14 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
      <script src="../demo/main.js"></script>
    </head>
 <body>
-  <div class="sidebar close">
-  <div class="logo-details">
+<div class="sidebar close">
+    <div class="logo-details">
       <i><img src="image/logo1.png" alt="profileImg" style="width: 40px;  height:40px;"></i>
       <!-- <img src="image/logo1.png" alt="profileImg" style="width: 50px;  height:12px;"> -->
       <span class="logo_name">MSU Education</span>
@@ -208,9 +213,10 @@
               <th scope="col">รหัสนิสิต</th>
               <th scope="col">ชื่อ</th>
               <th scope="col">นามสกุล</th>
-              <th scope="col">สถานะการใช้งาน</th>
-              <th scope="col">รายละเอียด</th>
+              <th scope="col">สถานะการใช้งาน</th> 
               <th scope="col">แก้ไขข้อมูล</th>
+              <th scope="col">รายละเอียด</th>
+             
             </tr>
           </thead>
           <tbody>
@@ -236,118 +242,8 @@
                      }
                ?>
               </td>
-              <td data-label="รายละเอียด">
-                <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-            <i class="fa fa-eye"></i>
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-              <!-- modal-fullscreen เต็มจอ modal-xl-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลคณะ</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <table class="table table-borderless" >
-                    <thead>
-                      <tr>
-                        <th scope="col">หัวข้อ</th>
-                        <th scope="col">ข้อมูล</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <div>
-                        <tr>
-                          <th scope="row">ลำดับ</th>
-                          <td><?php echo $i?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">รหัสนิสิต</th>
-                          <td><?php echo $row['student_id']?></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">ชื่อ-สกุล</th>
-                          <td><?php echo $row['student_fname']?></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">นามสกุล</th>
-                            <td><?php echo $row['student_lname']?></td>
-                          </tr>
-                        <tr>
-                          <th scope="row">สถานะการใช้งาน</th>
-                          <td>
-                          <?php
-                                  if ($row['study_status'] == "1") {
-                                    echo "<a style='color:#228B22;'>Active</a>";
-                                  }
-                                else{
-                                    echo "<a style='color:red;'>Inactive</a>";
-                                }
-                          ?>
-                          </td>
-                        </tr>
-                      </div>
-                      
-                     
-                    </tbody>
-                  </table>
-            </div>
-            <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
-          </div>
-        </div>
-      </div>
-      <!-- modal -->
-    </td>
-    <td data-label="แก้ไขข้อมูล">
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="background-color: #036666; border-color: #036666;" >
-        <i class="fa fa-edit"></i>
-      </button>
-      <!-- Modal -->
-      <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลนิสิตในรายวิชา</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form class="row g-3 needs-validation" novalidate>
-                <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                <select class="form-select form-control" aria-label="Default select example">
-                    <option selected>เลือกรายวิชา</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                  
-                <div >
-                    <label for="validationCustom01" class="form-label" >รหัสนิสิต</label>
-                    <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกรหัสนิสิต" required>
-                  </div>
-                  
-                <!-- <div class="col-12">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                  </div>
-                </div> -->
-              </form>
-            </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-              <button type="button" class="btn btn-success">แก้ไขข้อมูล</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </td>
+              <td><input type="button" name="edit" value="Edit" id="<?php echo $row["study_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["study_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
              
              </tr>
            <?php } ?>
@@ -355,9 +251,70 @@
         </table>
 
       </div>
-    </section>
+      </section>
 
 <script src="menu/script.js"></script>
+  <script src="../dist/vertical-responsive-menu.min.js"></script>
+  <script type="text/javascript">
+      function input(inputclass,filter){
+          for (var i = 0; i < inputclass.length; i++) {
+              ["input"].forEach(function(event){
+                  inputclass[i].addEventListener(event, function(){
+                      console.log(this.value);
+                      if (!filter(this.value)) {
+                          this.value="";
+                      }
+                  });
+              });
 
+          }
+      }
+      input(document.getElementsByClassName("th"),function (value) {
+          return /^[ก-๏\s]+$/.test(value); //สำหรับภาษาไทย
+      });
+      input(document.getElementsByClassName("eng"),function (value) {
+          return /^[a-zA-Z\s]+$/.test(value); //สำหรับภาษาอังกฤษ
+      });
+      input(document.getElementsByClassName("number"),function (value) {
+          return /^[0-9]*$/.test(value); //สำหรับตัวเลข
+      });
+  </script>
+
+<script>  
+$(document).ready(function(){  
+   
+    $(document).on('click', '.view_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/addstudentinsubject/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail').html(data);  
+                        $('#dataModal').modal('show');  
+                   }  
+              });  
+         }            
+    });  
+});  
+</script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลนิสิตในรายวิขา</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+
+

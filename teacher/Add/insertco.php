@@ -30,6 +30,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
         echo "alert(\"กรุณากรอกข้อมูล\");";
         echo "window.history.back();";
         echo "</script>";
+        exit();
     }else{
     if(mysqli_query($conn, $query)){
             if(mysqli_num_rows($result)>0){
@@ -41,13 +42,13 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
             }
             else{
                 $sql1 = "INSERT INTO course(course_thname,course_engname,course_thcode,course_engcode,course_year_mco2,course_dpm_id,course_faculty_id,course_status )
-                 VALUES ('$course_thname','$course_engname','$course_thcode','$course_engcode','$course_year_mco2','$course_dpm_id','$course_faculty_id','$course_status')";
+                 VALUES ('$course_thname','$course_engname','$course_thcode','$course_engcode','$course_year_mco2','$course_dpm_id','$course_faculty_id',1)";
                 mysqli_set_charset($conn, 'utf8');
                 if(mysqli_query($conn, $sql1)){
-                //    echo "Records added successfully.";
+                   echo "Records added successfully.";
                 echo "<script type=\"text/javascript\">";
                                 echo "alert(\"เพิ่มหลักสูตรสำเร็จ\");";
-                                // echo "window.history.back();";
+                                echo "window.history.back();";
                                 header("Refresh:0; url=../course.php");
                                 echo "</script>";
                                 exit();

@@ -4,36 +4,47 @@
       $output = '';  
       require("conn.php");
       mysqli_query($conn,"SET CHARACTER SET UTF8");  
-      $query = "SELECT department_id,univercity.univercity_thname,faculty.faculty_name,department.department_name,department.department_status
-      FROM department
-      INNER JOIN univercity ON department.department_univarcity_id=univercity.univercity_id
-      INNER JOIN faculty ON department.department_faculty_id=faculty.faculty_id
-      WHERE department_id = '".$_POST["employee_id"]."'";  
+      $query = "SELECT subject.subject_engname,
+      coursesopen.coursesopen_term,
+      coursesopen.coursesopen_schoolyear,
+      teacher.teacher_fname,
+      teacher.teacher_lname,
+      coursesopen.coursesopen_status 
+      coursesopen.coursesopen_subject_id
+      FROM coursesopen 
+      INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
+      INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+      WHERE teacher_username='$username'";
       $result = mysqli_query($conn, $query);  
       $output .= '  
       <div class="table-responsive">  
            <table class="table table-bordered">';  
       while($row = mysqli_fetch_array($result))  
       {  
-          if ($row['department_status'] == "1") {
+          if ($row['coursesopen_status'] == "1") {
                $status="<a style='color:#228B22;'>เปิดการใช้งาน</a>";
             }
            else{
                $status= "<a style='color:red;'>ปิดการใช้งาน</a>";
            } 
            $output .= '  
-                <tr>  
-                     <td width="30%"><label>มหาวิทยาลัย</label></td>  
-                     <td width="70%">'.$row["univercity_thname"].'</td>  
+                <tr >  
+                     <td width="30%"><label>รหัสรายวิช</label></td>  
+                     <td width="70%">'.$row["coursesopen_subject_id"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>คณะ</label></td>  
-                     <td width="70%">'.$row["faculty_name"].'</td>  
+                     <td width="30%"><label>ภาคการศึกษา</label></td>  
+                     <td width="70%">'.$row["coursesopen_term"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>ภาควิชา</label></td>  
-                     <td width="70%">'.$row["department_name"].'</td>  
+                     <td width="30%"><label>ปีการศึกษา</label></td>  
+                     <td width="70%">'.$row["coursesopen_schoolyear"].'</td>  
                 </tr>  
+                <tr>  
+                     <td width="30%"><label>อาจารย์ผู้สอน</label></td>  
+                     <td width="70%">'.$row["teacher_fname"].'</td>  
+                </tr>  
+                
                 <tr>  
                      <td width="30%"><label>สถานะ</label></td>  
                      <td width="70%">'.$status.'</td>  

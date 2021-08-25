@@ -21,24 +21,24 @@
                $status= "<a style='color:red;'>ปิดการใช้งาน</a>";
            } 
            $output .= '  
-                <tr>  
-                     <td width="30%"><label>คำนำหน้าชื่อ</label></td>  
+                <tr >  
+                     <td width="30%"><label>ชื่อภาษาอังกฤษ</label></td>  
                      <td width="70%">'.$row["subject_engname"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>ชื่อภาษาไทย</label></td>  
                      <td width="70%">'.$row["subject_thname"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>หลักสูตร</label></td>  
                      <td width="70%">'.$row["course_thname"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>คำอธิบาย(ภาษาไทย)</label></td>  
                      <td width="70%">'.$row["subject_detail_thai"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>คำอธิบาย(ภาษาอังกฤษ)</label></td>  
                      <td width="70%">'.$row["subject_detail_english"].'</td>  
                 </tr>   
                 <tr>  

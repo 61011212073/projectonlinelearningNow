@@ -4,7 +4,7 @@
       $output = '';  
       require("conn.php");
       mysqli_query($conn,"SET CHARACTER SET UTF8");  
-      $query = "SELECT course.course_thname,course.course_engname,course.course_thcode,course.course_engcode,course.course_year_mco2,univercity.univercity_thname,faculty.faculty_name,department.department_name,course.course_status 
+      $query = "SELECT course_id,course.course_thname,course.course_engname,course.course_thcode,course.course_engcode,course.course_year_mco2,univercity.univercity_thname,faculty.faculty_name,department.department_name,course.course_status 
       FROM course 
       INNER JOIN univercity ON course.course_univercity_id=univercity.univercity_id 
       INNER JOIN department ON course.course_dpm_id=department.department_id 
@@ -32,27 +32,27 @@
                      <td width="70%">'.$row["course_engname"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>ตัวย่อภาษาไทย</label></td>  
                      <td width="70%">'.$row["course_thcode"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>ตัวย่อภาาาอังกฤษ</label></td>  
                      <td width="70%">'.$row["course_engcode"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>ปี มคอ.</label></td>  
                      <td width="70%">'.$row["course_year_mco2"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>มหาวิทยาลัย</label></td>  
                      <td width="70%">'.$row["univercity_thname"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>คณะ</label></td>  
                      <td width="70%">'.$row["faculty_name"].'</td>  
                 </tr>  
                 <tr>  
-                     <td width="30%"><label>สถานะ</label></td>  
+                     <td width="30%"><label>ภาควิชา</label></td>  
                      <td width="70%">'.$row["department_name"].'</td>  
                 </tr>  
                 <tr>  
