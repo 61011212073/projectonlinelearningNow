@@ -1,13 +1,37 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['student_username'])) {
+      header('location: ../login.html');
+    }
+    if (isset($_GET['logout'])) {
+      session_destroy();
+      unset($_SESSION['student_username']);
+      unset($_SESSION['study_coursesopen_id']);
+      header('location: ../index.html');
+    }
     require("conn.php");
+    
+    $username=$_SESSION['student_username'];
+    $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
+    student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
+    department.department_name,student.student_username,student.student_password,student.student_status 
+    FROM student 
+    INNER JOIN prename ON student.student_prename_id =prename.preName_id 
+    INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
+    INNER JOIN faculty ON student.student_faculty_id =faculty.faculty_id 
+    INNER JOIN department ON student.student_department_id=department.department_id
+    WHERE student_username='$username'";
+    $result2=mysqli_query($conn,$sql2);
+
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
+    // $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
+    // $result = mysqli_query($conn,$sql);
+
+
+     $subject=$_GET['subject'];
+    // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
+    $sql="SELECT * FROM document WHERE document_coursesopen_id='$subject'"; //แบบปกติ
     $result = mysqli_query($conn,$sql);
-
-    $sql1="SELECT * FROM document ORDER BY document_id DESC";
-    $result1 = mysqli_query($conn,$sql1);
-
-    echo $_GET['subject'];
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +46,7 @@
 <meta name="keywords" content="academy, course, education, elearning, learning, education html template, university template, college template, school template, online education template, tution center template">
 
 <!-- SITE TITLE -->
-<title>Eduglobal - Education & Courses HTML Template</title>
+<title>Online Education </title>
 <!-- Favicon Icon -->
 <link rel="shortcut icon" type="image/x-icon" href="assets2/images/logo3.png">
 <!-- Animation CSS -->
@@ -30,8 +54,9 @@
 <!-- Latest Bootstrap min CSS -->
 <link rel="stylesheet" href="assets2/bootstrap/css/bootstrap.min.css" />
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet" /> 
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
 <!-- Icon Font CSS -->
 <link rel="stylesheet" href="assets2/css/ionicons.min.css" />
 <link rel="stylesheet" href="assets2/css/themify-icons.css" />
@@ -50,13 +75,16 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link href="style1.css" rel="stylesheet">
   <script src="main.js"></script>
-  
-<style>
 
-    .content-table {
+<style>
+* {
+  font-family: 'Kanit', sans-serif; /* Change your font family */
+}
+
+.content-table {
   border-collapse: collapse;
   margin: 25px 0;
-  font-size: 0.9em;
+  font-size: 0.99em;
   min-width: 400px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
@@ -72,7 +100,7 @@
 
 .content-table th,
 .content-table td {
-  padding: 12px 15px;
+  padding: 30px 40px;
 }
 
 .content-table tbody tr {
@@ -113,97 +141,35 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg"> 
             <a class="navbar-brand" href="afterloginTeacher.html">
-                <!--<img class="logo_light" src="assets2/images/logo_white.png" alt="logo" />
-                <img class="logo_dark" src="assets2/images/logo_dark.png" alt="logo" />
-                <img class="logo_default" src="assets2/images/logo_dark.png" alt="logo" />-->
                 <img  src="assets2/images/logo1.png" alt="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="ion-android-menu"></span> </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 				<ul class="navbar-nav">
-                    <!-- <li class="dropdown">
-                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" style="font-family: 'Kanit', sans-serif;">ข้อมูลพื้นฐาน</a>
+                    <li>
+                        <a class="nav-link" href="aboutSubject.php" style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</a>
+                    </li>
+                    <li class="dropdown">
+                         <?php while($row=mysqli_fetch_array($result2)){ ?>
+                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" style="font-family: 'Kanit', sans-serif;"><?php echo $row['student_fname'];?> <?php echo $row['student_lname'];?></a>
+                        <?php }?>
+                        
                         <div class="dropdown-menu">
                             <ul> 
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">คำนำหน้าชื่อ</a></li> 
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">มหาวิทยาลัย</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">คณะ</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">ภาควิชา</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">หลักสูตร</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">รายวิชา</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">ข้อมูลส่วนบุคคล</a></li> 
+                                <!-- <hr> -->
+                                
+                                <li><a class="dropdown-item nav-link nav_item" href="aboutSubject.php?logout='1'" style="font-family: 'Kanit', sans-serif;">ออกจากระบบ</a></li>
                             </ul>
                         </div>
-                    </li> -->
-                    <li>
-                        <a class="nav-link" href="aboutSubject.php" style="font-family: 'Kanit', sans-serif;">เกี่ยวกับรายวิชา</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">เกี่ยวกับนักเรียน</a>
-                    </li>
-                    <!-- <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">แบบฝึกหัด</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">วิดีโอการสอน</a>
-                    </li> -->
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">ออกจากระบบ</a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
             
         </nav>
     </div>
 </header>
-<!-- END HEADER -->  
-<!-- START SECTION FEATURE -->
-<!-- <section class="bg_gray" >
-    <div class="container">
-    	<div class="row justify-content-center">
-        	<div class="col-xl-6 col-lg-8">
-            	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                    <div class="heading_s1 text-center">
-                        <h2>เกี่ยวกับรายวิชา</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6"><a href="book.php">
-                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
-                	<div class="box_icon bg_danger mb-3">
-                		<img src="assets2/images/book.png" alt="book" />
-                    </div>
-                    <div class="intro_desc">
-                        <h5>หนังสือ & เอกสารประกอบการสอน</h5>
-                    </div>
-                </div></a>
-            </div>
-            <div class="col-lg-4 col-md-6"><a href="#">
-            	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.03s">
-                	<div class="box_icon bg_default mb-3">
-                		
-                        <i class="fas fa-pencil-ruler" style="color:#fff;"></i>
-                    </div>
-                    <div class="intro_desc">
-                        <h5>แบบฝึกหัด</h5>
-                    </div>
-                </div></a>
-            </div>
-            <div class="col-lg-4 col-md-6"><a href="vdo.php">
-            	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
-                	<div class="box_icon bg_light_green mb-3">
-                        <img src="assets2/images/instructors.png" alt="instructors" />
-                    </div>
-                    <div class="intro_desc">
-                        <h5>วิดีโอการสอน</h5>
-                    </div>
-                </div></a>
-            </div>
-        </div>
-    </div>
-</section>  -->
-<!-- END SECTION FEATURE -->
+<!-- END HEADER --> 
 <section >
 	<div class="container">	
     <div class="row justify-content-center">
@@ -216,149 +182,28 @@
             </div>
         </div>
         <br>
-    	<!-- <div class="row justify-content-center">
-        	<div class="col-xl-6 col-lg-8">
-            	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                    <div class="heading_s1 text-center">
-                        <h2 style="font-family: 'Kanit', sans-serif;">วิดีโอประกอบการสอน</h2>
-                    </div>
-                    <div class="small_divider"></div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-                ค้นหารายวิชา
-              </button>
-              
-              Modal
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title font-color" id="staticBackdropLabel" > ค้นหารายวิชา</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate>
-                        <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>เลือกรายวิชา</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                          
-                     
-                        <div >
-                            <label for="validationCustom01" class="form-label" >ชื่อเอกสารประกอบการสอน</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อเอกสารประกอบการสอน" required>
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
-                          </div>
-                          <div >
-                          <label for="formFile" class="form-label">ไฟล์เอกสารประกอบการสอน</label>
-                          <input class="form-control" type="file" id="formFile">
-
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
-                          </div>
-                          
-                        <div class="col-12">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-success">ค้นหา</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div> -->
         <br>
-        <div class="container">
-<table class="table">
+        <div align="center">
+
+<table class="content-table" >
   <thead>
     <tr>
-      <th scope="col">ลำดับ</th>
-      <th scope="col">ชื่อเอกสารประกอบการสอน</th>
-      <th scope="col">ไฟล์เอกสารประกอบการสอน</th>
+    <th>ลำดับ</th>
+      <th>ชื่อเอกสารประกอบการสอน</th>
+      <th>ไฟล์เอกสารประกอบการสอน</th>
       <th scope="col">วันที่และเวลา</th>
-      <th scope="col">สถานะการใช้งาน</th>
-
+      <!-- <th>สถานะการใช้งาน</th> -->
     </tr>
   </thead>
   <tbody>
+  <?php $i=0; while($row = mysqli_fetch_array($result)){ $i=$i+1 ?>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>
-      <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-      <i class="fa fa-edit"></i>
-              </button>
-              
-              Modal
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title font-color" id="staticBackdropLabel" > ข้อมูลเอกสารประกอบการสอน</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate>
-                        <label for="validationCustom01" class="form-label" >รายวิชาที่เปิดสอน</label>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>เลือกรายวิชา</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                          
-                     
-                        <div >
-                            <label for="validationCustom01" class="form-label" >ชื่อเอกสารประกอบการสอน</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อเอกสารประกอบการสอน" required>
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
-                          </div>
-                          <div >
-                          <label for="formFile" class="form-label">ไฟล์เอกสารประกอบการสอน</label>
-                          <input class="form-control" type="file" id="formFile">
-
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
-                          </div>
-                          
-                        <div class="col-12">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div> -->
-      </td>
+      <td><?php echo $i;?></td>
+      <td><?php echo $row['document_name']; ?></td>
+      <td><a href="uploadbook/<?=$row["document_file"]?>" style="color:blue"><?php echo $row["document_name"];?></a></td>
+      <td><?php echo $row['document_datetime'];?></td>
     </tr>
-   
+    <?php } ?>
   </tbody>
 </table>
 </div>

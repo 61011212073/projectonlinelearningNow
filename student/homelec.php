@@ -3,9 +3,6 @@ session_start();
 if (!isset($_SESSION['student_username'])) {
   header('location: ../login.html');
 }
-
-$subject=$_GET["subb"];
-
 if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['student_username']);
@@ -13,7 +10,7 @@ if (isset($_GET['logout'])) {
   header('location: ../index.html');
 }
 require("conn.php");
-$subject1=$_SESSION['study_coursesopen_id'];
+
 $username=$_SESSION['student_username'];
 $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
 student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
@@ -25,6 +22,8 @@ INNER JOIN faculty ON student.student_faculty_id =faculty.faculty_id
 INNER JOIN department ON student.student_department_id=department.department_id
 WHERE student_username='$username'";
 $result2=mysqli_query($conn,$sql2);
+
+$subject=$_GET["subb"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -156,7 +155,7 @@ $result2=mysqli_query($conn,$sql2);
                     </div>
                 </div></a>
             </div>
-            <div class="col-lg-4 col-md-6"><a href="lecture.php">
+            <div class="col-lg-4 col-md-6"><a href="lecture.php?subject=<?php echo $subject?>">
             	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.03s">
                 	<div class="box_icon bg_default mb-3">
                         <i class="fas fa-pencil-ruler" style="color:#fff;"></i>
@@ -167,7 +166,7 @@ $result2=mysqli_query($conn,$sql2);
                     </div>
                 </div></a>
             </div>
-            <div class="col-lg-4 col-md-6"><a href="vdo.php">
+            <div class="col-lg-4 col-md-6"><a href="vdo.php?subject=<?php echo $subject?>">
             	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
                 	<div class="box_icon bg_light_green mb-3">
                         <img src="assets2/images/video.png" alt="instructors" />
@@ -178,7 +177,7 @@ $result2=mysqli_query($conn,$sql2);
                     </div>
                 </div></a>
             </div>
-            <div class="col-lg-4 col-md-6"><a href="stream.php">
+            <div class="col-lg-4 col-md-6"><a href="stream.php?subject=<?php echo $subject?>">
             	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
                 	<div class="box_icon bg_light_green mb-3" style="background-color: hotpink;">
                         <img src="assets2/images/stream.png" alt="instructors" />

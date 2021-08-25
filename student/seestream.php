@@ -1,10 +1,35 @@
 <?php
-    require("conn.php");
+session_start();
+if (!isset($_SESSION['student_username'])) {
+  header('location: ../login.html');
+}
+if (isset($_GET['logout'])) {
+  session_destroy();
+  unset($_SESSION['student_username']);
+  unset($_SESSION['study_coursesopen_id']);
+  header('location: ../index.html');
+}
+require("conn.php");
+
+$username=$_SESSION['student_username'];
+$sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
+student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
+department.department_name,student.student_username,student.student_password,student.student_status 
+FROM student 
+INNER JOIN prename ON student.student_prename_id =prename.preName_id 
+INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
+INNER JOIN faculty ON student.student_faculty_id =faculty.faculty_id 
+INNER JOIN department ON student.student_department_id=department.department_id
+WHERE student_username='$username'";
+$result2=mysqli_query($conn,$sql2);
+
+$live=$_GET['live'];
+
     mysqli_query($conn,"SET CHARACTER SET UTF8");
     $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
     $result = mysqli_query($conn,$sql);
 
-    $sql1="SELECT * FROM document ORDER BY document_id DESC";
+    $sql1="SELECT * FROM live WHERE live_id ='$live'";
     $result1 = mysqli_query($conn,$sql1);
 
 ?>
@@ -20,7 +45,7 @@
 <meta name="keywords" content="academy, course, education, elearning, learning, education html template, university template, college template, school template, online education template, tution center template">
 
 <!-- SITE TITLE -->
-<title>Eduglobal - Education & Courses HTML Template</title>
+<title>Online Education </title>
 <!-- Favicon Icon -->
 <link rel="shortcut icon" type="image/x-icon" href="assets2/images/logo3.png">
 <!-- Animation CSS -->
@@ -28,8 +53,9 @@
 <!-- Latest Bootstrap min CSS -->
 <link rel="stylesheet" href="assets2/bootstrap/css/bootstrap.min.css" />
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet" /> 
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
 <!-- Icon Font CSS -->
 <link rel="stylesheet" href="assets2/css/ionicons.min.css" />
 <link rel="stylesheet" href="assets2/css/themify-icons.css" />
@@ -48,13 +74,16 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link href="style1.css" rel="stylesheet">
   <script src="main.js"></script>
-  
-<style>
 
-    .content-table {
+<style>
+* {
+  font-family: 'Kanit', sans-serif; /* Change your font family */
+}
+
+.content-table {
   border-collapse: collapse;
   margin: 25px 0;
-  font-size: 0.9em;
+  font-size: 0.99em;
   min-width: 400px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
@@ -70,7 +99,7 @@
 
 .content-table th,
 .content-table td {
-  padding: 12px 15px;
+  padding: 30px 40px;
 }
 
 .content-table tbody tr {
@@ -102,51 +131,33 @@
     <div class="loader-section section-right"></div>
 </div>
 <!-- END LOADER --> 
-
-
-
-
 <!-- START HEADER -->
 <header class="header_wrap dark_skin">
     <div class="container">
         <nav class="navbar navbar-expand-lg"> 
             <a class="navbar-brand" href="afterloginTeacher.html">
-                <!--<img class="logo_light" src="assets2/images/logo_white.png" alt="logo" />
-                <img class="logo_dark" src="assets2/images/logo_dark.png" alt="logo" />
-                <img class="logo_default" src="assets2/images/logo_dark.png" alt="logo" />-->
                 <img  src="assets2/images/logo1.png" alt="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="ion-android-menu"></span> </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 				<ul class="navbar-nav">
-                    <!-- <li class="dropdown">
-                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" style="font-family: 'Kanit', sans-serif;">ข้อมูลพื้นฐาน</a>
+                    <li>
+                        <a class="nav-link" href="aboutSubject.php" style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</a>
+                    </li>
+                    <li class="dropdown">
+                         <?php while($row=mysqli_fetch_array($result2)){ ?>
+                        <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" style="font-family: 'Kanit', sans-serif;"><?php echo $row['student_fname'];?> <?php echo $row['student_lname'];?></a>
+                        <?php }?>
+                        
                         <div class="dropdown-menu">
                             <ul> 
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">คำนำหน้าชื่อ</a></li> 
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">มหาวิทยาลัย</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">คณะ</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">ภาควิชา</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">หลักสูตร</a></li>
-                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">รายวิชา</a></li>
+                                <li><a class="dropdown-item nav-link nav_item" href="#" style="font-family: 'Kanit', sans-serif;">ข้อมูลส่วนบุคคล</a></li> 
+                                <!-- <hr> -->
+                                
+                                <li><a class="dropdown-item nav-link nav_item" href="aboutSubject.php?logout='1'" style="font-family: 'Kanit', sans-serif;">ออกจากระบบ</a></li>
                             </ul>
                         </div>
-                    </li> -->
-                    <li>
-                        <a class="nav-link" href="aboutSubject.php" style="font-family: 'Kanit', sans-serif;">เกี่ยวกับรายวิชา</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">เกี่ยวกับนักเรียน</a>
-                    </li>
-                    <!-- <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">แบบฝึกหัด</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">วิดีโอการสอน</a>
-                    </li> -->
-                    <li>
-                        <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;">ออกจากระบบ</a>
-                    </li>
+                    </li> 
                 </ul>
             </div>
             
@@ -154,61 +165,14 @@
     </div>
 </header>
 <!-- END HEADER -->  
-<!-- START SECTION FEATURE -->
-<!-- <section class="bg_gray" >
-    <div class="container">
-    	<div class="row justify-content-center">
-        	<div class="col-xl-6 col-lg-8">
-            	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                    <div class="heading_s1 text-center">
-                        <h2>เกี่ยวกับรายวิชา</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6"><a href="book.php">
-                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
-                	<div class="box_icon bg_danger mb-3">
-                		<img src="assets2/images/book.png" alt="book" />
-                    </div>
-                    <div class="intro_desc">
-                        <h5>หนังสือ & เอกสารประกอบการสอน</h5>
-                    </div>
-                </div></a>
-            </div>
-            <div class="col-lg-4 col-md-6"><a href="#">
-            	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.03s">
-                	<div class="box_icon bg_default mb-3">
-                		
-                        <i class="fas fa-pencil-ruler" style="color:#fff;"></i>
-                    </div>
-                    <div class="intro_desc">
-                        <h5>แบบฝึกหัด</h5>
-                    </div>
-                </div></a>
-            </div>
-            <div class="col-lg-4 col-md-6"><a href="vdo.php">
-            	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
-                	<div class="box_icon bg_light_green mb-3">
-                        <img src="assets2/images/instructors.png" alt="instructors" />
-                    </div>
-                    <div class="intro_desc">
-                        <h5>วิดีโอการสอน</h5>
-                    </div>
-                </div></a>
-            </div>
-        </div>
-    </div>
-</section>  -->
-<!-- END SECTION FEATURE -->
+
 <section >
 	<!-- <div class="container">	 -->
     <div class="row justify-content-center">
         	<div class="col-xl-6 col-lg-8">
             	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
                     <div class="heading_s1 text-center" >
-                        <h2>ไลฟ์สตรีม     </h2>
+                        <h2>ไลฟ์สตรีม</h2>
                     </div>
                 </div>
             </div>
@@ -216,30 +180,19 @@
         <br>
 <!-- START SECTION ABOUT -->
 <section class="small_pt small_pb overflow-hidden">
+    <?php while($row=mysqli_fetch_array($result1)){?>
 	<div class="container-fluid p-0">
     	<div class="row no-gutters align-items-center">
         	<div class="col-md-6">
             	<div class="box_shadow1 bg-white overlap_section padding_eight_all">
                 	<div class="animation" data-animation="fadeInLeft" data-animation-delay="0.02s">
                         <div class="heading_s1"> 
-                          <h2>About Us</h2>
+                          <h2><?php echo $row['live_story'];?></h2>
                         </div>
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary</p>
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                        <ul class="list_none list_item">
-                        	<!-- <li>
-                            	<div class="counter_content">
-                                    <h3 class="h1 text_danger"><span class="counter">260</span></h3>
-                                    <h6>Free Courses</h6>
-                                </div>
-                            </li>
-                            <li>
-                            	<div class="counter_content">
-                                    <h3 class="h1 text_light_green"><span class="counter">152</span></h3>
-                                    <h6>Paid Courses</h6>
-                                </div>
-                            </li> -->
-                        </ul>
+                        <!-- <ul class="list_none list_item">
+                        </ul> -->
                     </div>
                 </div>
             </div>
@@ -247,14 +200,17 @@
             	<div class="animation" data-animation="fadeInRight" data-animation-delay="0.03s">
                 	<div class="overlay_bg_30 about_img z_index_minus1">	
                     	<img class="w-100" src="assets2/images/about_img.jpg" alt="about_img"/>
+                        <!-- <iframe width="1280" height="720" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                     </div>
-                	<a href="https://www.youtube.com/watch?v=7e90gBu4pas" class="video_popup video_play">
+                	<a href="<?php echo $row['live_link'];?>" class="video_popup video_play">
+                    <!-- <iframe width="1280" height="720" src="https://www.youtube.com/watch?v=AXpI0AOVEko&t=2198s" title="YouTube video player" class="video_popup video_play" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                     	<span class="ripple"><i class="ion-play ml-1"></i></span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+    <?php }?>
 </section>
 <!-- END SECTION ABOUT -->
 
