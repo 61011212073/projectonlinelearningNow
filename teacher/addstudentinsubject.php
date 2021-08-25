@@ -11,7 +11,7 @@
  require("conn.php");
  $username=$_SESSION['teacher_username'];
  $sql2="SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
- teacher.teacher_email,univercity.univercity_name,faculty.faculty_name,department.department_name,
+ teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
  FROM teacher 
  INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 
@@ -162,6 +162,9 @@
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
             เพิ่มข้อมูลนิสิตในรายวิชา
           </button>
+          <select name="" id="" class="btn btn-primary">
+            <option value="">-ค้นหารายวิชา-</option>
+          </select>
           <!-- <br><br> -->
           
           <!-- Modal -->
@@ -235,10 +238,10 @@
                 </div> -->
                 <?php
                       if ($row['study_status'] == "1") {
-                         echo "<a style='color:#228B22;'>Active</a>";
+                         echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
                       }
                      else{
-                        echo "<a style='color:red;'>Inactive</a>";
+                        echo "<a style='color:red;'>ปิดการใช้งาน</a>";
                      }
                ?>
               </td>

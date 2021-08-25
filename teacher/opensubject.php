@@ -11,7 +11,7 @@
   require("conn.php");
   $username=$_SESSION['teacher_username'];
   $sql="SELECT teacher.teacher_id,prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
-  teacher.teacher_email,univercity.univercity_name,faculty.faculty_name,department.department_name,
+  teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
   teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
   FROM teacher 
   INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id 
@@ -128,7 +128,7 @@
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result2)){ ?>
+      <?php while($row=mysqli_fetch_array($result)){ ?>
     <a href="editprofile.php">
       <div class="name-job">
         <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>

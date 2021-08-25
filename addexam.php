@@ -11,7 +11,7 @@
     require("conn.php");
     $username=$_SESSION['teacher_username'];
     $sql2="SELECT teacher.teacher_id,prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
-    teacher.teacher_email,univercity.univercity_name,faculty.faculty_name,department.department_name,
+    teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
     teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
     FROM teacher 
     INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id 
@@ -149,6 +149,9 @@
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลแบบฝึกหัด
               </button>
+              <select name="" id="" class="btn btn-primary">
+            <option value="">-ค้นหารายวิชา-</option>
+          </select>
               
               <!-- Modal -->
               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
