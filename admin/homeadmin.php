@@ -47,7 +47,7 @@ else if ($pagenum > $last) {
 $limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
 
 $nquery=mysqli_query($conn,"SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
-  teacher.teacher_email,univercity.univercity_name,faculty.faculty_name,department.department_name,
+  teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
   teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
   FROM teacher 
   INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 

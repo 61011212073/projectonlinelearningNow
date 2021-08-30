@@ -188,11 +188,11 @@
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result2)){ ?>
+      <?php while($row=mysqli_fetch_array($result)){ ?>
     <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
-        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
+      <div class="profile_name"><?php echo $row['admin_fname'];?></div>
+        <div class="job"><?php echo $row['admin_lname'];?></div>
       </div>
     </a>
       <?php }?>

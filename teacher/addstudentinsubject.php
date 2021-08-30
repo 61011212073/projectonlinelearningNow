@@ -25,7 +25,8 @@
  $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status 
  FROM coursesopen 
  INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
- INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id";
+ INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+ WHERE teacher_username='$username'";
  $result = mysqli_query($conn,$sql);
 
  $sql1="SELECT study.study_id,subject.subject_engname,student.student_id,student.student_fname,student.student_lname,study.study_status
@@ -52,12 +53,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link href="Prename1.css" rel="stylesheet">
+     <link href="Prename2.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
      <script src="../demo/main.js"></script>
+     <script type="text/javascript">
+		$(document).ready(function(){
+			$("#authors").change(function(){
+				var subject = $("#authors").val();
+				$.ajax({
+					url: 'data.php',
+					method: 'post',
+					data: 'subject=' + subject
+				 }).done(function(books){
+					console.log(books);
+					books = JSON.parse(books);
+					$('#books').empty();
+					books.forEach(function(book){
+						$('#books').append('<tr>'+
+              '<td data-label="ลำดับ">1</td>'+
+              '<td data-label="รายวิชา">'+book.subject_engname+'</td>'+
+              '<td data-label="รหัสนิสิต">'+book.student_id+'</td>'+
+              '<td data-label="ชื่อ">'+book.student_fname+'</td>'+
+              '<td data-label="นามสกุล">'+book.student_lname+'</td>'+
+              '<td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="'+book.study_id+'" class="btn btn-info btn-xs view_data" /></td>'
+             +'</tr>')
+					})
+				})
+			})
+		}) 
+	</script>
    </head>
 <body>
 <div class="sidebar close">
@@ -162,8 +189,15 @@
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
             เพิ่มข้อมูลนิสิตในรายวิชา
           </button>
-          <select name="" id="" class="btn btn-primary">
+          <select id="authors" class="btn btn-primary">
             <option value="">-ค้นหารายวิชา-</option>
+            <?php 
+                  require 'data.php';
+                  $authors = loadsub($username);
+                  foreach ($authors as $author) {
+                    echo "<option id='".$author['coursesopen_id']."' value='".$author['coursesopen_id']."'>".$author['subject_engname']."</option>";
+                  }
+                ?>
           </select>
           <!-- <br><br> -->
           
@@ -213,43 +247,40 @@
           <thead>
             <tr>
               <th scope="col">ลำดับ</th>
+              <th scope="col">รายวิชา</th>
               <th scope="col">รหัสนิสิต</th>
               <th scope="col">ชื่อ</th>
               <th scope="col">นามสกุล</th>
-              <th scope="col">สถานะการใช้งาน</th> 
-              <th scope="col">แก้ไขข้อมูล</th>
+              <!-- <th scope="col">สถานะการใช้งาน</th> 
+              <th scope="col">แก้ไขข้อมูล</th> -->
               <th scope="col">รายละเอียด</th>
              
             </tr>
           </thead>
-          <tbody>
-          <?php $i=0; while($row=mysqli_fetch_array($result1)){ $i=$i+1 ?>
+          <tbody id="books">
+          <!-- <?php// $i=0; while($row=mysqli_fetch_array($result1)){ $i=$i+1 ?>
             <tr>
-              <td data-label="ลำดับ"><?php echo $i?></td>
-              <td data-label="รหัสนิสิต"><?php echo $row['student_id']?></td>
-              <td data-label="ชื่อ"><?php echo $row['student_fname']?></td>
-              <td data-label="นามสกุล"><?php echo $row['student_lname']?></td>
+              <td data-label="ลำดับ"><?php// echo $i?></td>
+              <td data-label="รายวิชา"><?php// echo $row['subject_engname']?></td>
+              <td data-label="รหัสนิสิต"><?php //echo $row['student_id']?></td>
+              <td data-label="ชื่อ"><?php// echo $row['student_fname']?></td>
+              <td data-label="นามสกุล"><?php// echo $row['student_lname']?></td>
               <td data-label="สถานะการใช้งาน">
-                <!-- <div>
-                  <div class="form-check form-switch" >
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                  </div>
-                </div> -->
+
                 <?php
-                      if ($row['study_status'] == "1") {
-                         echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                      }
-                     else{
-                        echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                     }
-               ?>
-              </td>
-              <td><input type="button" name="edit" value="Edit" id="<?php echo $row["study_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["study_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
+                    //   if ($row['study_status'] == "1") {
+                    //      echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                    //   }
+                    //  else{
+                    //     echo "<a style='color:red;'>ปิดการใช้งาน</a>";
+                    //  }
+               ?> 
+              </td>-->
+              <!-- <td><input type="button" name="edit" value="Edit" id="<?php// echo $row["study_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php //echo $row["study_id"]; ?>" class="btn btn-info btn-xs view_data" /></td> 
              
-             </tr>
-           <?php } ?>
+             </tr> --> 
+           <?php //} ?>
           </tbody>
         </table>
 

@@ -275,7 +275,7 @@ table tr {
 table th,
 table td {
   padding: .625em;
-  text-align: left;
+  text-align: center;
 }
 
 table th {

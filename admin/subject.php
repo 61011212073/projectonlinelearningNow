@@ -12,8 +12,8 @@
    mysqli_query($conn,"SET CHARACTER SET UTF8");
    mysqli_query($conn,"SET CHARACTER SET UTF8");
    $username=$_SESSION['admin_username'];
-     $sql="SELECT admin_fname,admin_lname FROM admin WHERE admin_username='$username'";
-     $result=mysqli_query($conn,$sql);
+     $sql1="SELECT admin_fname,admin_lname FROM admin WHERE admin_username='$username'";
+     $result1=mysqli_query($conn,$sql1);
    $sql="SELECT subject.subject_engname,subject.subject_thname,course.course_thname,subject.subject_detail_thai,subject.subject_detail_english,subject.subject_status
    FROM subject 
    INNER JOIN course ON subject.subject_course_id=course.course_id";
@@ -188,11 +188,11 @@
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result2)){ ?>
+      <?php while($row=mysqli_fetch_array($result1)){ ?>
     <a href="editprofile.php">
-      <div class="name-job">
-        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
-        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
+    <div class="name-job">
+        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
+        <div class="job"><?php echo $row['admin_lname'];?></div>
       </div>
     </a>
       <?php }?>

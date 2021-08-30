@@ -200,7 +200,7 @@
     <tr>
       <td><?php echo $i;?></td>
       <td><?php echo $row['document_name']; ?></td>
-      <td><a href="uploadbook/<?=$row["document_file"]?>" style="color:blue"><?php echo $row["document_name"];?></a></td>
+      <td><a href="../uploadbook/<?=$row["document_file"]?>" style="color:blue"><?php echo $row["document_name"];?></a></td>
       <td><?php echo $row['document_datetime'];?></td>
     </tr>
     <?php } ?>

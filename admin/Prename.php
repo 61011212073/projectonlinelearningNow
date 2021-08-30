@@ -161,11 +161,11 @@ if ($pagenum > 1) {
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
-      <?php while($row=mysqli_fetch_array($result2)){ ?>
+      <?php while($row=mysqli_fetch_array($result)){ ?>
     <a href="editprofile.php">
-      <div class="name-job">
-        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
-        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
+    <div class="name-job">
+        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
+        <div class="job"><?php echo $row['admin_lname'];?></div>
       </div>
     </a>
       <?php }?>
@@ -307,6 +307,21 @@ if ($pagenum > 1) {
                 });  
            }            
       });  
+      $(document).on('click', '.edit_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/prename/edit.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail1').html(data);  
+                          $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      }); 
  });  
  </script>
 </body>
@@ -320,6 +335,20 @@ if ($pagenum > 1) {
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>  
                 <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  
+ <div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลคำนำหน้าชื่อ</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail1">  
                 </div>  
                
            </div>  

@@ -1,5 +1,24 @@
 <?php
+  session_start();
+  if (!isset($_SESSION['teacher_username'])) {
+    header('location: ../login.php');
+  }
+  if (isset($_GET['logout'])) { 
+    session_destroy();
+    unset($_SESSION['teacher_username']);
+    header('location: ../index.html');
+  }
   require("conn.php");
+  $username=$_SESSION['teacher_username'];
+  $sql2="SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
+  teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
+  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
+  FROM teacher 
+  INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 
+  INNER JOIN faculty ON teacher.teacher_faculty_id =faculty.faculty_id 
+  INNER JOIN department ON teacher.teacher_department_id=department.department_id 
+  WHERE teacher_username='$username'";
+  $result2=mysqli_query($conn,$sql2);
   mysqli_query($conn,"SET CHARACTER SET UTF8");
   // $sql="SELECT univercity.univercity_name,faculty.faculty_name
   // FROM faculty

@@ -49,7 +49,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link href="Prename1.css" rel="stylesheet">
+     <link href="Prename2.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
@@ -221,8 +221,8 @@
               <th scope="col">ชื่อวิชา</th>
               <th scope="col">ภาคการศึกษา</th>
               <th scope="col">ปีการศึกษา</th>
-              <th scope="col">สถานะการใช้งาน</th>  
-              <th scope="col">แก้ไขข้อมูล</th>
+              <!-- <th scope="col">สถานะการใช้งาน</th>   -->
+              <!-- <th scope="col">แก้ไขข้อมูล</th> -->
               <th scope="col">รายละเอียด</th>
             
             </tr>
@@ -234,24 +234,18 @@
               <td data-label="ชื่อวิชา"><?php echo $row['subject_engname'];?></td>
               <td data-label="ภาคการศึกษา"><?php echo $row['coursesopen_term'];?></td>
               <td data-label="ปีการศึกษา"><?php echo $row['coursesopen_schoolyear'];?></td>
-              <td data-label="สถานะการใช้งาน">
+              <!-- <td data-label="สถานะการใช้งาน">
              
-                <!-- <div>
-                  <div class="form-check form-switch" >
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                  </div>
-                </div> -->
                 <?php 
-                      if ($row['coursesopen_status'] == "1") {
-                         echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                      }
-                     else{
-                        echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                     }
+                    //   if ($row['coursesopen_status'] == "1") {
+                    //      echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                    //   }
+                    //  else{
+                    //     echo "<a style='color:red;'>ปิดการใช้งาน</a>";
+                    //  }
                ?>
-              </td>
-              <td><input type="button" name="edit" value="Edit" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+              </td> -->
+              <!-- <td><input type="button" name="edit" value="Edit" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>   -->
               <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
             </tr>
             <?php } ?>
