@@ -345,6 +345,8 @@
         </div>
     </div>
 </section>
+<br>
+
 <!-- END SECTION BLOG -->
 
 

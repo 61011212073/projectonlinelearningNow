@@ -167,6 +167,7 @@
                 </div>
             </div>
         </div>
+		<hr>
 		<br>
 		
         <!-- <div class="col-12">
@@ -209,7 +210,10 @@
                 </ul>
               </div>
             </div>
-				<div class="col-lg-8">
+			<?php while($row=mysqli_fetch_array($result4)){ ?>
+			
+				<div class="col-lg-8">	
+					<form action="../BasicData/Edit/editstd.php" method="post">
 					<div class="card">
 						<div class="card-body">
 							<div class="row mb-3">
@@ -217,7 +221,7 @@
 									<h6 class="mb-0">รหัสนิสิต</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="61011212041" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_id'];?>" style="font-family: 'Kanit', sans-serif;" name="student_id">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -225,7 +229,7 @@
 									<h6 class="mb-0">คำนำหน้าชื่อ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="นาย" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -233,7 +237,7 @@
 									<h6 class="mb-0">ชื่อ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="ธนายุทธ" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value=" <?php echo $row['student_fname'];?>" style="font-family: 'Kanit', sans-serif;" name="student_fname">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -241,7 +245,7 @@
 									<h6 class="mb-0">นามสกุล</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="กลิ่นศรีสุข" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_lname'];?>" style="font-family: 'Kanit', sans-serif;" name="student_lname">
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -249,7 +253,7 @@
 									<h6 class="mb-0">เบอร์โทรศัพท์</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="095-5418854" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_phone'];?>" style="font-family: 'Kanit', sans-serif;" name="student_phone">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -257,7 +261,7 @@
 									<h6 class="mb-0">เฟสบุ๊ค</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="ต้าเก้ออออออ" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_facebook'];?>" style="font-family: 'Kanit', sans-serif;" name="student_facebook">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -265,7 +269,7 @@
 									<h6 class="mb-0">อีเมล</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="61011212041@msu.ac.th" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_email'];?>" style="font-family: 'Kanit', sans-serif;" name="student_email">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -273,7 +277,7 @@
 									<h6 class="mb-0">มหาวิทยาลัย</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="มหาวิยาลัยมหาสารคาม" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['univercity_thname'];?>" style="font-family: 'Kanit', sans-serif;" name="univercity_thname">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -281,7 +285,7 @@
 									<h6 class="mb-0">คณะ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="คณะวิทยาการสารสนเทศ" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['faculty_name'];?>" style="font-family: 'Kanit', sans-serif;" name="faculty_name">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -289,7 +293,7 @@
 									<h6 class="mb-0">ภาควิชา</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="วิทยาการคอมพิวเตอร์" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif;" name="department_name">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -297,7 +301,7 @@
 									<h6 class="mb-0">ชื่อผู้ใช้</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="61011212041" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_username'];?>" style="font-family: 'Kanit', sans-serif;" name="student_username">
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -305,22 +309,25 @@
 									<h6 class="mb-0">รหัสผ่าน</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="1234" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['student_password'];?>" style="font-family: 'Kanit', sans-serif;" name="student_password">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<input type="button" class="btn btn-primary px-4" value="Save Changes" style="font-family: 'Kanit', sans-serif;">
+									<input type="submit" class="btn btn-primary px-4" value="แก้ไขข้อมูล" style="font-family: 'Kanit', sans-serif;" name="submit">
 								</div>
 							</div>
 						</div>
 					</div>
+				</form>
 				</div>
+				<?php } ?>
+				
 			</div>
 		</div>
 	</div>
-
+<br>
             <!-- Profile -->
 
         
