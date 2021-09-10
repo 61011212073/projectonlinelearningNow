@@ -240,10 +240,11 @@ if ($pagenum > 1) {
               <td data-label="สถานะการใช้งาน">
                 <?php
                       if ($row['preName_status'] == "1") {
-                         echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+
+                         echo '<a style="color:#228B22;" id="'.$row["preName_id"].'" class="edit_status">เปิดการใช้งาน</a>';
                       }
                      else{
-                        echo "<a style='color:red;'>ปิดการใช้งาน</a>";
+                        echo '<a style="color:red;" id="'.$row["preName_id"].'" class="edit_status">ปิดการใช้งาน</a>';
                      }
                ?>
               </td>
@@ -312,12 +313,27 @@ if ($pagenum > 1) {
            if(employee_id != '')  
            {  
                 $.ajax({  
-                     url:"../BasicData/prename/edit.php",  
+                     url:"../BasicData/prename/editadmin.php",  
                      method:"POST",  
                      data:{employee_id:employee_id},  
                      success:function(data){  
                           $('#employee_detail1').html(data);  
                           $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      }); 
+      $(document).on('click', '.edit_status', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/prename/statusadmin.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail2').html(data);  
+                          $('#dataModal2').modal('show');  
                      }  
                 });  
            }            
@@ -354,5 +370,18 @@ if ($pagenum > 1) {
            </div>  
       </div>  
  </div>  
-
+ <div id="dataModal2" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขสถานะการใช้งาน</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail2">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  
  

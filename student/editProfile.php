@@ -211,7 +211,7 @@
               </div>
             </div>
 			<?php while($row=mysqli_fetch_array($result4)){ ?>
-			
+			 
 				<div class="col-lg-8">	
 					<form action="../BasicData/Edit/editstd.php" method="post">
 					<div class="card">
@@ -220,8 +220,9 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0">รหัสนิสิต</h6>
 								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php echo $row['student_id'];?>" style="font-family: 'Kanit', sans-serif;" name="student_id">
+								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="student_id"> -->
+									<?php echo $row['student_id'];?>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -276,24 +277,26 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0">มหาวิทยาลัย</h6>
 								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php echo $row['univercity_thname'];?>" style="font-family: 'Kanit', sans-serif;" name="univercity_thname">
+								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="univercity_thname"> -->
+									<?php echo $row['univercity_thname'];?>
 								</div>
 							</div>
                             <div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">คณะ</h6>
 								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php echo $row['faculty_name'];?>" style="font-family: 'Kanit', sans-serif;" name="faculty_name">
+								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="faculty_name"> -->
+									<?php echo $row['faculty_name'];?>
 								</div>
 							</div>
                             <div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">ภาควิชา</h6>
 								</div>
-								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif;" name="department_name">
+								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+									<input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif; display:block;" name="department_name">
 								</div>
 							</div>
                             <div class="row mb-3">
