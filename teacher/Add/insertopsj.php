@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<style>
 </style>
 </head>
 <body>
@@ -51,13 +51,14 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                                 } else{
                                     echo "ERROR: Could not able to execute $sql1. " . mysqli_error($conn);
                                 }
-                        // }
-                // }
-                //  else{
-                //     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                // }
+                        }
+                }
+                 else{
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                }
             }
 mysqli_close($conn);
 ?> 
     </body>
+
 </html>
