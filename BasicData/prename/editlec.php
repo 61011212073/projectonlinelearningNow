@@ -20,7 +20,7 @@
                <input type='radio' name='preName_status' checked value='0'> ปิดการใช้งาน";
            }  
            $output .= '  
-                <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editpre.php" method="post">
+                <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/editpre.php" method="post">
                         <div>
                               <label for="validationCustom01" class="form-label" >รหัสคำนำหน้าชื่อ</label>
                               <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="preName_id" value="'.$row["preName_id"].'" readonly/>

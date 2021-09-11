@@ -15,32 +15,35 @@
         return $value; 
     }
     $univercity_id=$_POST['univercity_id'];
-    $univercity = clean($_POST["univercity"]);
+    $univercity_thname = clean($_POST["univercity_thname"]);
+    $univercity_engname = clean($_POST["univercity_engname"]);
     $univercity_thcode = clean($_POST["univercity_thcode"]);
     $univercity_engcode = clean($_POST["univercity_engcode"]);
-	$status_univercity = $_POST["status_univercity"];
+	// $status_univercity = $_POST["status_univercity"];
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT univercity_name,univercity_thcode,univercity_engcode FROM univercity WHERE univercity_name='$univercity'";
+    $query = "SELECT univercity_thname,univercity_engname,univercity_thcode,univercity_engcode FROM univercity 
+              WHERE univercity_thname='$univercity_thname' AND univercity_engname='$univercity_engname' 
+              AND univercity_thcode='$univercity_thcode' AND univercity_engcode='$univercity_engcode'";
     $result = mysqli_query($conn, $query);
-    if ($univercity=="" && $univercity_thcode=="" && $univercity_thcode=="") {
+    if ($univercity_thname === "" && $univercity_engname === "" &&  $univercity_thcode === "" && $univercity_thcode ==="") {
         echo "<script type=\"text/javascript\">";
         echo "alert(\"กรุณากรอกข้อมูล\");";
         echo "window.history.back();";
         echo "</script>";
     }else{
     if(mysqli_query($conn, $query)){
-            // if(mysqli_num_rows($result) > 0){
-            //     echo "<script type=\"text/javascript\">";
-            //     echo "alert(\"มีมหาวิทยาลัยนี้อยู่แล้ว\");";
-            //     echo "window.history.back();";
-            //     echo "</script>";
-            //     exit();
-            // }
-            // else{
-                    $sql1 = "UPDATE univercity SET univercity_name='$univercity',
+            if(mysqli_num_rows($result) > 0){
+                echo "<script type=\"text/javascript\">";
+                echo "alert(\"มีมหาวิทยาลัยนี้อยู่แล้ว\");";
+                echo "window.history.back();";
+                echo "</script>";
+                exit();
+            }
+            else{
+                    $sql1 = "UPDATE univercity SET univercity_thname='$univercity_thname',
+                    univercity_engname='$univercity_engname',
                     univercity_thcode='$univercity_thcode',
-                    univercity_engcode='$univercity_engcode',
-                    univercity_status='$status_univercity'
+                    univercity_engcode='$univercity_engcode'
                     WHERE univercity_id='$univercity_id'";
                     if(mysqli_query($conn, $sql1)){
                     //    echo "Records added successfully.";
@@ -54,7 +57,7 @@
                         echo "ERROR: Could not able to execute $sql1. " . mysqli_error($conn);
                     }
 
-            // }
+            }
     } else{
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
     }

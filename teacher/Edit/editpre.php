@@ -15,22 +15,42 @@
     }
     $preName_id=$_POST["preName_id"];
     $prename = clean($_POST["prename"]);
-	$status_prename = $_POST["status_prename"];
+	// $status_prename = $_POST["preName_status"];
+    $massage ='';
+    // if($_POST["employee_id"] != ''){
+    //     $query = "
+    //     UPDATE prename
+    //     SET preName_id='$preName_id'
+    //     preName_name='$preName_name'
+    //     preName_status='$preName_status'
+    //     WHERE id='".$_POST["employee_id"]."'";
+    //     $massage = 'Data Update';
+    // }
+    // else{
+    //     $query ="
+    //     INSERT INTO prename(preName_id,preName_name,preName_status)
+    //     VALUE($preName_id,$preName_name,$preName_status);
+    //     ";
+    //     $massage = 'Data Insert';
+    // }    
+    // echo $preName_id.'  '.$prename;
+
+    
 //เช็คข้อมูลซ้ำ
     $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
     $result = mysqli_query($conn, $query);
         if(mysqli_query($conn, $query)){
-                        // if(mysqli_num_rows($result)>0){
-                        //     echo "<script type=\"text/javascript\">";
-                        //     echo "alert(\"มีคำนำหน้าชื่อนี้อยู่แล้ว\");";
-                        //     echo "window.history.back();";
-                        //     echo "</script>";
-                        //     exit();
-                        // }
+                        if(mysqli_num_rows($result)>0){
+                            echo "<script type=\"text/javascript\">";
+                            echo "alert(\"มีคำนำหน้าชื่อนี้อยู่แล้ว\");";
+                            echo "window.history.back();";
+                            echo "</script>";
+                            exit();
+                        }
                         // else{
                             // $sql = "INSERT INTO prename(preName_name, preName_status)
                             //             VALUES ('$prename', '$status_prename')";  
-                            $sql = "UPDATE prename SET preName_name='$prename' , preName_status=$status_prename WHERE preName_id=$preName_id";
+                            $sql = "UPDATE prename SET preName_name='$prename' WHERE preName_id=$preName_id";
                                 mysqli_set_charset($conn, 'utf8');     
                                 if(mysqli_query($conn, $sql)){
                                 
@@ -38,16 +58,17 @@
                                 echo "<script type=\"text/javascript\">";
                                 echo "alert(\"แก้ไขคำนำหน้าชื่อสำเร็จ\");";
                                 // echo "window.history.back();";
+                                // header("Refresh:0; url=../Prename.php");
                                 header("Refresh:0; url=../Prename.php");
                                 echo "</script>";
                                 exit();
                                 } else{
                                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                                 }
-                        }
-                // } else{
-                //     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                // }
+                        // }
+                } else{
+                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                }
      
 // echo $prename;
 // echo $status_prename;

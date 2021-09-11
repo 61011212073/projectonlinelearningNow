@@ -24,7 +24,7 @@
                <input type='radio' name='course_status' checked value='0'> ปิดการใช้งาน";
            }  
            $output .= '  
-                <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editpre.php" method="post">
+                <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/Editstatus/editco_status.php" method="post">
                         <div>
                               <label for="validationCustom01" class="form-label" >รหัสหลักสูตร</label>
                               <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="course_id" value="'.$row["course_id"].'" readonly/>

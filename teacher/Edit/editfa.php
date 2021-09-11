@@ -17,10 +17,10 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $faculty_id=$_POST['faculty_id'];
     $faculty_uivarcity_id  = $_POST["faculty_uivarcity_id"];
     $faculty_name = clean($_POST["faculty_name"]);
-	$faculty_status = $_POST["faculty_status"];
+	// $faculty_status = $_POST["faculty_status"];
 
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT faculty_name FROM faculty WHERE faculty_name='$faculty_name'";
+    $query = "SELECT faculty_name FROM faculty WHERE faculty_uivarcity_id='$faculty_uivarcity_id' AND faculty_name='$faculty_name'";
     $result = mysqli_query($conn, $query);
     if ($faculty_name=="") {
         echo "<script type=\"text/javascript\">";
@@ -29,18 +29,15 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
         echo "</script>";
     }else{
         if(mysqli_query($conn, $query)){
-                        // if(mysqli_num_rows($result)>0){
-                        //     echo "<script type=\"text/javascript\">";
-                        //     echo "alert(\"มีคณะนี้อยู่แล้ว\");";
-                        //     echo "window.history.back();";
-                        //     echo "</script>";
-                        //     exit();
-                        // }
-                        // else{
-                                $sql1 = "UPDATE faculty SET faculty_uivarcity_id='$faculty_uivarcity_id',
-                                faculty_name='$faculty_name',
-                                faculty_status='$faculty_status'
-                                WHERE faculty_id='$faculty_id'";
+                        if(mysqli_num_rows($result)>0){
+                            echo "<script type=\"text/javascript\">";
+                            echo "alert(\"มีคณะนี้อยู่แล้ว\");";
+                            echo "window.history.back();";
+                            echo "</script>";
+                            exit();
+                        }
+                        else{
+                                $sql1 = "UPDATE faculty SET faculty_name='$faculty_name' WHERE faculty_id='$faculty_id'";
                                 
                                 if(mysqli_query($conn, $sql1)){
                                 //    echo "Records added successfully.";
@@ -53,7 +50,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                                 } else{
                                     echo "ERROR: Could not able to execute $sql1. " . mysqli_error($conn);
                                 }
-                        // }
+                        }
                 } else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                 }

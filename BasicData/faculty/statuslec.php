@@ -22,7 +22,7 @@
                <input type='radio' name='faculty_status' checked value='0'> ปิดการใช้งาน";
            }  
            $output .= '  
-                <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editfa.php" method="post">
+                <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/Editstatus/editfa_status.php" method="post">
                         <div>
                               <label for="validationCustom01" class="form-label" >รหัสคณะ</label>
                               <input type="text" class="form-control th" id="validationCustom01" name="faculty_id" value="'.$row["faculty_id"].'" readonly/>
@@ -33,7 +33,7 @@
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >คณะ</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคณะ" required name="faculty_name" value="'.$row["faculty_name"].'">
+                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคณะ" required name="faculty_name" value="'.$row["faculty_name"].'" readonly/>
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>

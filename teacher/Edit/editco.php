@@ -23,32 +23,36 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $course_dpm_id = clean($_POST["course_dpm_id"]);
     $course_faculty_id = clean($_POST["course_faculty_id"]);
     $course_status = $_POST["course_status"];
-
-    $query = "SELECT course_year_mco2 FROM course WHERE course_year_mco2='$course_year_mco2'";
+ 
+    $query = "SELECT course_year_mco2 FROM course 
+    WHERE course_year_mco2='$course_year_mco2' AND
+    course_thname='$course_thname' AND course_engname='$course_engname' 
+    AND  course_thcode='$course_thcode' AND
+    course_engcode='$course_engcode' 
+    ";
     $result = mysqli_query($conn, $query);
-    if ($course_thname==""&&$course_engname==""&&$course_thcode==""&&$course_engcode==""&&$course_year_mco2==""&&$course_dpm_id==""&&$course_faculty_id==""&&$course_status=="") {
+    if ($course_thname==""&&$course_engname==""&&$course_thcode==""&&$course_engcode==""&&$course_year_mco2==""&&$course_dpm_id==""&&$course_faculty_id=="") {
         echo "<script type=\"text/javascript\">";
         echo "alert(\"กรุณากรอกข้อมูล\");";
         echo "window.history.back();";
         echo "</script>";
     }else{
     if(mysqli_query($conn, $query)){
-            // if(mysqli_num_rows($result)>0){
-            //    echo "<script type=\"text/javascript\">";
-            //     echo "alert(\"มีหลักสูตรนี้อยู่แล้ว\");";
-            //     echo "window.history.back();";
-            //     echo "</script>";
-            //     exit(); 
-            // }
-            // else{
+            if(mysqli_num_rows($result)>0){
+               echo "<script type=\"text/javascript\">";
+                echo "alert(\"มีหลักสูตรนี้อยู่แล้ว\");";
+                echo "window.history.back();";
+                echo "</script>";
+                exit(); 
+            }
+            else{
                 $sql1 = "UPDATE course SET course_thname='$course_thname',
                 course_engname='$course_engname',
                 course_thcode='$course_thcode',
                 course_engcode='$course_engcode',
                 course_year_mco2='$course_year_mco2',
                 course_dpm_id='$course_dpm_id',
-                course_faculty_id='$course_faculty_id',
-                course_status='$course_status'
+                course_faculty_id='$course_faculty_id'
                 WHERE course_id='$course_id'";
                 
                 mysqli_set_charset($conn, 'utf8');
@@ -64,9 +68,9 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                     echo "ERROR: Could not able to execute $sql1. " . mysqli_error($conn);
                 }
             }
-    //    } else{
-    //        echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-    //    }
+       } else{
+           echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+       }
 }
 
 

@@ -17,9 +17,10 @@
            else{
                $status= "<a style='color:red;'>ปิดการใช้งาน</a>";
            } 
+           
            $output .= '  
            <div class="modal-body">
-           <form class="row g-3 needs-validation" novalidate action="../admin/Edit/edituni.php" method="post">
+           <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/edituni.php" method="post">
            <div>
              <label for="validationCustom01" class="form-label" >รหัสมหาวิทยาลัย</label>
              <input type="text" class="form-control only" name="univercity_id" id="validationCustom01" value="'.$row["univercity_id"].'" readonly/>

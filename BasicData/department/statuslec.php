@@ -23,7 +23,7 @@
                <input type='radio' name='department_status' checked value='0'> ปิดการใช้งาน";
            }  
            $output .= '  
-                <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editpre.php" method="post">
+                <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/Editstatus/editdpm_status.php" method="post">
                         <div>
                               <label for="validationCustom01" class="form-label" >รหัสภาควิชา</label>
                               <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="department_id" value="'.$row["department_id"].'" readonly/>
