@@ -454,7 +454,7 @@ $(document).ready(function(){
          <div class="modal-content">  
               <div class="modal-header">  
                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                   <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลหลักสูตร</h4>  
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>  
               <div class="modal-body" id="employee_detail1">  
@@ -468,7 +468,7 @@ $(document).ready(function(){
          <div class="modal-content">  
               <div class="modal-header">  
                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                   <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขสถานะการใช้งาน</h4>  
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>  
               <div class="modal-body" id="employee_detail2">  
