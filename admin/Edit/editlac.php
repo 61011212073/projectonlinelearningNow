@@ -25,7 +25,7 @@
 	$teacher_department_id  = $_POST["teacher_department_id"];
     $teacher_username = clean($_POST["teacher_username"]);
 	$teacher_password = $_POST["teacher_password"];
-	$teacher_status = $_POST["teacher_status"];
+	// $teacher_status = $_POST["teacher_status"];
 
     //เช็คข้อมูลซ้ำ
     // $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";

@@ -151,7 +151,7 @@
               
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลวิดีทัศน์
-              </button>
+              </button>&nbsp;&nbsp;
               <select name="" id="" class="btn btn-primary">
             <option value="">-ค้นหารายวิชา-</option>
           </select>

@@ -35,38 +35,38 @@
     $query = "SELECT student_id FROM student WHERE student_id='$student_id'";
     $result = mysqli_query($conn, $query);
         if(mysqli_query($conn, $query)){
-                        // if(mysqli_num_rows($result)>0){
-                        //     echo "<script type=\"text/javascript\">";
-                        //     echo "alert(\"มีนิสิตคนนี้อยู่แล้ว\");";
-                        //     echo "window.history.back();";
-                        //     echo "</script>";
-                        //     exit();
-                        // }
-                        // else{
-                            // $sql = "UPDATE `student` SET `student_prename_id`='$student_prename_id',
-                            // `student_fname`='$student_fname',`student_lname`='$student_lname',
-                            // `student_phone`='$student_phone',`student_facebook`='$student_facebook',
-                            // `student_email`='$student_email',
-                            // `student_univercity_id`='$student_univercity_id',
-                            // `student_faculty_id`='$student_faculty_id',
-                            // `student_department_id`='$student_department_id',
-                            // `student_username`='$student_username',`student_password`='$student_password',
-                            // `student_status`='$student_status' 
-                            // WHERE `student_id'='$student_id'";  
+                        if(mysqli_num_rows($result)>0){
+                            echo "<script type=\"text/javascript\">";
+                            echo "alert(\"มีนิสิตคนนี้อยู่แล้ว\");";
+                            echo "window.history.back();";
+                            echo "</script>";
+                            exit();
+                        }
+                        else{
+                            $sql = "UPDATE `student` SET `student_prename_id`='$student_prename_id',
+                            `student_fname`='$student_fname',`student_lname`='$student_lname',
+                            `student_phone`='$student_phone',`student_facebook`='$student_facebook',
+                            `student_email`='$student_email',
+                            `student_univercity_id`='$student_univercity_id',
+                            `student_faculty_id`='$student_faculty_id',
+                            `student_department_id`='$student_department_id',
+                            `student_username`='$student_username',`student_password`='$student_password',
+                            `student_status`='$student_status' 
+                            WHERE `student_id'='$student_id'";  
 
-                            //     mysqli_set_charset($conn, 'utf8');     
-                            //     if(mysqli_query($conn, $sql)){
+                                mysqli_set_charset($conn, 'utf8');     
+                                if(mysqli_query($conn, $sql)){
                                 
-                            //     //    echo "Records added successfully.";
-                            //     echo "<script type=\"text/javascript\">";
-                            //     echo "alert(\"แก้ไขนิสิตสำเร็จ\");";
-                            //     header("Refresh:0; url=../student.php");
-                            //     echo "</script>";
-                            //     exit();
-                            //     } else{
-                            //         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
-                            //     }
-                        // }
+                                //    echo "Records added successfully.";
+                                echo "<script type=\"text/javascript\">";
+                                echo "alert(\"แก้ไขนิสิตสำเร็จ\");";
+                                header("Refresh:0; url=../student.php");
+                                echo "</script>";
+                                exit();
+                                } else{
+                                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+                                }
+                        }
                 } else{
                     echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                 }

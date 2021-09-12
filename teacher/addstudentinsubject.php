@@ -188,7 +188,7 @@
           
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
             เพิ่มข้อมูลนิสิตในรายวิชา
-          </button>
+          </button>&nbsp;&nbsp;
           <select id="authors" class="btn btn-primary">
             <option value="">-ค้นหารายวิชา-</option>
             <?php 
@@ -258,29 +258,7 @@
             </tr>
           </thead>
           <tbody id="books">
-          <!-- <?php// $i=0; while($row=mysqli_fetch_array($result1)){ $i=$i+1 ?>
-            <tr>
-              <td data-label="ลำดับ"><?php// echo $i?></td>
-              <td data-label="รายวิชา"><?php// echo $row['subject_engname']?></td>
-              <td data-label="รหัสนิสิต"><?php //echo $row['student_id']?></td>
-              <td data-label="ชื่อ"><?php// echo $row['student_fname']?></td>
-              <td data-label="นามสกุล"><?php// echo $row['student_lname']?></td>
-              <td data-label="สถานะการใช้งาน">
-
-                <?php
-                    //   if ($row['study_status'] == "1") {
-                    //      echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                    //   }
-                    //  else{
-                    //     echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                    //  }
-               ?> 
-              </td>-->
-              <!-- <td><input type="button" name="edit" value="Edit" id="<?php// echo $row["study_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php //echo $row["study_id"]; ?>" class="btn btn-info btn-xs view_data" /></td> 
-             
-             </tr> --> 
-           <?php //} ?>
+    
           </tbody>
         </table>
 
