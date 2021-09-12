@@ -27,19 +27,19 @@
            $uni_id=$row["course_univercity_id"];
            $uni_name=$row["univercity_thname"];
            $sta='
-           <select class="form-select form-control" aria-label="Default select example" name="course_univercity_id">
+           <select class="form-select form-control" aria-label="Default select example" name="course_univercity_id" disabled="true">
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
 
            $uni_id1=$row["course_faculty_id"];
            $uni_name1=$row["faculty_name"];
            $sta1='
-           <select class="form-select form-control" aria-label="Default select example" name="course_faculty_id">
+           <select class="form-select form-control" aria-label="Default select example" name="course_faculty_id" disabled="true">
                         <option value="'.$uni_id1.'">'.$uni_name1.'</option></select>';
 
             $uni_id2=$row["course_dpm_id"];
             $uni_name2=$row["department_name"];
             $sta2='
-            <select class="form-select form-control" aria-label="Default select example" name="course_dpm_id">
+            <select class="form-select form-control" aria-label="Default select example" name="course_dpm_id" disabled="true">
                         <option value="'.$uni_id2.'">'.$uni_name2.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editco.php" method="post">

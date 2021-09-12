@@ -24,7 +24,7 @@
            $uni_id=$row["faculty_uivarcity_id"];
            $uni_name=$row["univercity_thname"];
            $sta='
-           <select class="form-select form-control" aria-label="Default select example" name="faculty_uivarcity_id"">
+           <select class="form-select form-control" aria-label="Default select example" name="faculty_uivarcity_id"" disabled="true">
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editfa.php" method="post">

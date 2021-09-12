@@ -25,13 +25,13 @@
            $uni_id=$row["department_univarcity_id"];
            $uni_name=$row["univercity_thname"];
            $sta='
-           <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id">
+           <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id" disabled="true">
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
 
            $uni_id1=$row["department_faculty_id"];
            $uni_name1=$row["faculty_name"];
            $sta1='
-           <select class="form-select form-control" aria-label="Default select example" name="department_faculty_id">
+           <select class="form-select form-control" aria-label="Default select example" name="department_faculty_id" disabled="true">
                         <option value="'.$uni_id1.'">'.$uni_name1.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editdpm.php" method="post">

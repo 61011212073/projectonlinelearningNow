@@ -26,7 +26,7 @@
            $uni_id=$row["subject_course_id"];
            $uni_name=$row["course_thname"];
            $sta='
-           <select class="form-select form-control" aria-label="Default select example" name="subject_course_id">
+           <select class="form-select form-control" aria-label="Default select example" name="subject_course_id" disabled="true">
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editsj.php" method="post">
