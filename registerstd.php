@@ -22,7 +22,9 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-   </head>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
 <body>
   <div class="container">
     <div class="title">สมัครสมาชิก นิสิต</div>
@@ -117,6 +119,10 @@
             <span class="details">รหัสผ่าน</span>
             <input type="password" placeholder="รหัสผ่าน" required name="student_password">
           </div>
+          <div class="input-box">
+            <span class="details">เลือกรูปภาพ</span>
+            <input class="form-control" type="file" id="formFile">
+          </div>
         </div>
         <!-- <div class="gender-details">
           <input type="radio" name="gender" id="dot-1">
@@ -138,9 +144,9 @@
             </label>
           </div>
         </div> -->
-        <div class="button">
-          <input type="submit" value="สมัครสมาชิก">
-        </div>
+            <div class="button" width="50px">
+              <input type="submit" value="สมัครสมาชิก"  >
+             </div>
       </form>
     </div>
   </div>

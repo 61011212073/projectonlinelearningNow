@@ -105,7 +105,107 @@ if ($pagenum > 1) {
      <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
-   </head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+     <style>
+       :root {
+  --main-bg-color: #009d63;
+  --main-text-color: #1B2631;
+  --second-text-color: #bbbec5;
+  --second-bg-color: #AED6F1;
+}
+
+.primary-text {
+  color: var(--main-text-color);
+}
+
+.second-text {
+  color: var(--second-text-color);
+}
+
+.primary-bg {
+  background-color: var(--main-bg-color);
+}
+
+.secondary-bg {
+  background-color: var(--second-bg-color);
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+#wrapper {
+  overflow-x: hidden;
+  background-image: linear-gradient(
+    to right,
+    #baf3d7,
+    #c2f5de,
+    #cbf7e4,
+    #d4f8ea,
+    #ddfaef
+  );
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+#menu-toggle {
+  cursor: pointer;
+}
+
+.list-group-item {
+  border: none;
+  padding: 20px 30px;
+}
+
+.list-group-item.active {
+  background-color: transparent;
+  color: var(--main-text-color);
+  font-weight: bold;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+     </style>
+     </head>
 <body>
   <div class="sidebar close">
     <div class="logo-details">
@@ -185,158 +285,225 @@ if ($pagenum > 1) {
       <i class='bx bx-menu' ></i>
       <span class="text">Online Education</span>
     </div>
-    <div class="wrapper">
-  <div class="container-fluid">
-    <h3 style="font-family: 'Kanit', sans-serif;">ตารางแสดงข้อมูลอาจารย์</h3>
-
-        <br>
-        <br>
-         <!-- ตารางแสดงข้อูล -->
-         <table>
-          <thead>
-            <tr>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อ</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">นามสกุล</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อผู้ใช้</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">รหัสผ่าน</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">สถานะการใช้งาน</th>
-                        <th scope="col" style="font-family: 'Kanit', sans-serif;">รายละเอียด</th>
-                        
-            </tr>
-          </thead>
-          <tbody>
-          <?php $i=0; while($row=mysqli_fetch_array($nquery)){ $i=$i+1 ?>
-            <tr>
-              <td data-label="ลำดับ" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></td>
-              <td data-label="ชื่อ" style="font-family: 'Kanit', sans-serif;"><?php echo $row[1];?></td>
-              <td data-label="นามสกุล" style="font-family: 'Kanit', sans-serif;"><?php echo $row[2];?></td>
-              <td data-label="ชื่อผู้ใช้" style="font-family: 'Kanit', sans-serif;"><?php echo $row[8];?></td>
-              <td data-label="รหัสผ่าน" style="font-family: 'Kanit', sans-serif;"><?php echo $row[9];?></td>
-              <td data-label="สถานะการใช้งาน" style="font-family: 'Kanit', sans-serif;">
-                <!-- <div>
-                  <div class="form-check form-switch" >
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                  </div>
-                </div> -->
-                
-                <?php
-                      if ($row[10] == "1") {
-                         echo "<a style='color:#228B22; font-family:Kanit, sans-serif;'>เปิดการใช้งาน</a>";
-                      }
-                     else{
-                        echo "<a style='color:red; font-family:Kanit, sans-serif;'>ปิดการใช้งาน</a>";
-                     }
-               ?>
-              </td>
-              <td data-label="รายละเอียด" style="font-family: 'Kanit', sans-serif;">
-                <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-          <i class='bx bx-show-alt'></i>
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-              <!-- modal-fullscreen เต็มจอ modal-xl-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel" style="font-family: 'Kanit', sans-serif;">ตารางแสดงข้อมูลอาจารย์</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div id="page-content-wrapper">
+            <div class="container-fluid px-4">
+                <div class="row g-3 my-2">
+                    <div class="col-md-3">
+                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div>
+                                <h3 class="fs-2">3899</h3>
+                                <p class="fs-5">จำนวนอาจารย์</p>
+                            </div>
+                            <i class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div>
+                                <h3 class="fs-2">4920</h3>
+                                <p class="fs-5">จำนวนนิสิต</p>
+                            </div>
+                            <i
+                                class="fas fa-graduation-cap fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div>
+                                <h3 class="fs-2">25</h3>
+                                <p class="fs-5">จำนวนรายวิชา</p>
+                            </div>
+                            <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th scope="col" style="font-family: 'Kanit', sans-serif;">หัวข้อ</th>
-                    <th scope="col" style="font-family: 'Kanit', sans-serif;">ข้อมูล</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <div>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">คำนำหน้าชื่อ</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[0];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">ชื่อ</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[1];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">นามสกุล</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[2];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">เบอร์โทร</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[3];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">อีเมลล์</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[4];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">มหาวิทยาลัย</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[5];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">คณะ</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[6];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">ภาควิชา</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[7];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">ชื่อผู้ใช้</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[8];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">รหัสผ่าน</th>
-                      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row[9];?></td>
-                    </tr>
-                    <tr>
-                      <th scope="row" style="font-family: 'Kanit', sans-serif;">สถานะการใช้งาน</th>
-                      <td style="font-family: 'Kanit', sans-serif;">
-                      <?php
-                                        if ($row[10] == "1") {
-                                          echo "เปิดการใช้งาน";
-                                        }
-                                        else{
-                                          echo "ปิดการใช้งาน";
-                                        }
-                      ?>
-                    </td>
-                    </tr>
-                  </div>
-                  
-                 
-                </tbody>
-              </table>
-            </div>
-            <!-- <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div> -->
-          </div>
-        </div>
-      </div>
-      <!-- modal -->
-    </td>
- 
 
-            </tr>
-            <?php } ?>
-          </tbody>
-          <div id="pagination_controls"><?php echo $paginationCtrls; ?></div>
-        </table>
-        
-      </div>
+                <div class="row my-5">
+                    <h3 class="fs-4 mb-3">รายชื่ออาจารย์</h3>
+                    <div class="col">
+                        <table class="table bg-white rounded shadow-sm  table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">ลำดับ</th>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">นามสกุล</th>
+                                    <th scope="col">ภาควิชา</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Television</td>
+                                    <td>Jonny</td>
+                                    <td>$1200</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Laptop</td>
+                                    <td>Kenny</td>
+                                    <td>$750</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Cell Phone</td>
+                                    <td>Jenny</td>
+                                    <td>$600</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Fridge</td>
+                                    <td>Killy</td>
+                                    <td>$300</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>Books</td>
+                                    <td>Filly</td>
+                                    <td>$120</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">6</th>
+                                    <td>Gold</td>
+                                    <td>Bumbo</td>
+                                    <td>$1800</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">7</th>
+                                    <td>Pen</td>
+                                    <td>Bilbo</td>
+                                    <td>$75</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">8</th>
+                                    <td>Notebook</td>
+                                    <td>Frodo</td>
+                                    <td>$36</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">9</th>
+                                    <td>Dress</td>
+                                    <td>Kimo</td>
+                                    <td>$255</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">10</th>
+                                    <td>Paint</td>
+                                    <td>Zico</td>
+                                    <td>$434</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">11</th>
+                                    <td>Carpet</td>
+                                    <td>Jeco</td>
+                                    <td>$1236</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">12</th>
+                                    <td>Food</td>
+                                    <td>Haso</td>
+                                    <td>$422</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row my-5">
+                    <h3 class="fs-4 mb-3">รายชื่อนิสิต</h3>
+                    <div class="col">
+                        <table class="table bg-white rounded shadow-sm  table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">ลำดับ</th>
+                                    <th scope="col">ชื่อ</th>
+                                    <th scope="col">นามสกุล</th>
+                                    <th scope="col">จำนวนรายวิชาที่ลงทะเบียน</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Television</td>
+                                    <td>Jonny</td>
+                                    <td>$1200</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Laptop</td>
+                                    <td>Kenny</td>
+                                    <td>$750</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Cell Phone</td>
+                                    <td>Jenny</td>
+                                    <td>$600</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Fridge</td>
+                                    <td>Killy</td>
+                                    <td>$300</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>Books</td>
+                                    <td>Filly</td>
+                                    <td>$120</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">6</th>
+                                    <td>Gold</td>
+                                    <td>Bumbo</td>
+                                    <td>$1800</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">7</th>
+                                    <td>Pen</td>
+                                    <td>Bilbo</td>
+                                    <td>$75</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">8</th>
+                                    <td>Notebook</td>
+                                    <td>Frodo</td>
+                                    <td>$36</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">9</th>
+                                    <td>Dress</td>
+                                    <td>Kimo</td>
+                                    <td>$255</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">10</th>
+                                    <td>Paint</td>
+                                    <td>Zico</td>
+                                    <td>$434</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">11</th>
+                                    <td>Carpet</td>
+                                    <td>Jeco</td>
+                                    <td>$1236</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">12</th>
+                                    <td>Food</td>
+                                    <td>Haso</td>
+                                    <td>$422</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
   </section>
+
 
  
 
