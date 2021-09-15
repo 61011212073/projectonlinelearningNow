@@ -255,7 +255,7 @@
                             
                           </div>
                           <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                          <select class="form-select form-control" aria-label="Default select example" name="course_univarcity_id" id="authors">
+                          <select class="form-select form-control" aria-label="Default select example" name="course_univercity_id" id="authors">
                               <option selected>เลือกมหาวิทยาลัย</option>
                               <?php 
                               require 'data.php';
