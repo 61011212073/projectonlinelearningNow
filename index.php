@@ -203,7 +203,7 @@
             <div class="col-lg-3 col-md-3 col-6 ">
                 <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                 	<div class="counter_icon">
-                    	<img src="assets1/images/counter_icon_dark1.png" alt="counter_icon1" />
+                    	<img src="assets1/images/students.png" alt="counter_icon1" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result['totalstd']; ?></span></h3>
@@ -214,7 +214,7 @@
             <div class="col-lg-3 col-md-3 col-6 ">
                 <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.03s">
                     <div class="counter_icon">
-                    	<img src="assets1/images/counter_icon_dark2.png" alt="counter_icon2" />
+                    	<img src="assets1/images/bookshelf.png" alt="counter_icon2" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result2['totalop']; ?></span></h3>
@@ -225,7 +225,7 @@
             <div class="col-lg-3 col-md-3 col-6 ">
                 <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.04s">
                     <div class="counter_icon">
-                    	<img src="assets1/images/counter_icon_dark3.png" alt="counter_icon3" />
+                    	<img src="assets1/images/female.png" alt="counter_icon3" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result1['totalled']; ?></span></h3>
@@ -236,7 +236,7 @@
             <div class="col-lg-3 col-md-3 col-6 ">
                 <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.05s">
                 	<div class="counter_icon">
-                    	<img src="assets1/images/bookk.png" alt="counter_icon4" />
+                    	<img src="assets1/images/boo.png" alt="counter_icon4" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result3['totalsub']; ?></span></h3>
@@ -263,7 +263,7 @@
             </div>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/loudspeaker1.png" alt="client" style="size: 50%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 20%;">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
@@ -278,7 +278,7 @@
             <hr>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/loudspeaker1.png" alt="client" style="size: 50%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 50%;">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
@@ -293,7 +293,7 @@
             <hr>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/loudspeaker1.png" alt="client" style="size: 50%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 50%;">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
