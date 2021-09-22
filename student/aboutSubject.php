@@ -310,40 +310,59 @@
             	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
                 	<h2 style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</h2>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-        </div>
-      
-        <div class="row justify-content-center">
-            <?php while($row=mysqli_fetch_array($result)){ ?>
-        	<div class="col-lg-4 col-md-6">
-            	<div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
-                	<div class="blog_img radius_ltrt_10">
-                        <a href="homelec.php">
+            </div> 
+          <div class="row"> 
+            <div class="row justify-content-center">
+              <?php while($row=mysqli_fetch_array($result)){ ?>
+        	    <div class="col-6 col-md-4">
+            	    <div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+                	      <div class="blog_img radius_ltrt_10">
+                          <a href="homelec.php">
                             <!-- <img src="assets2/images/ss.jpg" alt="blog_small_img1"> -->
                             <div class="link_blog">
                             	<span class="ripple"><i class="fa fa-link"></i></span>
                             </div>
-                        </a>
-                    </div>
-                    <font style="font-family: 'Kanit', sans-serif;">
-                        <div class="blog_content bg-white" >
+                          </a>
+                        </div>
+                        <font style="font-family: 'Kanit', sans-serif;">
+                          <div class="blog_content bg-white" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
                             <p style="font-family: 'Kanit', sans-serif; height: 120px;"><?php echo $row['subject_detail_thai'];?></p>
-                            
+                           </div>
+                        </font>
+                        <div class="blog_footer bg-white radius_lbrb_10">
+                              <ul class="list_none blog_meta">
+                                  <li><a href="#" style="font-family: 'Kanit', sans-serif;"><i class="ion-calendar"></i><?php echo $row['teacher_fname']; ?> <?php echo $row['teacher_lname'];?></a></li>
+                              </ul>
                         </div>
-                    </font>
-                    <div class="blog_footer bg-white radius_lbrb_10">
-                        <ul class="list_none blog_meta">
-                            <li><a href="#" style="font-family: 'Kanit', sans-serif;"><i class="ion-calendar"></i><?php echo $row['teacher_fname']; ?> <?php echo $row['teacher_lname'];?></a></li>
-                        </ul>
                     </div>
                 </div>
+                <div class="col-12 col-md-8">
+            	    <div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+                	      
+                        <font style="font-family: 'Kanit', sans-serif;">
+                          <div class="blog_content bg-white" >
+                            <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
+                           </div>
+                        </font>
+                        
+                    </div>
+                </div>
+
+
+              <?php }?>
             </div>
-            <?php }?>
+          </div>
+            <!-- <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+          </div> -->
+      
+       
+        <div class="row">
         </div>
+      
+        
     </div>
 </section>
 <br>
