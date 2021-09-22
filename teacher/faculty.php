@@ -112,6 +112,7 @@
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
      <script src="../demo/main.js"></script>
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
 <div class="sidebar close">
@@ -272,9 +273,10 @@
                   <th scope="col">ลำดับ</th>
                   <th scope="col">มหาวิทยาลัย</th>
                   <th scope="col">คณะ</th>
-                  <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
+                  <th scope="col">สถานะการใช้งาน</th> 
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
+                 
                 </tr>
               </thead>
               <tbody>
@@ -299,8 +301,12 @@
                          }
                    ?>
                   </td>
-                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>
+                  <td>
+                  <button type="button" name="edit"  id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["faculty_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>  
                 </tr>
                 <?php } ?>
               </tbody>

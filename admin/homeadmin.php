@@ -324,6 +324,15 @@ if ($pagenum > 1) {
                             <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div>
+                                <h3 class="fs-2">25</h3>
+                                <p class="fs-5">จำนวนรายวิชาที่เปิดสอน</p>
+                            </div>
+                            <i class="fas fa-file fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row my-5">
@@ -332,10 +341,13 @@ if ($pagenum > 1) {
                         <table class="table bg-white rounded shadow-sm  table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col" width="50">ลำดับ</th>
-                                    <th scope="col">ชื่อ</th>
-                                    <th scope="col">นามสกุล</th>
-                                    <th scope="col">ภาควิชา</th>
+                                    <th scope="col" width="150">ลำดับ</th>
+                                    <th scope="col" width="250">คำนำหน้าชื่อ</th>
+                                    <th scope="col" width="250">ชื่อ</th>
+                                    <th scope="col" width="250">นามสกุล</th>
+                                    <th scope="col" width="250">ภาควิชา</th>
+                                    <th scope="col" width="250">คณะ</th>
+                                    <th scope="col" width="250">มหาวิทยาลัย</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -415,95 +427,7 @@ if ($pagenum > 1) {
                         </table>
                     </div>
                 </div>
-                <div class="row my-5">
-                    <h3 class="fs-4 mb-3">รายชื่อนิสิต</h3>
-                    <div class="col">
-                        <table class="table bg-white rounded shadow-sm  table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col" width="50">ลำดับ</th>
-                                    <th scope="col">ชื่อ</th>
-                                    <th scope="col">นามสกุล</th>
-                                    <th scope="col">จำนวนรายวิชาที่ลงทะเบียน</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Television</td>
-                                    <td>Jonny</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Laptop</td>
-                                    <td>Kenny</td>
-                                    <td>$750</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell Phone</td>
-                                    <td>Jenny</td>
-                                    <td>$600</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Fridge</td>
-                                    <td>Killy</td>
-                                    <td>$300</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Books</td>
-                                    <td>Filly</td>
-                                    <td>$120</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Gold</td>
-                                    <td>Bumbo</td>
-                                    <td>$1800</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Pen</td>
-                                    <td>Bilbo</td>
-                                    <td>$75</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Notebook</td>
-                                    <td>Frodo</td>
-                                    <td>$36</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Dress</td>
-                                    <td>Kimo</td>
-                                    <td>$255</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Paint</td>
-                                    <td>Zico</td>
-                                    <td>$434</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Carpet</td>
-                                    <td>Jeco</td>
-                                    <td>$1236</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Food</td>
-                                    <td>Haso</td>
-                                    <td>$422</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                
 
             </div>
         </div>

@@ -104,6 +104,7 @@ if ($pagenum > 1) {
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
      <script src="../demo/main.js"></script>
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
 <div class="sidebar close">
@@ -263,8 +264,12 @@ if ($pagenum > 1) {
                      }
                ?>
               </td>
-              <td><input type="button" name="edit" value="Edit" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
+              <td>
+                  <button type="button" name="edit"  id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>  
             </tr>
             <?php } ?>
           </tbody>

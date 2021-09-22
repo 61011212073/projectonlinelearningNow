@@ -12,13 +12,15 @@
   $username=$_SESSION['teacher_username'];
   $sql="SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
   teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
-  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
+  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status,teacher_id_id
   FROM teacher 
   INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 
   INNER JOIN faculty ON teacher.teacher_faculty_id =faculty.faculty_id 
   INNER JOIN department ON teacher.teacher_department_id=department.department_id 
   WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
+  $result1=mysqli_query($conn,$sql);
+  $result2=mysqli_query($conn,$sql);
 
   mysqli_query($conn,"SET CHARACTER SET UTF8");
 mysqli_query($conn,"SET CHARACTER SET UTF8");
@@ -39,7 +41,33 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
      <link href="Prename.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
      <script src="../demo/main.js"></script>
+     <style>
+    body{
+	font-family: 'Kanit', sans-serif;
+    background: #f7f7ff;
+    margin-top:20px;
+}
+.card {
+	font-family: 'Kanit', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+}
+.me-2 {
+	font-family: 'Kanit', sans-serif;
+    margin-right: .5rem!important;
+}
+</style>
    </head>
+   
 <body>
   <div class="sidebar close">
   <div class="logo-details">
@@ -136,50 +164,147 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
       
       <span class="text" style="font-family: 'Kanit', sans-serif; margin-left: 100px">แก้ไขข้อมูลส่วนตัว</span>
     </div><br>
-        <form action="" method="post">
-        <?php //while($row=mysqli_fetch_array($result)){ ?>
-            <div style="margin-left: 100px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">คำนำหน้าชื่อ:</label>
-                <input type="text" value="<?php echo $row['preName_name']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 160px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">ชื่อ: </label>
-                <input type="text" value="<?php echo $row['teacher_fname']?>" name="" style="font-family: 'Kanit', sans-serif;">
-                <label for="" style="font-family: 'Kanit', sans-serif;">นามสกุล: </label>
-                <input type="text" value="<?php echo $row['teacher_lname']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">เบอร์โทร: </label>
-                <input type="text" value="<?php echo $row['teacher_phone']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">อีเมล์: </label>
-                <input type="text" value="<?php echo $row['teacher_email']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">มหาวิทยาลัย: </label>
-                <input type="text" value="<?php echo $row['univercity_name']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">คณะ: </label>
-                <input type="text" value="<?php echo $row['teacher_phone']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">ภาควิชา: </label>
-                <input type="text" value="<?php echo $row['teacher_phone']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">ชื่อผู้ใช้: </label>
-                <input type="text" value="<?php echo $row['teacher_username']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <label for="" style="font-family: 'Kanit', sans-serif;">รหัสผ่าน: </label>
-                <input type="text" value="<?php echo $row['teacher_password']?>" name="" style="font-family: 'Kanit', sans-serif;">
-            </div><br>
-            <div style="margin-left: 125px">
-                <button type="submit" name="" style="font-family: 'Kanit', sans-serif;" class="btn btn-success">แก้ไขข้อมูล</button>
+        	<!-- Profile -->
+          <div class="container">
+		<div class="main-body">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center">
+								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+								
+								<div class="mt-3">
+								<?php while($row=mysqli_fetch_array($result1)){ ?>	
+                                <h4><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></h4>
+								<?php }?>
+                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;">Full Stack Developer</p>
+                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;">Bay Area, San Francisco, CA</p>
+                      <div class="col-sm-12">
+                      <a class="btn btn-info "  href="editProfile.php"  style="font-family: 'Kanit', sans-serif;">Edit</a>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
+                    <span class="text-secondary" style="font-family: 'Kanit', sans-serif;">ต้าเก้ออออออ</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-        </form>
+            <?php while($row=mysqli_fetch_array($result2)){ ?>
+			 
+       <div class="col-lg-8">	
+         <form action="../BasicData/Edit/editlac.php" method="post">
+         <div class="card">
+           <div class="card-body">
+             <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">รหัสบัตรประชาชน</h6>
+               </div>
+               <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+                 <input type="text" class="form-control" value=" <?php echo $row['teacher_id_id'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_id_id" readonly/>
+                
+               </div>
+             </div>
+             <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">คำนำหน้าชื่อ</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name">
+               </div>
+             </div>
+             <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">ชื่อ</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value=" <?php echo $row['teacher_fname'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_fname">
+               </div>
+             </div>
+             <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">นามสกุล</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['teacher_lname'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_lname">
+               </div>
+             </div>
+             <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">เบอร์โทรศัพท์</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['teacher_phone'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_phone">
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">อีเมล</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['teacher_email'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_email">
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">มหาวิทยาลัย</h6>
+               </div>
+               <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+                 <input type="text" class="form-control" value=" <?php echo $row['univercity_thname'];?>" style="font-family: 'Kanit', sans-serif;" name="univercity_thname" readonly/>
+                
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">คณะ</h6>
+               </div>
+               <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+                 <input type="text" class="form-control" value=" <?php echo $row['faculty_name'];?>" style="font-family: 'Kanit', sans-serif;" name="faculty_name" readonly/>
+                
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">ภาควิชา</h6>
+               </div>
+               <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
+                 <input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif; display:block;" name="department_name" readonly/>
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">ชื่อผู้ใช้</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['teacher_username'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_username">
+               </div>
+             </div>
+                           <div class="row mb-3">
+               <div class="col-sm-3">
+                 <h6 class="mb-0">รหัสผ่าน</h6>
+               </div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="text" class="form-control" value="<?php echo $row['teacher_password'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_password">
+               </div>
+             </div>
+             <div class="row">
+               <div class="col-sm-3"></div>
+               <div class="col-sm-9 text-secondary">
+                 <input type="submit" class="btn btn-primary px-4" value="แก้ไขข้อมูล" style="font-family: 'Kanit', sans-serif;" name="submit">
+               </div>
+             </div>
+           </div>
+         </div>
+       </form>
+       </div>
+       <?php } ?>
         <?php }?>
   </section>
 
