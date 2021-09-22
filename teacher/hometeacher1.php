@@ -6,7 +6,7 @@
   if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['teacher_username']);
-    header('location: ../index.html');
+    header('location: ../index.php');
   }
   require("conn.php");
   $username=$_SESSION['teacher_username'];
@@ -19,6 +19,78 @@
   INNER JOIN department ON teacher.teacher_department_id=department.department_id 
   WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
+
+    $std= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalstd FROM student"));
+
+    $doc= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totaldoc FROM document "));
+
+    $op= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalop FROM coursesopen"));
+
+    $sub= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalsub FROM subject"));
+
+    $query=mysqli_query($conn,"SELECT COUNT(coursesopen_id) FROM `coursesopen`");
+$row = mysqli_fetch_row($query);
+
+$rows = $row[0];
+
+$page_rows = 6;  //จำนวนข้อมูลที่ต้องการให้แสดงใน 1 หน้า  ตย. 10 record / หน้า 
+
+$last = ceil($rows/$page_rows);
+
+if($last < 1){
+  $last = 1;
+}
+
+$pagenum = 1;
+
+if(isset($_GET['pn'])){
+  $pagenum = preg_replace('#[^0-9]#', '', $_GET['pn']);
+}
+
+if ($pagenum < 1) {
+  $pagenum = 1;
+}
+else if ($pagenum > $last) {
+  $pagenum = $last;
+}
+
+$limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
+
+$nquery=mysqli_query($conn,"SELECT subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status 
+FROM coursesopen 
+INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
+INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+WHERE teacher_username='$username' $limit");
+
+$paginationCtrls = '';
+
+if($last != 1){
+
+if ($pagenum > 1) {
+      $previous = $pagenum - 1;
+              $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.'" class="btn btn-info" style="font-family: Kanit, sans-serif;"><-</a> &nbsp; &nbsp; ';
+      
+              for($i = $pagenum-4; $i < $pagenum; $i++){
+                  if($i > 0){
+              $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'" class="btn btn-primary" style="font-family: Kanit, sans-serif;">'.$i.'</a> &nbsp; ';
+                  }
+          }
+      }
+      
+          $paginationCtrls .= ''.$pagenum.' &nbsp; ';
+      
+          for($i = $pagenum+1; $i <= $last; $i++){
+              $paginationCtrls .= '<a href="'.$_SERVER['PHP_SELF'].'?pn='.$i.'" class="btn btn-primary" style="font-family: Kanit, sans-serif;">'.$i.'</a> &nbsp; ';
+              if($i >= $pagenum+4){
+                  break;
+              }
+          }
+      
+      if ($pagenum != $last) {
+      $next = $pagenum + 1;
+      $paginationCtrls .= ' &nbsp; &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?pn='.$next.'" class="btn btn-info" style="font-family: Kanit, sans-serif;">-></a> ';
+      }
+          }
 
   mysqli_query($conn,"SET CHARACTER SET UTF8");
 mysqli_query($conn,"SET CHARACTER SET UTF8");
@@ -239,7 +311,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">3899</h3>
+                                <h3 class="fs-2"><?php echo $op["totalop"];?></h3>
                                 <p class="fs-5">รายวิชาที่เปิดสอน</p>
                             </div>
                             <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -248,7 +320,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">4920</h3>
+                                <h3 class="fs-2"><?php echo $std["totalstd"];?></h3>
                                 <p class="fs-5">นิสิตในทุกรายวิชา</p>
                             </div>
                             <i
@@ -258,8 +330,17 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">25</h3>
-                                <p class="fs-5">นิสิตที่ส่งงาน</p>
+                                <h3 class="fs-2"><?php echo $sub["totalsub"];?></h3>
+                                <p class="fs-5">รายวิชา</p>
+                            </div>
+                            <i class="fas fa-download fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                            <div>
+                                <h3 class="fs-2"><?php echo $doc["totaldoc"];?></h3>
+                                <p class="fs-5">เอกสารประกอบการสอน</p>
                             </div>
                             <i class="fas fa-download fs-1 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
@@ -278,81 +359,18 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                                     <th scope="col">ปีการศึกษา</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody><?php $i=0; while($row=mysqli_fetch_array($nquery)){ $i=$i+1 ?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Television</td>
-                                    <td>Jonny</td>
-                                    <td>$1200</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Laptop</td>
-                                    <td>Kenny</td>
-                                    <td>$750</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell Phone</td>
-                                    <td>Jenny</td>
-                                    <td>$600</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Fridge</td>
-                                    <td>Killy</td>
-                                    <td>$300</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Books</td>
-                                    <td>Filly</td>
-                                    <td>$120</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Gold</td>
-                                    <td>Bumbo</td>
-                                    <td>$1800</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Pen</td>
-                                    <td>Bilbo</td>
-                                    <td>$75</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Notebook</td>
-                                    <td>Frodo</td>
-                                    <td>$36</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Dress</td>
-                                    <td>Kimo</td>
-                                    <td>$255</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Paint</td>
-                                    <td>Zico</td>
-                                    <td>$434</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Carpet</td>
-                                    <td>Jeco</td>
-                                    <td>$1236</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Food</td>
-                                    <td>Haso</td>
-                                    <td>$422</td>
-                                </tr>
+                                
+                                    <th scope="row"><?php echo $i ?></th>
+                                    <td><?php echo $row["subject_engname"] ?></td>
+                                    <td><?php echo $row["coursesopen_term"] ?></td>
+                                    <td><?php echo $row["coursesopen_schoolyear"] ?></td>
+                                   
+                                </tr> <?php }?>
                             </tbody>
                         </table>
+                        <div id="pagination_controls" style="font-family: Kanit, sans-serif;"><?php echo $paginationCtrls; ?></div>
                     </div>
                 </div>
 

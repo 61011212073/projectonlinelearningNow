@@ -96,12 +96,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="hometeacher1.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
+          <li><a class="link_name" href="hometeacher1.php" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>

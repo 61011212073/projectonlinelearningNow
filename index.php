@@ -1,3 +1,15 @@
+<?php
+    require('conn.php');
+    $sql = mysqli_query($conn,"SELECT COUNT(*) as totalstd FROM student");
+    $result= mysqli_fetch_assoc($sql);
+
+    $sql1 = mysqli_query($conn,"SELECT COUNT(*) as totalled FROM teacher");
+    $result1= mysqli_fetch_assoc($sql1);
+
+    $result2= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalop FROM coursesopen"));
+
+    $result3= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalsub FROM subject"));
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,7 +206,7 @@
                     	<img src="assets1/images/counter_icon_dark1.png" alt="counter_icon1" />
                     </div>
                     <div class="counter_content">
-                        <h3 class="counter_text"><span class="counter">1800</span>+</h3>
+                        <h3 class="counter_text"><span class="counter"><?php echo $result['totalstd']; ?></span></h3>
                         <p style="font-family: 'Kanit', sans-serif;">นิสิต</p>
                     </div>
                 </div>
@@ -205,7 +217,7 @@
                     	<img src="assets1/images/counter_icon_dark2.png" alt="counter_icon2" />
                     </div>
                     <div class="counter_content">
-                        <h3 class="counter_text"><span class="counter">70</span></h3>
+                        <h3 class="counter_text"><span class="counter"><?php echo $result2['totalop']; ?></span></h3>
                         <p style="font-family: 'Kanit', sans-serif;">รายวิชาที่เปิดสอน</p>
                     </div>
                 </div>
@@ -216,7 +228,7 @@
                     	<img src="assets1/images/counter_icon_dark3.png" alt="counter_icon3" />
                     </div>
                     <div class="counter_content">
-                        <h3 class="counter_text"><span class="counter">700</span>+</h3>
+                        <h3 class="counter_text"><span class="counter"><?php echo $result1['totalled']; ?></span></h3>
                         <p style="font-family: 'Kanit', sans-serif;">อาจารย์</p>
                     </div>
                 </div>
@@ -227,7 +239,7 @@
                     	<img src="assets1/images/bookk.png" alt="counter_icon4" />
                     </div>
                     <div class="counter_content">
-                        <h3 class="counter_text"><span class="counter">1200</span>+</h3>
+                        <h3 class="counter_text"><span class="counter"><?php echo $result3['totalsub']; ?></span></h3>
                         <p style="font-family: 'Kanit', sans-serif;">รายวิชา</p>
                     </div>
                 </div>
@@ -244,9 +256,8 @@
         	<div class="col-md-6">
             	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
                     <div class="heading_s1 text-center">
-                        <h2>ข่าวสารชาวออนไลน์</h2>
+                        <h2 style="font-family: 'Kanit', sans-serif;">ข่าวสาร</h2>
                     </div>
-                    <!-- <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p> -->
                     <div class="small_divider"></div>
                 </div>
             </div>
@@ -256,11 +267,11 @@
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
-                        <h6>Foundation</h6>
-                        <span class="text_default">Dr.Jantima</span>
+                        <h6 style="font-family: 'Kanit', sans-serif;">Foundation</h6>
+                        <span class="text_default" style="font-family: 'Kanit', sans-serif;">Dr.Jantima</span>
                     </div>
                     <div class="testi_desc">
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <p style="font-family: 'Kanit', sans-serif;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                     </div>
                 </div>
             </div>
@@ -296,54 +307,7 @@
             </div>
         </div>
         
-        <!-- <div class="row justify-content-center">
-        	<div class="col-12 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
-            	<div class="testimonial_slider testimonial_style1 carousel_slider owl-carousel owl-theme" data-margin="30" data-loop="true" data-autoplay="true" data-dots="false" data-responsive='{"0":{"items": "1"}, "576":{"items": "2"}, "1199":{"items": "2"}}'>
-                    <div class="testimonial_box">
-                        <div class="testimonial_img">
-                            <img class="radius_all_5" src="assets1/images/client_img1.jpg" alt="client">
-                        </div>
-                        <div class="testi_meta">
-                        	<div class="testi_user">
-                            	<h6>Lissa Castro</h6>
-                            	<span class="text_default">Co-Founder</span>
-                            </div>
-                            <div class="testi_desc">
-                            	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial_box">
-                        <div class="testimonial_img">
-                            <img class="radius_all_5" src="assets1/images/client_img2.jpg" alt="client">
-                        </div>
-                        <div class="testi_meta">
-                        	<div class="testi_user">
-                            	<h6>Lissa Castro</h6>
-                            	<span class="text_default">Co-Founder</span>
-                            </div>
-                            <div class="testi_desc">
-                            	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial_box">
-                        <div class="testimonial_img">
-                            <img class="radius_all_5" src="assets1/images/client_img3.jpg" alt="client">
-                        </div>
-                        <div class="testi_meta">
-                        	<div class="testi_user">
-                            	<h6>Lissa Castro</h6>
-                            	<span class="text_default">Co-Founder</span>
-                            </div>
-                            <div class="testi_desc">
-                            	<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
+       
     </div>
 </section>
 <!-- END SECTION TESTIMONIAL -->

@@ -13,6 +13,14 @@
     $sql="SELECT admin_fname,admin_lname FROM admin WHERE admin_username='$username'";
     $result=mysqli_query($conn,$sql);
 
+    $std= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalstd FROM student"));
+
+    $lec= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalled FROM teacher"));
+
+    $op= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalop FROM coursesopen"));
+
+    $sub= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalsub FROM subject"));
+
     mysqli_query($conn,"SET CHARACTER SET UTF8");
   mysqli_query($conn,"SET CHARACTER SET UTF8");
   // $sql="SELECT * FROM prename";

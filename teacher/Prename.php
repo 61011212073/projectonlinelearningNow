@@ -6,7 +6,7 @@
   if (isset($_GET['logout'])) { 
     session_destroy();
     unset($_SESSION['teacher_username']);
-    header('location: ../index.html');
+    header('location: ../index.php');
   }
   require("conn.php");
   $username=$_SESSION['teacher_username'];

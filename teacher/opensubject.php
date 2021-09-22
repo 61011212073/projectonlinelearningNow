@@ -6,7 +6,7 @@
   if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['teacher_username']);
-    header('location: ../index.html');
+    header('location: ../index.php');
   }
   require("conn.php");
   $username=$_SESSION['teacher_username'];
@@ -66,12 +66,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="hometeacher1.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
+          <li><a class="link_name" href="hometeacher1.php" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
@@ -197,7 +197,7 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
                       </div>
                     </div> -->
-                  
+                   
                 </div>
                 <div class="modal-footer">
                   <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
