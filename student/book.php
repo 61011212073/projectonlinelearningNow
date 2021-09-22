@@ -7,7 +7,7 @@
       session_destroy();
       unset($_SESSION['student_username']);
       unset($_SESSION['study_coursesopen_id']);
-      header('location: ../index.html');
+      header('location: ../index.php');
     }
     require("conn.php"); 
     
@@ -33,7 +33,7 @@
     $sql="SELECT * FROM document WHERE document_coursesopen_id='$subject'"; //แบบปกติ
     $result = mysqli_query($conn,$sql);
 
-?>
+?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>

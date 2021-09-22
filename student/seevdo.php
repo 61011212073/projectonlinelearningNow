@@ -1,12 +1,37 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['student_username'])) {
+      header('location: ../login.html');
+    }
+    if (isset($_GET['logout'])) {
+      session_destroy();
+      unset($_SESSION['student_username']);
+      unset($_SESSION['study_coursesopen_id']);
+      header('location: ../index.php');
+    }
     require("conn.php");
-    mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
-    $result = mysqli_query($conn,$sql);
-
-    $sql1="SELECT * FROM document ORDER BY document_id DESC";
-    $result1 = mysqli_query($conn,$sql1);
-
+    
+    $username=$_SESSION['student_username'];
+    $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
+    student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
+    department.department_name,student.student_username,student.student_password,student.student_status 
+    FROM student 
+    INNER JOIN prename ON student.student_prename_id =prename.preName_id 
+    INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
+    INNER JOIN faculty ON student.student_faculty_id =faculty.faculty_id 
+    INNER JOIN department ON student.student_department_id=department.department_id
+    WHERE student_username='$username'";
+    $result2=mysqli_query($conn,$sql2);
+    
+    $vdo=$_GET['vdo'];
+    
+        mysqli_query($conn,"SET CHARACTER SET UTF8");
+        $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
+        $result = mysqli_query($conn,$sql);
+    
+        $sql1="SELECT * FROM vdo WHERE vdo_id ='$vdo'";
+        $result1 = mysqli_query($conn,$sql1);
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -216,29 +241,19 @@
         <br>
 <!-- START SECTION ABOUT -->
 <section class="small_pt small_pb overflow-hidden">
+<?php while($row=mysqli_fetch_array($result1)){?>
 	<div class="container-fluid p-0">
     	<div class="row no-gutters align-items-center">
         	<div class="col-md-6">
             	<div class="box_shadow1 bg-white overlap_section padding_eight_all">
                 	<div class="animation" data-animation="fadeInLeft" data-animation-delay="0.02s">
                         <div class="heading_s1"> 
-                          <h2>About Us</h2>
+                          <h2><?php echo $row["vdo_name"]?></h2>
                         </div>
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary</p>
                         <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
                         <ul class="list_none list_item">
-                        	<!-- <li>
-                            	<div class="counter_content">
-                                    <h3 class="h1 text_danger"><span class="counter">260</span></h3>
-                                    <h6>Free Courses</h6>
-                                </div>
-                            </li>
-                            <li>
-                            	<div class="counter_content">
-                                    <h3 class="h1 text_light_green"><span class="counter">152</span></h3>
-                                    <h6>Paid Courses</h6>
-                                </div>
-                            </li> -->
+     
                         </ul>
                     </div>
                 </div>
@@ -248,13 +263,14 @@
                 	<div class="overlay_bg_30 about_img z_index_minus1">	
                     	<img class="w-100" src="assets2/images/about_img.jpg" alt="about_img"/>
                     </div>
-                	<a href="https://www.youtube.com/watch?v=7e90gBu4pas" class="video_popup video_play">
+                	<a href="../uploadvdo/<?=$row["vdo_link"]?>" class="video_popup video_play">
                     	<span class="ripple"><i class="ion-play ml-1"></i></span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+    <?php }?>
 </section>
 <!-- END SECTION ABOUT -->
 

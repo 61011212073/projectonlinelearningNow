@@ -11,7 +11,7 @@
     if (isset($_GET['logout'])) {
       session_destroy();
       unset($_SESSION['student_username']);
-      header('location: ../index.html');
+      header('location: ../index.php');
     }
     require("conn.php");
     $username=$_SESSION['student_username'];
@@ -77,6 +77,7 @@
 <link rel="stylesheet" href="assets2/css/style.css" />
 <link rel="stylesheet" href="assets2/css/responsive.css" />
 <link rel="stylesheet" id="layoutstyle" href="assets2/color/theme.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -305,10 +306,10 @@
           </div>
 
         </div>
-        <br>
+        <br><br>
         	<div class="col-md-12">
             	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                	<h2 style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</h2>
+                	<h2 style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</h2><hr>
                 </div>
             </div> 
           <div class="row"> 
@@ -344,7 +345,12 @@
                         <font style="font-family: 'Kanit', sans-serif;">
                           <div class="blog_content bg-white" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
+                            <h5 class="blog_title"><a  style="font-family: 'Kanit', sans-serif; height: 40px;">ล่าสุด</a></h5>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> test22/6</a></h6>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-movie-o" style="font-size:24px"></i> บทที่ 2 </a></h6>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-movie-o" style="font-size:24px"></i> บทที่ 1 </a></h6>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> <?php echo $row['subject_engname']?></a></h6>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> <?php echo $row['subject_engname']?></a></h6>
                            </div>
                         </font>
                         

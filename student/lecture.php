@@ -1,11 +1,37 @@
 <?php
-    require("conn.php");
-    mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
-    $result = mysqli_query($conn,$sql);
+    session_start();
+    if (!isset($_SESSION['student_username'])) {
+      header('location: ../login.html');
+    }
+    if (isset($_GET['logout'])) {
+      session_destroy();
+      unset($_SESSION['student_username']);
+      unset($_SESSION['study_coursesopen_id']);
+      header('location: ../index.php');
+    }
+    require("conn.php"); 
+    
+    $username=$_SESSION['student_username'];
+    $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
+    student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
+    department.department_name,student.student_username,student.student_password,student.student_status 
+    FROM student 
+    INNER JOIN prename ON student.student_prename_id =prename.preName_id 
+    INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
+    INNER JOIN faculty ON student.student_faculty_id =faculty.faculty_id 
+    INNER JOIN department ON student.student_department_id=department.department_id
+    WHERE student_username='$username'";
+    $result2=mysqli_query($conn,$sql2);
 
-    $sql1="SELECT * FROM document ORDER BY document_id DESC";
-    $result1 = mysqli_query($conn,$sql1);
+    mysqli_query($conn,"SET CHARACTER SET UTF8");
+    // $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
+    // $result = mysqli_query($conn,$sql);
+
+
+     $subject=$_GET['subject'];
+    // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
+    $sql="SELECT * FROM work WHERE work_courseopen_id ='$subject'"; //แบบปกติ
+    $result = mysqli_query($conn,$sql);
 
 ?>
 <!DOCTYPE html>
@@ -284,21 +310,24 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">ลำดับ</th>
-      <th scope="col">ชื่อแบบฝึกหัด</th>
-      <th scope="col">ไฟล์แบบฝึกหัด</th>
-      <th scope="col">วันที่และเวลา</th>
-      <th scope="col">การส่งงาน</th>
-      <th scope="col">ดูการส่งงาน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อแบบฝึกหัด</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ไฟล์แบบฝึกหัด</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่สั่งงาน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">การส่งงาน</th>
+      <!-- <th scope="col">ดูการส่งงาน</th> -->
 
     </tr>
   </thead>
   <tbody>
+  <?php $i=0; while($row = mysqli_fetch_array($result)){ $i=$i+1 ?>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+      <th scope="row" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></th>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["work_name"];?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><a href="../uploadwork/<?=$row["work_file"]?>" style="color:blue; font-family: 'Kanit', sans-serif;"><?php echo $row["work_file"];?></a></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["work_date"];?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["work_enddate"];?></td>
       <td>
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
       <i class="fas fa-upload"></i>
@@ -326,17 +355,10 @@
                         <div >
                             <label for="validationCustom01" class="form-label" >ชื่องาน</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่องาน" required>
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
                           </div>
                           <div >
                           <label for="formFile" class="form-label">ไฟล์งาน</label>
                           <input class="form-control" type="file" id="formFile">
-
-                            <div class="valid-feedback">
-                              Looks good!
-                            </div>
                           </div>
                           
                         <!-- <div class="col-12">
@@ -356,12 +378,12 @@
               </div>
         </div>
       </td>
-      <td>
+      <!-- <td>
       <a class="btn btn-primary" href="sentlecture.php" role="button"> <i class="fa fa-clipboard"></i></a>
      
-      </td>
+      </td> -->
     </tr>
-   
+    <?php } ?>
   </tbody>
 </table>
 </div>

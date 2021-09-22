@@ -199,6 +199,17 @@ $subject=$_GET["subb"];
                     </div>
                 </div></a>
             </div>
+            <div class="col-lg-4 col-md-6"><a href="#">
+            	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
+                	<div class="box_icon bg_light_green mb-3" style="background-color: pink;">
+                        <img src="assets2/images/detail.png" alt="instructors" />
+                    </div>
+                    <div class="intro_desc">
+                        <h5>คำอธิบายรายวิชา</h5>
+                        <!--<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>-->
+                    </div>
+                </div></a>
+            </div>
 
         </div>
     </div>

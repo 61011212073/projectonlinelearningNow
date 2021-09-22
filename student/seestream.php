@@ -7,7 +7,7 @@ if (isset($_GET['logout'])) {
   session_destroy();
   unset($_SESSION['student_username']);
   unset($_SESSION['study_coursesopen_id']);
-  header('location: ../index.html');
+  header('location: ../index.php');
 }
 require("conn.php");
 
