@@ -17,7 +17,7 @@
     $username=$_SESSION['student_username'];
     $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
     student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
-    department.department_name,student.student_username,student.student_password,student.student_status 
+    department.department_name,student.student_username,student.student_password,student.student_status,student.student_profile
     FROM student 
     INNER JOIN prename ON student.student_prename_id =prename.preName_id 
     INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
@@ -154,13 +154,14 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                    <div class="mt-3">
                     <?php while($rows=mysqli_fetch_array($result3)){ ?>
+                    <img src="../uploadphoto/<?=$rows["student_profile"]?>" alt="Admin" class="rounded-circle" width="130">
+                    <div class="mt-3">
+                    
                       <h4><?php echo $rows['student_fname'];?> <?php echo $rows['student_lname'];?></h4>
                      
-                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;">Full Stack Developer</p>
-                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;">Bay Area, San Francisco, CA</p>
+                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['student_lname'];?></p>
+                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['student_lname'];?></p>
                        <?php }?>
                       <div class="col-sm-12">
                       <a class="btn btn-info "  href="editProfile.php" style="font-family: 'Kanit', sans-serif;">Edit</a>
@@ -169,14 +170,14 @@
                   </div>
                 </div>
               </div>
-              <div class="card mt-3">
+              <!-- <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
                     <span class="text-secondary" style="font-family: 'Kanit', sans-serif;">ต้าเก้ออออออ</span>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
             <?php while($row=mysqli_fetch_array($result4)){ ?>
             <div class="col-md-8">
@@ -191,32 +192,32 @@
                     </div>
                   </div>
                   <hr>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">คำนำหน้าชื่อ</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-                    <?php echo $row['preName_name'];?>
+                    <?php //echo $row['preName_name'];?>
                     </div>
                   </div>
-                  <hr>
+                  <hr> -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">ชื่อ</h6>
+                      <h6 class="mb-0">ชื่อ-นามสกุล</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-                    <?php echo $row['student_fname'];?>
+                    <?php echo $row['preName_name'].' '.$row['student_fname'].' '.$row['student_lname'];?>
                     </div>
                   </div>
-                  <hr>
+                  <!-- <hr>
                   <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">นามสกุล</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-                    <?php echo $row['student_lname'];?>
+                    <?php //echo $row['student_lname'];?>
                     </div>
-                  </div>
+                  </div> -->
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
@@ -257,25 +258,25 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">คณะ</h6>
+                      <h6 class="mb-0">คณะ-ภาควิชา</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-                    <?php echo $row['faculty_name'];?>
+                    <?php echo $row['faculty_name'].' '.$row['department_name'];?>
                     </div>
                   </div>
                   <hr>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">ภาควิชา</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-                    <?php echo $row['department_name'];?>
+                    <?php //echo $row['department_name'];?>
                     </div>
                   </div>
-                  <hr>
+                  <hr> -->
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">ชื่อผู้ใช้</h6>
+                      <h6 class="mb-0">ชื่อผู้ใช้(username)</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                     <?php echo $row['student_username'];?>
@@ -284,7 +285,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">รหัสผ่าน</h6>
+                      <h6 class="mb-0">รหัสผ่าน(password)</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                     <?php echo $row['student_password'];?>
@@ -328,7 +329,7 @@
                     </div>
                     <font style="font-family: 'Kanit', sans-serif;">
                         <div class="blog_content bg-white" >
-                            <?php $subject=$row['study_coursesopen_id']; echo $subject; $_SESSION['study_coursesopen_id']=$subject; ?>
+                            <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
                             <p style="font-family: 'Kanit', sans-serif; height: 120px;"><?php echo $row['subject_detail_thai'];?></p>
                             

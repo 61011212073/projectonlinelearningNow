@@ -29,7 +29,7 @@
   <div class="container">
     <div class="title">สมัครสมาชิก นิสิต</div>
     <div class="content">
-      <form action="regisstd.php" method="post">
+      <form action="./registes_forgot/regisstd.php" method="post" enctype="multipart/form-data">
         <div class="user-details">
          <div class="input-box">
             <span class="details">รหัสนิสิต</span>
@@ -37,7 +37,6 @@
           </div>
           <div class="input-box">
             <span class="details">คำนำหน้าชื่อ</span>
-            <!-- <input type="text" placeholder="คำนำหน้าชื่อ" required> -->
             <select name="student_prename_id">
                <option>เลือกคำนำหน้าชื่อ</option>
                <?php
@@ -71,7 +70,6 @@
           </div>
           <div class="input-box">
             <span class="details">มหาวิทยาลัย</span>
-            <!-- <input type="text" placeholder="อีเมล์" required> -->
             <select name="student_univercity_id">
                <option>เลือกมหาวิทยาลัย</option>
                <?php
@@ -85,7 +83,6 @@
           </div>
           <div class="input-box">
             <span class="details">คณะ</span>
-            <!-- <input type="text" placeholder="คณะ" required> -->
             <select name="student_faculty_id">
                <option>เลือกคณะ</option>
                <?php
@@ -99,7 +96,6 @@
           </div>
           <div class="input-box">
             <span class="details">ภาควิชา</span>
-            <!-- <input type="text" placeholder="ภาควิชา" required> -->
             <select name="student_department_id">
                <option>เลือกภาควิชา</option>
                <?php
@@ -118,34 +114,16 @@
           <div class="input-box">
             <span class="details">รหัสผ่าน</span>
             <input type="password" placeholder="รหัสผ่าน" required name="student_password">
-          </div>
-          <div class="input-box">
-            <span class="details">เลือกรูปภาพ</span>
-            <input class="form-control" type="file" id="formFile">
-          </div>
+          </div> 
+          <div class="form-group">
+                    <label for="usr" style="font-family: 'Kanit', sans-serif;">เลือกรูปภาพ :</label>
+                    <input type="file" required class="form-control" name="student_profile" style="font-family: 'Kanit', sans-serif;">
+                </div>
         </div>
-        <!-- <div class="gender-details">
-          <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
-          <span class="gender-title">Gender</span>
-          <div class="category">
-            <label for="dot-1">
-            <span class="dot one"></span>
-            <span class="gender">Male</span>
-          </label>
-          <label for="dot-2">
-            <span class="dot two"></span>
-            <span class="gender">Female</span>
-          </label>
-          <label for="dot-3">
-            <span class="dot three"></span>
-            <span class="gender">Prefer not to say</span>
-            </label>
-          </div>
-        </div> -->
+
             <div class="button" width="50px">
-              <input type="submit" value="สมัครสมาชิก"  >
+            <button type="submit" class="btn btn-primary" name="submit" style="font-family: 'Kanit', sans-serif;">สมัครสมาชิก</button>
+              <!-- <input type="submit" value="สมัครสมาชิก" name="submit"> -->
              </div>
       </form>
     </div>

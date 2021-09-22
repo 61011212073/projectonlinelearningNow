@@ -1,33 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
         <title>Cross-browser CSS box-sizing:border-box</title>
-
-        <style type="text/css">
-            form {display:block; margin:0; padding:0; width:50%; border:1px solid green; overflow:visible}
-            div, input {display:block; border:1px solid red; padding:5px; width:100%; font:normal 12px Arial}
-
-            /* The voodoo starts here */
-            .bb {
-                box-sizing: border-box; /* CSS 3 rec */
-                -moz-box-sizing: border-box; /* Firefox 2 */
-                -ms-box-sizing: border-box; /* Internet Explorer 8 */
-                -webkit-box-sizing: border-box; /* Safari 3 */
-                -khtml-box-sizing: border-box; /* Konqueror */
-            }
-        </style>
-
-        <!-- The voodoo gets scary. Force Internet Explorer 6 and Internet Explorer 7 to support Internet Explorer 5's box model -->
-        <!--[if lt IE 8]><style>.bb {behavior:url("boxsizing.htc");}</style><![endif]-->
     </head>
 
     <body>
-        <form name="foo" action="#">
-            <div class="bb">div</div>
-            <input class="bb" size="20" name="bar" value="field">
+        <form action="./registes_forgot/test.php" method="post" enctype="multipart/form-data">
+            <div>เลือกรูป :</div>
+            <input type="file" name="student_profile" >
+            <input type="submit" value="สมัครสมาชิก" name="submit">
         </form>
     </body>
 </html>

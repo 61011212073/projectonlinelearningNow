@@ -9,7 +9,7 @@
       unset($_SESSION['study_coursesopen_id']);
       header('location: ../index.html');
     }
-    require("conn.php");
+    require("conn.php"); 
     
     $username=$_SESSION['student_username'];
     $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,

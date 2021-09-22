@@ -127,7 +127,7 @@ $subject=$_GET["subb"];
             	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
                     <div class="heading_s1 text-center">
                         <br>
-                        <h2>เกี่ยวกับรายวิชา</h2><?php echo $subject?>
+                        <h2>เกี่ยวกับรายวิชา</h2><?php //echo $subject?>
                     </div>
                    <!--<p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>--> 
                 </div>
