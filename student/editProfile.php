@@ -17,7 +17,7 @@
     $username=$_SESSION['student_username'];
     $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
     student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
-    department.department_name,student.student_username,student.student_password,student.student_status 
+    department.department_name,student.student_username,student.student_password,student.student_status,student.student_profile 
     FROM student 
     INNER JOIN prename ON student.student_prename_id =prename.preName_id 
     INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
@@ -185,14 +185,16 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+								<?php while($row=mysqli_fetch_array($result3)){ ?>	
+							<img src="../uploadphoto/<?=$row["student_profile"]?>" alt="Admin" class="rounded-circle" width="130">
 								
 								<div class="mt-3">
-								<?php while($row=mysqli_fetch_array($result3)){ ?>	
+								
                                 <h4><?php echo $row['student_fname'];?> <?php echo $row['student_lname'];?></h4>
-								<?php }?>
-                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;">Full Stack Developer</p>
-                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;">Bay Area, San Francisco, CA</p>
+								
+								<p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $row['department_name'];?></p>
+                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;"><?php echo $row['faculty_name'].' '.$row['univercity_thname'];?></p>
+					  <?php }?>
                       <div class="col-sm-12">
                       <a class="btn btn-info "  href="editProfile.php"  style="font-family: 'Kanit', sans-serif;">Edit</a>
                     </div>
@@ -200,7 +202,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card mt-3">
+              <!-- <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -208,7 +210,7 @@
                     <span class="text-secondary" style="font-family: 'Kanit', sans-serif;">ต้าเก้ออออออ</span>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
 			<?php while($row=mysqli_fetch_array($result4)){ ?>
 			 
@@ -221,8 +223,7 @@
 									<h6 class="mb-0">รหัสนิสิต</h6>
 								</div>
 								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="student_id"> -->
-									<?php echo $row['student_id'];?>
+									<input type="text" class="form-control" value="<?php echo $row['student_id'];?>" style="font-family: 'Kanit', sans-serif;" name="student_id" readonly/>
 								</div>
 							</div>
 							<div class="row mb-3">
@@ -278,8 +279,7 @@
 									<h6 class="mb-0">มหาวิทยาลัย</h6>
 								</div>
 								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="univercity_thname"> -->
-									<?php echo $row['univercity_thname'];?>
+									<input type="text" class="form-control" value="<?php echo $row['univercity_thname'];?>" style="font-family: 'Kanit', sans-serif;" name="univercity_thname" readonly/>
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -287,8 +287,8 @@
 									<h6 class="mb-0">คณะ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-									<!-- <input type="text" class="form-control" value="" style="font-family: 'Kanit', sans-serif;" name="faculty_name"> -->
-									<?php echo $row['faculty_name'];?>
+									<input type="text" class="form-control" value="<?php echo $row['faculty_name'];?>" style="font-family: 'Kanit', sans-serif;" name="faculty_name" readonly/>
+									
 								</div>
 							</div>
                             <div class="row mb-3">
@@ -296,12 +296,12 @@
 									<h6 class="mb-0">ภาควิชา</h6>
 								</div>
 								<div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
-									<input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif; display:block;" name="department_name">
+									<input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif; display:block;" name="department_name" readonly/>
 								</div>
 							</div>
                             <div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">ชื่อผู้ใช้</h6>
+									<h6 class="mb-0">ชื่อผู้ใช้(Username)</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									<input type="text" class="form-control" value="<?php echo $row['student_username'];?>" style="font-family: 'Kanit', sans-serif;" name="student_username">
@@ -309,7 +309,7 @@
 							</div>
                             <div class="row mb-3">
 								<div class="col-sm-3">
-									<h6 class="mb-0">รหัสผ่าน</h6>
+									<h6 class="mb-0">รหัสผ่าน(Password)</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
 									<input type="text" class="form-control" value="<?php echo $row['student_password'];?>" style="font-family: 'Kanit', sans-serif;" name="student_password">

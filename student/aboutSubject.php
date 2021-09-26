@@ -31,7 +31,7 @@
     $result4=mysqli_query($conn,$sql2);
 
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT study.study_coursesopen_id,subject.subject_engname,subject.subject_detail_thai,teacher.teacher_fname,teacher.teacher_lname 
+    $sql="SELECT study.study_coursesopen_id,subject.subject_id,subject.subject_engname,subject.subject_detail_thai,teacher.teacher_fname,teacher.teacher_lname 
     FROM study 
     INNER JOIN student ON study.study_student_id=student.student_id
     INNER JOIN coursesopen ON study.study_coursesopen_id=coursesopen.coursesopen_id
@@ -39,6 +39,14 @@
     INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
     WHERE student_username='$username'";
     $result = mysqli_query($conn,$sql);
+
+    
+
+    $sql4="SELECT * FROM vdo";
+    $vdo;
+
+    $sql5="SELECT * FROM work";
+    $work;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -107,9 +115,9 @@
                 <li>
                         <a class="nav-link" href="aboutSubject.php?subject='1'" style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a class="nav-link" href="#" style="font-family: 'Kanit', sans-serif;" >เกี่ยวกับนักเรียน</a>
-                    </li>
+                    </li> -->
                     <li class="dropdown">
                          <?php while($row=mysqli_fetch_array($result2)){ ?>
                         <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown" style="font-family: 'Kanit', sans-serif;"><?php echo $row['student_fname'];?> <?php echo $row['student_lname'];?></a>
@@ -161,8 +169,8 @@
                     
                       <h4><?php echo $rows['student_fname'];?> <?php echo $rows['student_lname'];?></h4>
                      
-                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['student_lname'];?></p>
-                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['student_lname'];?></p>
+                      <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['department_name'];?></p>
+                      <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['faculty_name'].' '.$rows['univercity_thname'];?></p>
                        <?php }?>
                       <div class="col-sm-12">
                       <a class="btn btn-info "  href="editProfile.php" style="font-family: 'Kanit', sans-serif;">Edit</a>
@@ -259,7 +267,7 @@
                   <hr>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0">คณะ-ภาควิชา</h6>
+                      <h6 class="mb-0">ภาควิชา</h6>
                     </div>
                     <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                     <?php echo $row['faculty_name'].' '.$row['department_name'];?>
@@ -328,6 +336,7 @@
                         <font style="font-family: 'Kanit', sans-serif;">
                           <div class="blog_content bg-white" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_id']?></a></h6>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
                             <p style="font-family: 'Kanit', sans-serif; height: 120px;"><?php echo $row['subject_detail_thai'];?></p>
                            </div>
@@ -346,11 +355,12 @@
                           <div class="blog_content bg-white" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
                             <h5 class="blog_title"><a  style="font-family: 'Kanit', sans-serif; height: 40px;">ล่าสุด</a></h5>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> test22/6</a></h6>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-movie-o" style="font-size:24px"></i> บทที่ 2 </a></h6>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-movie-o" style="font-size:24px"></i> บทที่ 1 </a></h6>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> <?php echo $row['subject_engname']?></a></h6>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i> <?php echo $row['subject_engname']?></a></h6>
+                            <?php 
+                                $sql3="SELECT * FROM document WHERE document_coursesopen_id=".$row['study_coursesopen_id'];
+                                $document=mysqli_fetch_assoc(mysqli_query($conn,$sql3));
+                            
+                            ?>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i><?php echo $document['document_name']; ?></a></h6>
                            </div>
                         </font>
                         

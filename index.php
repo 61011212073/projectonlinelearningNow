@@ -263,7 +263,7 @@
             </div>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 20%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
@@ -278,7 +278,7 @@
             <hr>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 50%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
@@ -293,7 +293,7 @@
             <hr>
             <div class="testimonial_box">
                 <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" style="size: 50%;">
+                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">

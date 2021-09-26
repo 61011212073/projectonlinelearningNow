@@ -6,7 +6,7 @@
     if (isset($_GET['logout'])) {
       session_destroy();
       unset($_SESSION['teacher_username']);
-      header('location: ../index.html');
+      header('location: ../index.php');
     }
     require("conn.php");
     $username=$_SESSION['teacher_username'];
@@ -57,12 +57,12 @@
     </div>
     <ul class="nav-links">
       <li>
-        <a href="hometeacher1.php">
+        <a href="./teacher/hometeacher1.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
+          <li><a class="link_name" href="./teacher/hometeacher1.php" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
@@ -85,13 +85,13 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">การทำงานอาจารย์</a></li>
-          <li><a href="teacher/opensubject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชาที่เปิดสอน</a></li>
-          <li><a href="teacher/addstudentinsubject.php" style="font-family: 'Kanit', sans-serif;">- นิสิตในรายวิชา</a></li>
+          <li><a href="./teacher/opensubject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชาที่เปิดสอน</a></li>
+          <li><a href="./teacher/addstudentinsubject.php" style="font-family: 'Kanit', sans-serif;">- นิสิตในรายวิชา</a></li>
           <li><a href="adddocument.php" style="font-family: 'Kanit', sans-serif;">- เอกสารการสอน</a></li>
           <li><a href="addvdo.php" style="font-family: 'Kanit', sans-serif;">- วีดิทัศน์</a></li>
           <li><a href="addexam.php" style="font-family: 'Kanit', sans-serif;">- แบบฝึกหัด</a></li>
-          <li><a href="teacher/addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
-          <li><a href="teacher/exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
+          <li><a href="./teacher/addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
+          <li><a href="./teacher/exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
         </ul>
       </li>
@@ -105,12 +105,12 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลพื้นฐาน</a></li>
-          <li ><a href="Prename.php" style="font-family: 'Kanit', sans-serif;">- คำนำหน้าชื่อ</a></li>
-          <li><a href="univercity.php" style="font-family: 'Kanit', sans-serif;">- มหาวิทยาลัย</a></li>
-          <li><a href="faculty.php" style="font-family: 'Kanit', sans-serif;">- คณะ</a></li>
-          <li><a href="department.php" style="font-family: 'Kanit', sans-serif;">- ภาควิชา</a></li>
-          <li><a href="course.php" style="font-family: 'Kanit', sans-serif;">- หลักสูตร</a></li>
-          <li><a href="subject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชา</a></li>
+          <li ><a href="./teacher/Prename.php" style="font-family: 'Kanit', sans-serif;">- คำนำหน้าชื่อ</a></li>
+          <li><a href="./teacher/univercity.php" style="font-family: 'Kanit', sans-serif;">- มหาวิทยาลัย</a></li>
+          <li><a href="./teacher/faculty.php" style="font-family: 'Kanit', sans-serif;">- คณะ</a></li>
+          <li><a href="./teacher/department.php" style="font-family: 'Kanit', sans-serif;">- ภาควิชา</a></li>
+          <li><a href="./teacher/course.php" style="font-family: 'Kanit', sans-serif;">- หลักสูตร</a></li>
+          <li><a href="./teacher/subject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชา</a></li>
         </ul>
       </li>
       <li>

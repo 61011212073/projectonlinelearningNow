@@ -50,7 +50,7 @@
                         }
                         else {
                             echo "<script>alert('User or password Not');</script>";
-                            header("Refresh:0; url=index.html");
+                            header("Refresh:0; url=index.php");
                         }
                     }
                     else{
@@ -72,7 +72,7 @@
     }
     else{
         echo "<script>alert('User or password Not');</script>";
-        header("Refresh:0; url=index.html");
+        header("Refresh:0; url=index.php");
     }
 
 ?>

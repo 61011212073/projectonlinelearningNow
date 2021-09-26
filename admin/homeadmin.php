@@ -6,20 +6,20 @@
     if (isset($_GET['logout'])) {
       session_destroy();
       unset($_SESSION['admin_username']);
-      header('location: ../index.html');
+      header('location: ../index.php');
     }
     require("conn.php");
     $username=$_SESSION['admin_username'];
     $sql="SELECT admin_fname,admin_lname FROM admin WHERE admin_username='$username'";
     $result=mysqli_query($conn,$sql);
 
-    $std= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalstd FROM student"));
+    $std= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as total FROM student"));
 
-    $lec= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalled FROM teacher"));
+    $lec= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as total FROM teacher"));
 
-    $op= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalop FROM coursesopen"));
+    $op= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as total FROM coursesopen"));
 
-    $sub= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalsub FROM subject"));
+    $sub= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as total FROM subject"));
 
     mysqli_query($conn,"SET CHARACTER SET UTF8");
   mysqli_query($conn,"SET CHARACTER SET UTF8");
@@ -299,7 +299,7 @@ if ($pagenum > 1) {
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">3899</h3>
+                                <h3 class="fs-2"><?php echo $lec["total"]?></h3>
                                 <p class="fs-5">จำนวนอาจารย์</p>
                             </div>
                             <i class="fas fa-user fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -308,7 +308,7 @@ if ($pagenum > 1) {
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">4920</h3>
+                                <h3 class="fs-2"><?php echo $std["total"]?></h3>
                                 <p class="fs-5">จำนวนนิสิต</p>
                             </div>
                             <i
@@ -318,7 +318,7 @@ if ($pagenum > 1) {
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">25</h3>
+                                <h3 class="fs-2"><?php echo $sub["total"]?></h3>
                                 <p class="fs-5">จำนวนรายวิชา</p>
                             </div>
                             <i class="fas fa-book fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -327,7 +327,7 @@ if ($pagenum > 1) {
                     <div class="col-md-3">
                         <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                             <div>
-                                <h3 class="fs-2">25</h3>
+                                <h3 class="fs-2"><?php echo $op["total"]?></h3>
                                 <p class="fs-5">จำนวนรายวิชาที่เปิดสอน</p>
                             </div>
                             <i class="fas fa-file fs-1 primary-text border rounded-full secondary-bg p-3"></i>
@@ -343,88 +343,26 @@ if ($pagenum > 1) {
                                 <tr>
                                     <th scope="col" width="150">ลำดับ</th>
                                     <th scope="col" width="250">คำนำหน้าชื่อ</th>
-                                    <th scope="col" width="250">ชื่อ</th>
-                                    <th scope="col" width="250">นามสกุล</th>
+                                    <th scope="col" width="250">ชื่อ-นามสกุล</th>
                                     <th scope="col" width="250">ภาควิชา</th>
                                     <th scope="col" width="250">คณะ</th>
                                     <th scope="col" width="250">มหาวิทยาลัย</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php $i=0; while($row=mysqli_fetch_array($nquery)){ $i=$i+1 ?>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Television</td>
-                                    <td>Jonny</td>
-                                    <td>$1200</td>
+                                <td data-label="ลำดับ"><?php echo $i;?></td>
+                                <td data-label="ชื่อ-สกุล"><?php echo $row[0];?></td>
+                                <td data-label="นามสกุล"><?php echo $row['teacher_fname'].' '.$row['teacher_lname'];?></td>
+                                <td data-label="ชื่อผู้ใช้"><?php echo $row['department_name'];?></td>
+                                <td data-label="ชื่อผู้ใช้"><?php echo $row['faculty_name'];?></td>
+                                <td data-label="ชื่อผู้ใช้"><?php echo $row['univercity_thname'];?></td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Laptop</td>
-                                    <td>Kenny</td>
-                                    <td>$750</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Cell Phone</td>
-                                    <td>Jenny</td>
-                                    <td>$600</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>Fridge</td>
-                                    <td>Killy</td>
-                                    <td>$300</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>Books</td>
-                                    <td>Filly</td>
-                                    <td>$120</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>Gold</td>
-                                    <td>Bumbo</td>
-                                    <td>$1800</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">7</th>
-                                    <td>Pen</td>
-                                    <td>Bilbo</td>
-                                    <td>$75</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">8</th>
-                                    <td>Notebook</td>
-                                    <td>Frodo</td>
-                                    <td>$36</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">9</th>
-                                    <td>Dress</td>
-                                    <td>Kimo</td>
-                                    <td>$255</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">10</th>
-                                    <td>Paint</td>
-                                    <td>Zico</td>
-                                    <td>$434</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">11</th>
-                                    <td>Carpet</td>
-                                    <td>Jeco</td>
-                                    <td>$1236</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">12</th>
-                                    <td>Food</td>
-                                    <td>Haso</td>
-                                    <td>$422</td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
+                        <div id="pagination_controls"><?php echo $paginationCtrls; ?></div>
                     </div>
                 </div>
                 

@@ -1,12 +1,12 @@
 <?php
   session_start();
   if (!isset($_SESSION['admin_username'])) {
-    header('location: ../index.html');
+    header('location: ../login.html');
   }
   if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['admin_username']);
-    header('location: ../index.html');
+    header('location: ../index.php');
   }
   require("conn.php");
     $username=$_SESSION['admin_username'];
@@ -197,7 +197,7 @@
       </div>
     </a>
       <?php }?>
-      <a href="hometeacher1.php?logout='1'">
+      <a href="homeadmin.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
