@@ -40,13 +40,6 @@
     WHERE student_username='$username'";
     $result = mysqli_query($conn,$sql);
 
-    
-
-    $sql4="SELECT * FROM vdo";
-    $vdo;
-
-    $sql5="SELECT * FROM work";
-    $work;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,6 +79,15 @@
 <link rel="stylesheet" href="assets2/css/responsive.css" />
 <link rel="stylesheet" id="layoutstyle" href="assets2/color/theme.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .columns {
+    column-count: 3;
+    column-rule: 2px solid #ddd;
+    column-gap: 1.5rem;
+  -webkit-column-gap: 1.5rem;
+  -moz-column-gap: 1.5rem;
+  }
+</style>
 
 </head>
 
@@ -352,15 +354,96 @@
             	    <div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                 	      
                         <font style="font-family: 'Kanit', sans-serif;">
-                          <div class="blog_content bg-white" >
-                            <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
-                            <h5 class="blog_title"><a  style="font-family: 'Kanit', sans-serif; height: 40px;">ล่าสุด</a></h5>
+                          <div class="blog_content bg-white columns">
                             <?php 
                                 $sql3="SELECT * FROM document WHERE document_coursesopen_id=".$row['study_coursesopen_id'];
-                                $document=mysqli_fetch_assoc(mysqli_query($conn,$sql3));
+                                $resultdocument=mysqli_query($conn,$sql3);
+                                
+                                $sql_vdo="SELECT * FROM vdo WHERE vdo_coursesopen_id =".$row['study_coursesopen_id'];
+                                $vdo=mysqli_query($conn,$sql_vdo);
+
+                                $sql_live="SELECT * FROM live WHERE live_coursesopen_id =".$row['study_coursesopen_id'];
+                                $live=mysqli_query($conn,$sql_live);
+                                
+                                $sql_work="SELECT * FROM work WHERE work_courseopen_id =".$row['study_coursesopen_id'];
+                                $work=mysqli_query($conn,$sql_work);
+
+
+                                $resultdoc= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as countdoc FROM document WHERE document_coursesopen_id =".$row['study_coursesopen_id']));
+                                $resultvdo= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as countvdo FROM vdo WHERE vdo_coursesopen_id =".$row['study_coursesopen_id']));
+                                // $resultlive= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as countlive FROM live WHERE live_coursesopen_id =".$row['study_coursesopen_id']));
+                                $resultwork= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as countwork FROM work WHERE work_courseopen_id =".$row['study_coursesopen_id']));
                             
                             ?>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><i class="fa fa-file-pdf-o" style="font-size:24px"></i><?php echo $document['document_name']; ?></a></h6>
+                            <!-- ========================================================================================================================================================== -->
+                            <h6 class="blog_title"><a  style="font-family: 'Kanit', sans-serif;">เอกสารประกอบการสอนล่าสุด</a></h6>
+                            <p>
+                              <?php 
+                                    if ($resultdoc['countdoc']>=1 && $resultdoc['countdoc']<=5) {
+                                      while ($document=mysqli_fetch_array($resultdocument)) {
+                              ?>
+                                                <a href="../uploadbook/<?=$document["document_file"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
+                                                  <i class="fa fa-file-pdf-o" style="font-size:24px"></i><?php echo ' '.$document["document_name"] ?>
+                                                </a><br>
+                              <?php
+                                      
+                                      }
+                                    }
+                                    else if($resultdoc['countdoc']>5){
+
+                                    }
+                                    else{
+                                      echo "<h6 style='font-family: 'Kanit', sans-serif;'> ยังไม่มีข้อมูล </h6>";
+                                    }
+                                    
+                              ?>
+                            </p>
+                          <!-- ========================================================================================================================================================== -->
+                            <h6 class="blog_title"><a  style="font-family: 'Kanit', sans-serif; height: 40px;">วีดีทัศน์ล่าสุด</a></h6>
+                            <p>
+                              <?php 
+                                      if ($resultvdo['countvdo']>=1 && $resultvdo['countvdo']<=5) {
+                                          while ($vdo1=mysqli_fetch_array($vdo)) {
+                                        
+                                ?>
+                                            <a href="../uploadvdo/<?=$vdo1["vdo_link"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
+                                              <i class="fa fa-file-movie-o" style="font-size:24px"></i><?php echo ' '.$vdo1["vdo_name"] ?>
+                                            </a><br>
+                                <?php
+                                        }
+                                        }
+                                      else if($resultvdo['countvdo']>5){
+
+                                      }
+                                      else{
+                                        echo "<h6 style='font-family: 'Kanit', sans-serif;'> ยังไม่มีข้อมูล </h6>";
+                                      }
+                                      
+                                ?>
+                            </p>
+                            <!-- ========================================================================================================================================================== -->
+                            <h6 class="blog_title"><a  style="font-family: 'Kanit', sans-serif;">งานล่าสุด</a></h6>
+                            <p>
+                              <?php 
+                                      if ($resultwork['countwork']>=1 && $resultwork['countwork']<=5) {
+                                        while ($work1=mysqli_fetch_array($work)) {
+                                ?>
+                                            <a href="../uploadwork/<?=$work1["work_file"]?>" style="font-family: 'Kanit', sans-serif;">
+                                            <i class="fas fa-file-alt" style="font-size:24px"></i><?php echo ' '.$work1["work_name"] ?>
+                                            </a><br>
+                                <?php
+                                          }
+                                        }
+                                      else if($resultwork['countwork']>5){
+
+                                      }
+                                      else{
+                                        echo "<h6 style='font-family: 'Kanit', sans-serif;'> ยังไม่มีข้อมูล </h6>";
+                                      }
+                                      
+                                ?>
+                            </p>
+                              
                            </div>
                         </font>
                         
