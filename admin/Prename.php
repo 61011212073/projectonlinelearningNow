@@ -239,16 +239,11 @@ if ($pagenum > 1) {
             <tr>
               <td data-label="ลำดับ"><?php echo $i;?></td>
               <td data-label="คำนำหน้าชื่อ"><?php echo $row["preName_name"];?></td>
-              <td data-label="สถานะการใช้งาน">
-                <?php
-                      if ($row['preName_status'] == "1") {
-
-                         echo '<a style="color:#228B22;" id="'.$row["preName_id"].'" class="edit_status">เปิดการใช้งาน</a>';
-                      }
-                     else{
-                        echo '<a style="color:red;" id="'.$row["preName_id"].'" class="edit_status">ปิดการใช้งาน</a>';
-                     }
-               ?>
+              <td>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                </div>
               </td>
               <td>
                   <button type="button" name="edit"  id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>

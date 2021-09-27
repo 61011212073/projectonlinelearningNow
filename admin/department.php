@@ -298,7 +298,7 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                       </div>
                     </div> -->
-                    <?php
+                    <!-- <?php
                         if ($row['department_status'] == "1") {
                           echo "<a style='color:#228B22;' id='".$row["department_id"]."' class='edit_status'>เปิดการใช้งาน</a>";
                         }
@@ -306,7 +306,11 @@
                           echo "<a style='color:red;' id='".$row["department_id"]."' class='edit_status'>ปิดการใช้งาน</a>";
                        }
                       ?>
-                  </td>  
+                  </td>   -->
+                  <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                </div>
                   <td>
                   <button type="button" name="edit"  id="<?php echo $row["department_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
             </td>  

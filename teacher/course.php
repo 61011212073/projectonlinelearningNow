@@ -348,14 +348,18 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                       </div>
                     </div> -->
-                    <?php
+                    <!-- <?php
                          if ($row['course_status'] == "1") {
                           echo "<a style='color:#228B22;' id='".$row["course_id"]."' class='edit_status'>เปิดการใช้งาน</a>";
                         }
                        else{
                           echo "<a style='color:red;' id='".$row["course_id"]."' class='edit_status'>ปิดการใช้งาน</a>";
                        }
-                      ?>
+                      ?> -->
+                      <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                </div>
                   </td>
                   <td>
                   <button type="button" name="edit"  id="<?php echo $row["course_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
