@@ -261,25 +261,27 @@ if ($pagenum > 1) {
                       $('#icon<?php echo $row['preName_id']; ?>').change(function() {
                         //alert($(this).prop('checked'));
                         var ch_val = $(this).prop('checked');
-                        var rel = $(this).attr('rel');
+                        // var rel = $(this).attr('rel');
+                        var rel = <?php echo $row['preName_id']; ?>;
                         //alert(ch_val);
 
                         if(ch_val==true){
                           var status = 1;
-                          alert(status,"เปิดสถานะการใช้งาน");
+                          // alert(status,"เปิดสถานะการใช้งาน");
                         }
                         if(ch_val==false){
                           var status = 0;
-                          alert(status,"ปิดสถานะการใช้งาน");
+                          // alert(status,"ปิดสถานะการใช้งาน");
                         }
 
                         $.ajax({
-                            url: 'status.php',
+                            url: 'status/statuspre.php',
                             type: 'POST',
-                            data: {id: rel, value: status,},
-                            async: false,
+                            data: {id: rel, value: status},
+                            // async: false,
                             success: function (data) {
-                              // console.log(data);
+                              console.log(data);
+                              // data = JSON.toString(data);
                               }
                           });
 

@@ -318,7 +318,7 @@ if (isset($_GET['logout'])) {
                             <th scope="col">นามสกุล</th>
                             <th scope="col">ชื่อผู้ใช้</th>
                             <th scope="col">รหัสผ่าน</th>
-                            <th scope="col">สถานะการใช้งาน</th>  
+                            <!-- <th scope="col">สถานะการใช้งาน</th>   -->
                             <th scope="col">แก้ไขข้อมูล</th>
                             <th scope="col">รายละเอียด</th>
                           
@@ -333,22 +333,16 @@ if (isset($_GET['logout'])) {
                   <td data-label="ชื่อผู้ใช้"><?php echo $row['teacher_lname'];?></td>
                   <td data-label="ชื่อผู้ใช้"><?php echo $row['teacher_password'];?></td>
                   <td data-label="รหัสผ่าน"><?php echo $row[9];?></td>
-                  <td data-label="สถานะการใช้งาน">
-                    <!-- <div>
-                      <div class="form-check form-switch" >
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                      </div>
-                    </div> -->
+                  <!-- <td data-label="สถานะการใช้งาน">
                     <?php
-                        if ($row['teacher_status'] == "1") {
-                          echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                       }
-                      else{
-                         echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                      }
+                      //   if ($row['teacher_status'] == "1") {
+                      //     echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                      //  }
+                      // else{
+                      //    echo "<a style='color:red;'>ปิดการใช้งาน</a>";
+                      // }
                       ?>
-                  </td>
+                  </td> -->
                   <td><input type="button" name="edit" value="Edit" id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
               <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs view_data" /></td> 
                 </tr>
@@ -405,6 +399,21 @@ $(document).ready(function(){
               });  
          }            
     });  
+    $(document).on('click', '.edit_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/teacher/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail1').html(data);  
+                        $('#dataModal1').modal('show');  
+                   }  
+              });  
+         }            
+    });  
 });  
 </script>
 </body>
@@ -418,6 +427,20 @@ $(document).ready(function(){
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>  
               <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+<div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลอาจารย์</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail1">  
               </div>  
              
          </div>  

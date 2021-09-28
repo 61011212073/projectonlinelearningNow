@@ -237,22 +237,46 @@
                   <td data-label="ไฟล์เอกสารประกอบการสอน"><a href="uploadbook/<?=$row["document_file"]?>"><?php echo $row["document_name"];?></a></td>
                   
                   <td data-label="สถานะการใช้งาน">
-                    <!-- <div>
-                      <div class="form-check form-switch" >
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                      </div>
-                    </div> -->
-                    <?php
-                          // if ($row['faculty_status'] == "1") {
-                            echo "<a style='color:#228B22;'>Active</a>";
-                        //   }
-                        //  else{
-                        //     echo "<a style='color:red;'>Inactive</a>";
-                        //  }
-                   ?>
+                  <?php
+                    if ($row["document_status"]==1) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'" checked>
+                    </div>';
+                    }
+                    else if ($row["document_status"]==0) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'">
+                    </div>';
+                    }
+                ?>
+                <script>
+                    $(function() {
+                      $('#icon<?php echo $row['document_id']; ?>').change(function() {
+                        var ch_val = $(this).prop('checked');
+                        var rel = <?php echo $row['document_id']; ?>;
+
+                        if(ch_val==true){
+                          var status = 1;
+                        }
+                        if(ch_val==false){
+                          var status = 0;
+                        }
+
+                        $.ajax({
+                            url: 'status/statusdoc.php',
+                            type: 'POST',
+                            data: {id: rel, value: status},
+                            success: function (data) {
+                              console.log(data);
+                              }
+                          });
+
+                    
+                      })
+                    })
+                </script>
                   </td>
-                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
+                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["document_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
               <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
         </td>
                 </tr>

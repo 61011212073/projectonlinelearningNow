@@ -274,25 +274,46 @@
                       </td>
                       <td data-label="มหาวิทยาลัย"><?php echo $row[1];?></td>
                       <td data-label="สถานะการใช้งาน">
-                        <!-- <div class="col-12">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                          </div>
-                        </div> -->
-                       <!-- <?php
-                           if ($row["univercity_status"] == "1") {
-                            echo '<a style="color:#228B22;" id="'.$row["univercity_id"].'" class="edit_status">เปิดการใช้งาน</a>';
-                          }
-                         else{
-                            echo '<a style="color:red;" id="'.$row["univercity_id"].'" class="edit_status">ปิดการใช้งาน</a>';
-                         }
-                   ?> -->
+                      <?php
+                        if ($row["univercity_status"]==1) {
+                          echo '<div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="icon'.$row["univercity_id"].'" checked>
+                        </div>';
+                        }
+                        else if ($row["univercity_status"]==0) {
+                          echo '<div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="icon'.$row["univercity_id"].'">
+                        </div>';
+                        }
+                    ?>
+                    <script>
+                        $(function() {
+                          $('#icon<?php echo $row['univercity_id']; ?>').change(function() {
+                            var ch_val = $(this).prop('checked');
+                            var rel = <?php echo $row['univercity_id']; ?>;
 
-                  <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                </div>
+                            if(ch_val==true){
+                              var status = 1;
+                            }
+                            if(ch_val==false){
+                              var status = 0;
+                            }
+
+                            $.ajax({
+                                url: 'status/statusuni.php',
+                                type: 'POST',
+                                data: {id: rel, value: status},
+                                // async: false,
+                                success: function (data) {
+                                  console.log(data);
+                                  // data = JSON.toString(data);
+                                  }
+                              });
+
+                        
+                          })
+                        })
+                    </script>
               </td>
                       </td>
                       <td>
