@@ -20,7 +20,6 @@
   INNER JOIN department ON teacher.teacher_department_id=department.department_id 
   WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
-  $teacher=mysqli_fetch_assoc($result);
 
   mysqli_query($conn,"SET CHARACTER SET UTF8");
   mysqli_query($conn,"SET CHARACTER SET UTF8"); 
@@ -190,10 +189,6 @@
                       <div >
                         <label for="validationCustom01" class="form-label" >ปีการศึกษา</label>
                         <input type="text" class="form-control" id="validationCustom01" placeholder="ปีการศึกษา" required name="coursesopen_schoolyear">
-                      </div>
-                      <div >
-                        <label for="validationCustom01" class="form-label" >อาจารย์ผู้สอน</label>
-                        <input type="text" class="form-control" id="validationCustom01" value="<?php echo $username ?>" required name="teacher_username" readonly>
                       </div>
                       
                     <!-- <div class="col-12">

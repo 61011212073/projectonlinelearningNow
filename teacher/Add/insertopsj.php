@@ -17,22 +17,13 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $coursesopen_subject_id = $_POST["coursesopen_subject_id"];
     $coursesopen_term = clean($_POST["coursesopen_term"]);
 	$coursesopen_schoolyear = $_POST["coursesopen_schoolyear"];
-    $teacher_username=clean($_POST['teacher_username']);
-
-    $mysql="SELECT teacher_id FROM teacher WHERE teacher_username='$teacher_username'";
-    $query1=mysqli_fetch_assoc(mysqli_query($conn,$mysql));
-    // echo $query1["teacher_id"];
-
-    $coursesopen_teacher_id =$query1["teacher_id"];
+    // $coursesopen_teacher_id =$_POST["coursesopen_teacher_id"];
     // $coursesopen_status = $_POST["coursesopen_status"];
 
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT * FROM coursesopen WHERE coursesopen_subject_id='$coursesopen_subject_id' AND coursesopen_term='$coursesopen_term' AND
-    coursesopen_schoolyear='$coursesopen_schoolyear' AND
-    coursesopen_teacher_id='$coursesopen_teacher_id' ";
-
+    $query = "SELECT faculty_name FROM faculty WHERE coursesopen_subject_id='$coursesopen_subject_id'";
     $result = mysqli_query($conn, $query);
-    if ($coursesopen_term==="" && $coursesopen_schoolyear==="" && $coursesopen_teacher_id==="") {
+    if ($coursesopen_term=="" && $coursesopen_schoolyear="") {
         echo "<script type=\"text/javascript\">";
         echo "alert(\"กรุณากรอกข้อมูล\");";
         echo "window.history.back();";
@@ -48,7 +39,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         }
                         else{
                                 $sql1 = "INSERT INTO coursesopen(coursesopen_subject_id,coursesopen_term,coursesopen_schoolyear,coursesopen_teacher_id,coursesopen_status )
-                                        VALUES ('$coursesopen_subject_id','$coursesopen_term','$coursesopen_schoolyear','$coursesopen_teacher_id',1)";
+                                        VALUES ('$coursesopen_subject_id','$coursesopen_term','$coursesopen_schoolyear',1,1)";
                                 if(mysqli_query($conn, $sql1)){
                                 //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";

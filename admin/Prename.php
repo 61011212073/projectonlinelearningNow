@@ -240,10 +240,53 @@ if ($pagenum > 1) {
               <td data-label="ลำดับ"><?php echo $i;?></td>
               <td data-label="คำนำหน้าชื่อ"><?php echo $row["preName_name"];?></td>
               <td>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                </div>
+                <?php
+                    if ($row["preName_status"]==1) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["preName_id"].'" checked>
+                    </div>';
+                    }
+                    else if ($row["preName_status"]==0) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["preName_id"].'">
+                    </div>';
+                    }
+                ?>
+                <!-- <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
+                  <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+                </div> -->
+                <script>
+                    $(function() {
+                      $('#icon<?php echo $row['preName_id']; ?>').change(function() {
+                        //alert($(this).prop('checked'));
+                        var ch_val = $(this).prop('checked');
+                        var rel = $(this).attr('rel');
+                        //alert(ch_val);
+
+                        if(ch_val==true){
+                          var status = 1;
+                          alert(status,"เปิดสถานะการใช้งาน");
+                        }
+                        if(ch_val==false){
+                          var status = 0;
+                          alert(status,"ปิดสถานะการใช้งาน");
+                        }
+
+                        $.ajax({
+                            url: 'status.php',
+                            type: 'POST',
+                            data: {id: rel, value: status,},
+                            async: false,
+                            success: function (data) {
+                              // console.log(data);
+                              }
+                          });
+
+                    
+                      })
+                    })
+                </script>
               </td>
               <td>
                   <button type="button" name="edit"  id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
@@ -251,8 +294,6 @@ if ($pagenum > 1) {
             <td>
                   <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["preName_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
             </td>  
-
-              
             </tr>
             <?php } ?>
           </tbody>
