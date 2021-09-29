@@ -41,6 +41,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
      <link href="demo/style.css" rel="stylesheet">
@@ -243,129 +245,52 @@
                   <td data-label="ไฟล์แบบฝึกหัด"><a href="uploadwork/<?=$row["work_file"]?>"><?php echo $row["work_name"];?></a></td>
                   <td data-label="วันและเวลา"><?php echo $row['work_enddate'];?></td>
                   <td data-label="สถานะการใช้งาน">
-                    <!-- <div>
-                      <div class="form-check form-switch" >
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                      </div>
-                    </div> -->
-                    <?php
-                          // if ($row['faculty_status'] == "1") {
-                            echo "<a style='color:#228B22;'>Active</a>";
-                        //   }
-                        //  else{
-                        //     echo "<a style='color:red;'>Inactive</a>";
-                        //  }
-                   ?>
-                  </td>
-                  <td data-label="รายละเอียด">
-                    <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
+                  <?php
+                      // echo $row["vdo_id";
+                        if ($row["work_status"]==1) {
+                          echo '<div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="icon'.$row["work_id"].'" checked>
+                        </div>';
+                        }
+                        else if ($row["work_status"]==0) {
+                          echo '<div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="icon'.$row["work_id"].'">
+                        </div>';
+                        }
+                    ?>
+                    <script type="text/javascript">
+                        $(function() {
+                          $('#icon<?php echo $row["work_id"]; ?>').change(function() {
+                            var ch_val = $(this).prop('checked');
+                            var rel = <?php echo $row["work_id"]; ?>;
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                  <!-- modal-fullscreen เต็มจอ modal-xl-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลคณะ</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table table-borderless" >
-                        <thead>
-                          <tr>
-                            <th scope="col">หัวข้อ</th>
-                            <th scope="col">ข้อมูล</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <th scope="row">ลำดับ</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">รหัสนิสิต</th>
-                              <td>นาย</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ชื่อ</th>
-                              <td>ใช้งาน</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">นามสกุล</th>
-                                <td>ใช้งาน</td>
-                              </tr>
-                            <tr>
-                              <th scope="row">สถานะการใช้งาน</th>
-                              <td>ใช้งาน</td>
-                            </tr>
-                          </div>
-                          
-                         
-                        </tbody>
-                      </table>
-                </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-          <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลแบบฝึกหัด</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form class="row g-3 needs-validation" novalidate>
-                    <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected>เลือกรายวิชา</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                      
-                    <div >
-                        <label for="validationCustom01" class="form-label" >ชื่อแบบฝึกหัด</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกแบบฝึกหัด" required>
-                      </div>
-                      
-                      <div >
-                        <label for="formFile" class="form-label">ไฟล์แบบฝึกหัด</label>
-                        <input class="form-control" type="file" id="formFile">
-                        </div>
-                      
-                    <!-- <div class="col-12">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                      </div>
-                    </div> -->
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                  <button type="button" class="btn btn-success">แก้ไขข้อมูล</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </td>
+                            if(ch_val==true){
+                              var status = 1;
+                            }
+                            if(ch_val==false){
+                              var status = 0;
+                            }
+
+                            $.ajax({
+                                url: 'status/statuswork.php',
+                                type: 'POST',
+                                data: {id: rel, value: status},
+                                success: function (data) {
+                                  console.log(data);
+                                  }
+                              });
+
+                        
+                          })
+                        })
+                    </script>
+                  </td>
+                  <td>
+                  <button type="button" name="edit"  id="<?php echo $row["work_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["work_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td> 
         <td data-label="การส่งงาน">
             <a class="btn btn-primary" href="report.php" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-clipboard"></i></a>
            

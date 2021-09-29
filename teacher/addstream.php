@@ -47,6 +47,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="Prename1.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
@@ -209,9 +211,9 @@
                   <th scope="col">ชื่อไลฟ์</th>
                   <th scope="col">ลิงก์ไลฟ์</th>
                  
-                  <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -221,138 +223,12 @@
                   <td data-label="ชื่อไลฟ์"><?php echo $row['live_story']?></td>
                   <td data-label="ลิงก์ไลฟ์"><a href="<?php echo $row['live_link']?>">รับชม</a></td>
                   
-                  <td data-label="สถานะการใช้งาน">
-                    <!-- <div>
-                      <div class="form-check form-switch" >
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                      </div>
-                    </div> -->
-                    <?php
-                          // if ($row['faculty_status'] == "1") {
-                            echo "<a style='color:#228B22;'>Active</a>";
-                        //   }
-                        //  else{
-                        //     echo "<a style='color:red;'>Inactive</a>";
-                        //  }
-                   ?>
-                  </td>
-                  <td data-label="รายละเอียด">
-                    <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-                  <!-- modal-fullscreen เต็มจอ modal-xl-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">ตารางแสดงข้อมูลคณะ</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <table class="table table-borderless" >
-                        <thead>
-                          <tr>
-                            <th scope="col">หัวข้อ</th>
-                            <th scope="col">ข้อมูล</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <div>
-                            <tr>
-                              <th scope="row">ลำดับ</th>
-                              <td>1</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">รายวิชา</th>
-                              <td>นาย</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">ชื่อไลฟ์</th>
-                              <td>ใช้งาน</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">ลิงก์ไลฟ์</th>
-                                <td>ใช้งาน</td>
-                              </tr>
-                            <tr>
-                              <th scope="row">สถานะการใช้งาน</th>
-                              <td>ใช้งาน</td>
-                            </tr>
-                          </div>
-                          
-                         
-                        </tbody>
-                      </table>
-                </div>
-                <!-- <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-          <!-- Modal -->
-          <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel1" aria-hidden="true" >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title font-color" id="staticBackdropLabel1" > เพิ่มข้อมูลวิดีทัศน์</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form class="row g-3 needs-validation" novalidate>
-                    <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                    <select class="form-select form-control" aria-label="Default select example">
-                        <option selected>เลือกรายวิชา</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                      
-                    <div >
-                        <label for="validationCustom01" class="form-label" >ชื่อวิดีทัศน์</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคณะ" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
-                      
-                      <div >
-                        <label for="formFile" class="form-label">ไฟล์วิดีทัศน์</label>
-                        <input class="form-control" type="file" id="formFile">
-
-                          <div class="valid-feedback">
-                            Looks good!
-                          </div>
-                        </div>
-                      
-                    <!-- <div class="col-12">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                      </div>
-                    </div> -->
-                  
-                </div>
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                  <button type="button" class="btn btn-success">แก้ไขข้อมูล</button>
-                </div>
-              </form>
-              </div>
-            </div>
-          </div>
-        </td>
+                  <td>
+                  <button type="button" name="edit"  id="<?php echo $row["vdo_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["vdo_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>  
                 </tr>
                 <?php }?>
               </tbody>

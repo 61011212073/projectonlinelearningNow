@@ -12,7 +12,7 @@
     mysqli_query($conn,"SET CHARACTER SET UTF8"); 
     $vdo_coursesopen_id = $_POST["vdo_coursesopen_id"];
 	$vdo_name = $_POST["vdo_name"];
-    $vdo_status = $_POST["vdo_status"];
+    // $vdo_status = $_POST["vdo_status"];
     // $vid=$_FILES['vdo_link'];
     // echo $vdo_coursesopen_id.$vdo_name.$vdo_status;
     // echo $vid;
@@ -36,7 +36,7 @@
     
                 // Now let's Insert the video path into database
                 $sql = "INSERT INTO vdo(vdo_coursesopen_id,vdo_name,vdo_link,vdo_status) 
-                       VALUES('$vdo_coursesopen_id','$vdo_name','$new_video_name','$vdo_status')";
+                       VALUES('$vdo_coursesopen_id','$vdo_name','$new_video_name',1)";
                 mysqli_set_charset($conn, 'utf8');
                     if(mysqli_query($conn, $sql)){
                         //    echo "Records added successfully.";

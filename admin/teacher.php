@@ -111,6 +111,7 @@ if (isset($_GET['logout'])) {
      <link href="../demo/style.css" rel="stylesheet">
      <script src="../demo/main.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
 <div class="sidebar close">
@@ -343,8 +344,12 @@ if (isset($_GET['logout'])) {
                       // }
                       ?>
                   </td> -->
-                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs view_data" /></td> 
+                  <td>
+                  <button type="button" name="edit"  id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["teacher_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>   
                 </tr>
                 <?php } ?>
               </tbody>

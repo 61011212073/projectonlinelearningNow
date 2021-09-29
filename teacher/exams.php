@@ -28,11 +28,12 @@
      INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id";
      $result = mysqli_query($conn,$sql);
     
-     $sql1="SELECT live.live_id,subject.subject_engname,live.live_story,live.live_link,live.live_datetime 
-     FROM live 
-     INNER JOIN coursesopen ON live.live_coursesopen_id=coursesopen.coursesopen_id 
+     $sql_exam="SELECT subject.subject_engname,examAddwords_id,exampapers.exampapers_name,examAddwords_question,examAddwords_answer,examAddwords_fullscore,examAddwords_keyword
+     FROM examaddwords
+     INNER JOIN exampapers ON examaddwords.examAddwords_exampapers_id=exampapers.exampapers_id
+     INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id
      INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
-     $result1 = mysqli_query($conn,$sql1);
+     $exam=mysqli_query($conn,$sql_exam);
 ?>
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
@@ -297,12 +298,8 @@ $(document).ready(function(){
 
     <section>
       <div class="container-fluid">
-        <h3>ตารางแสดงการไลฟ์</h3>
+        <h3>ตารางแสดงข้อสอบ</h3>
               <br>
-              
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-                เพิ่มข้อมูลไลฟ์
-              </button>
               
               <!-- Modal -->
               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
@@ -349,7 +346,7 @@ $(document).ready(function(){
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>ข้อสอบวิชา <b>Database</b></h2></div>
+                    <div class="col-sm-8"><h2>ข้อสอบวิชา <b>Problem Solving for Computer Science</b></h2></div>
                 </div>
             </div>
             <table class="table table-bordered">
@@ -363,18 +360,20 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody>
+                  <?php while($row=mysqli_fetch_array($exam)){?>
                     <tr>
-                        <td>John Doe</td>
-                        <td>Administration</td>
-                        <td>(171) 555-2222</td>
-                        <td>(171) 555-2222</td>
+                        <td><?php echo $row["examAddwords_question"];?></td>
+                        <td><?php echo $row["examAddwords_answer"];?></td>
+                        <td><?php echo $row["examAddwords_fullscore"];?></td>
+                        <td><?php echo $row["examAddwords_keyword"];?></td>
                         <td>
 							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                             <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            <!-- <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
                         </td>
                     </tr>
-                    <tr>
+                    <?php }?>
+                    <!--<tr>
                         <td>Peter Parker</td>
                         <td>Customer Service</td>
                         <td>(313) 555-5735</td>
@@ -385,7 +384,7 @@ $(document).ready(function(){
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
+                     <tr>
                         <td>Fran Wilson</td>
                         <td>Human Resources</td>
                         <td>(503) 555-9931</td>
@@ -395,7 +394,7 @@ $(document).ready(function(){
                             <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
                             <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                         </td>
-                    </tr>      
+                    </tr>       -->
                 </tbody>
             </table>
             <div class="table-title">

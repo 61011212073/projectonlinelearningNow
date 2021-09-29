@@ -23,7 +23,7 @@
 
   mysqli_query($conn,"SET CHARACTER SET UTF8");
   mysqli_query($conn,"SET CHARACTER SET UTF8"); 
-  $sql11="SELECT subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status 
+  $sql11="SELECT subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status,coursesopen.coursesopen_id
   FROM coursesopen 
   INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
   INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
@@ -55,6 +55,7 @@
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
      <script src="../demo/main.js"></script>
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
 <div class="sidebar close">
@@ -221,7 +222,7 @@
               <th scope="col">ชื่อวิชา</th>
               <th scope="col">ภาคการศึกษา</th>
               <th scope="col">ปีการศึกษา</th>
-              <!-- <th scope="col">สถานะการใช้งาน</th>   -->
+              <th scope="col">สถานะการใช้งาน</th>  
               <!-- <th scope="col">แก้ไขข้อมูล</th> -->
               <th scope="col">รายละเอียด</th>
             
@@ -234,19 +235,60 @@
               <td data-label="ชื่อวิชา"><?php echo $row['subject_engname'];?></td>
               <td data-label="ภาคการศึกษา"><?php echo $row['coursesopen_term'];?></td>
               <td data-label="ปีการศึกษา"><?php echo $row['coursesopen_schoolyear'];?></td>
-              <!-- <td data-label="สถานะการใช้งาน">
-             
-                <?php 
-                    //   if ($row['coursesopen_status'] == "1") {
-                    //      echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                    //   }
-                    //  else{
-                    //     echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                    //  }
-               ?>
-              </td> -->
+              <td>
+              <?php
+                    if ($row["coursesopen_status"]==1) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["coursesopen_id"].'" checked>
+                    </div>';
+                    }
+                    else if ($row["coursesopen_status"]==0) {
+                      echo '<div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" id="icon'.$row["coursesopen_id"].'">
+                    </div>';
+                    }
+                ?>
+                <!-- <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
+                  <label class="form-check-label" for="flexSwitchCheckDefault">Active</label>
+                </div> -->
+                <script>
+                    $(function() {
+                      $('#icon<?php echo $row['coursesopen_id']; ?>').change(function() {
+                        //alert($(this).prop('checked'));
+                        var ch_val = $(this).prop('checked');
+                        var rel = <?php echo $row['coursesopen_id']; ?>;
+                        //alert(ch_val);
+
+                        if(ch_val==true){
+                          var status = 1;
+                          // alert(status,"เปิดสถานะการใช้งาน");
+                        }
+                        if(ch_val==false){
+                          var status = 0;
+                          // alert(status,"ปิดสถานะการใช้งาน");
+                        }
+
+                        $.ajax({
+                            url: '../teacher/status/statusopensubject.php',
+                            type: 'POST',
+                            data: {id: rel, value: status,},
+                            async: false,
+                            success: function (data) {
+                              // console.log(data);
+                              }
+                          });
+
+                    
+                      })
+                    })
+                </script>
+              </td>
+              </td> 
               <!-- <td><input type="button" name="edit" value="Edit" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>   -->
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs view_data" /></td>  
+              <td>
+              <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["coursesopen_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+              </td>  
             </tr>
             <?php } ?>
           </tbody>
@@ -290,7 +332,7 @@ $(document).ready(function(){
          if(employee_id != '')  
          {  
               $.ajax({  
-                   url:"../BasicData/coursesopen/select.php",  
+                   url:"../BasicData/opensubject/select.php",  
                    method:"POST",  
                    data:{employee_id:employee_id},  
                    success:function(data){  

@@ -9,6 +9,11 @@
     $result2= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalop FROM coursesopen"));
 
     $result3= mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) as totalsub FROM subject"));
+
+    $sql_news="SELECT news_name,news_detail,news_date,teacher.teacher_fname,teacher.teacher_lname 
+                FROM news 
+                INNER JOIN teacher ON news.news_teacher=teacher.teacher_id";
+    $news=mysqli_query($conn,$sql_news);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -261,22 +266,24 @@
                     <div class="small_divider"></div>
                 </div>
             </div>
+            <?php while($row=mysqli_fetch_array($news)){ ?>
             <div class="testimonial_box">
                 <div class="testimonial_img">
                     <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                 </div>
                 <div class="testi_meta">
                     <div class="testi_user">
-                        <h6 style="font-family: 'Kanit', sans-serif;">Foundation</h6>
-                        <span class="text_default" style="font-family: 'Kanit', sans-serif;">Dr.Jantima</span>
+                        <h6 style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_name"];?></h6>
+                        <span class="text_default" style="font-family: 'Kanit', sans-serif;"><?php echo $row["teacher_fname"]." ".$row["teacher_lname"];?></span>
                     </div>
                     <div class="testi_desc">
-                        <p style="font-family: 'Kanit', sans-serif;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                        <p style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_detail"]?></p>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="testimonial_box">
+            <?php } ?>
+            <!-- <div class="testimonial_box">
                 <div class="testimonial_img">
                     <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                 </div>
@@ -304,7 +311,7 @@
                         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, quaeillo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         
        

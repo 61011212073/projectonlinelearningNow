@@ -4,23 +4,17 @@
       $output = '';  
       require("conn.php");
       mysqli_query($conn,"SET CHARACTER SET UTF8");  
-      $query = "SELECT subject.subject_engname,
-      coursesopen.coursesopen_term,
-      coursesopen.coursesopen_schoolyear,
-      teacher.teacher_fname,
-      teacher.teacher_lname,
-      coursesopen.coursesopen_status 
-      coursesopen.coursesopen_subject_id
+      $sql11="SELECT subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status 
       FROM coursesopen 
       INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
-      INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
-      WHERE teacher_username='$username'";
-      $result = mysqli_query($conn, $query);  
+      INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id";
+      $result=mysqli_query($conn,$sql11);
+    
+    
       $output .= '  
       <div class="table-responsive">  
            <table class="table table-bordered">';  
-      while($row = mysqli_fetch_array($result))  
-      {  
+      while($row = mysqli_fetch_array($result) {  
           if ($row['coursesopen_status'] == "1") {
                $status="<a style='color:#228B22;'>เปิดการใช้งาน</a>";
             }
@@ -50,7 +44,7 @@
                      <td width="70%">'.$status.'</td>  
                 </tr>  
            ';  
-      }  
+      }  }
       $output .= '  
            </table>  
       </div>  

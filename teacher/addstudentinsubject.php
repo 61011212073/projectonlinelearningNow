@@ -56,6 +56,7 @@
      <link href="Prename2.css" rel="stylesheet">
      <link href="../demo/style.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
      <script src="../demo/main.js"></script>
@@ -78,7 +79,7 @@
               '<td data-label="รหัสนิสิต">'+book.student_id+'</td>'+
               '<td data-label="ชื่อ">'+book.student_fname+'</td>'+
               '<td data-label="นามสกุล">'+book.student_lname+'</td>'+
-              '<td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="'+book.study_id+'" class="btn btn-info btn-xs view_data" /></td>'
+              '<td><button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="'+book.study_id+'" class="btn btn-info btn-xs view_data"><i class="far fa-eye"></i></button></td>'
              +'</tr>')
 					})
 				})
@@ -251,8 +252,8 @@
               <th scope="col">รหัสนิสิต</th>
               <th scope="col">ชื่อ</th>
               <th scope="col">นามสกุล</th>
-              <!-- <th scope="col">สถานะการใช้งาน</th> 
-              <th scope="col">แก้ไขข้อมูล</th> -->
+              <!-- <th scope="col">สถานะการใช้งาน</th>  -->
+              <!-- <th scope="col">แก้ไขข้อมูล</th> -->
               <th scope="col">รายละเอียด</th>
              
             </tr>
