@@ -21,10 +21,18 @@
     WHERE teacher_username='$username'";
     $result2=mysqli_query($conn,$sql2);
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username'";
     $result = mysqli_query($conn,$sql);
 
-    $sql1="SELECT * FROM work ORDER BY work_id DESC";
+    $sql1="SELECT subject.subject_engname,work_id,work_name,work_detail,work_file,work_date,work_enddate,work_status 
+    FROM work 
+    INNER JOIN coursesopen ON work.work_courseopen_id=coursesopen.coursesopen_id 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username' ORDER BY work_id DESC";
     $result1 = mysqli_query($conn,$sql1);
 
 ?>
@@ -121,14 +129,14 @@
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
       <?php while($row=mysqli_fetch_array($result2)){ ?>
-    <a href="editprofile.php">
+    <a href="teacher/editprofile.php">
       <div class="name-job">
         <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
         <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
     </a>
       <?php }?>
-      <a href="hometeacher1.php?logout='1'">
+      <a href="teacher/hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
@@ -167,7 +175,7 @@
             <form action="inwork.php" method="post" enctype="multipart/form-data" >
                 <div class="form-group" style='font-family: Kanit, sans-serif;'>
                     <label for="usr" style="font-family: 'Kanit', sans-serif;">รายวิชาที่เปิดสอน :</label>
-                    <select name="work_courseopen_id" style="font-family: 'Kanit', sans-serif;">
+                    <select class="form-select form-control" name="work_courseopen_id" style="font-family: 'Kanit', sans-serif;">
                     <option style="font-family: 'Kanit', sans-serif;">-เลือกรายวิชาที่เปิดสอน-</option>
                         <?php
                             while($rows=mysqli_fetch_row($result)){
@@ -194,14 +202,8 @@
                 </div>
                 <div class="form-group">
                     <label for="usr" style="font-family: 'Kanit', sans-serif;">วันที่ส่ง :</label>
-                    <input type="date" required class="form-control" name="work_enddate" style="font-family: 'Kanit', sans-serif;">
+                    <input type="datetime-local" required class="form-control" name="work_enddate" style="font-family: 'Kanit', sans-serif;">
                     <!-- <input type="time" name="" id=""> -->
-                </div>
-                <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                    <label for="pwd" style="font-family: 'Kanit', sans-serif;">สถานะ :</label>
-                    <!-- <input type="text" class="form-control" name="status_prename"> -->
-                    <input type="radio" name="work_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                    <input type="radio" name="work_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
                 </div>
                 
                 
@@ -228,12 +230,13 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
+                  <th scope="col">รายวิชา</th>
                   <th scope="col">ชื่อแบบฝึกหัด</th>
                   <th scope="col">ไฟล์แบบฝึกหัด</th>
                   <th scope="col">วันที่ส่งงาน</th>
                   <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
                   <th scope="col">การส่งงาน</th>
                 </tr>
               </thead>
@@ -241,6 +244,7 @@
               <?php $i=0; while($row = mysqli_fetch_array($result1)){ $i=$i+1 ?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i;?></td>
+                  <td data-label="ชื่อแบบฝึกหัด"><?php echo $row['subject_engname'];?></td>
                   <td data-label="ชื่อแบบฝึกหัด"><?php echo $row['work_name'];?></td>
                   <td data-label="ไฟล์แบบฝึกหัด"><a href="uploadwork/<?=$row["work_file"]?>"><?php echo $row["work_name"];?></a></td>
                   <td data-label="วันและเวลา"><?php echo $row['work_enddate'];?></td>
@@ -307,5 +311,68 @@
 
 <script src="menu/script.js"></script>
 
+<script>  
+ $(document).ready(function(){  
+     
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/work/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });  
+      $(document).on('click', '.edit_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/work/edit.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail1').html(data);  
+                          $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      });
+ });  
+ </script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคำนำหน้าชื่อ</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  
+ <div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลคำนำหน้าชื่อ</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail1">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div> 

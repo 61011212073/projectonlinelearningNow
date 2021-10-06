@@ -19,7 +19,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     // $study_status = $_POST["study_status"];
 
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT study_student_id FROM study WHERE study_student_id='$study_student_id'";
+    $query = "SELECT study_student_id FROM study WHERE study_student_id='$study_student_id' AND study_coursesopen_id='$study_coursesopen_id'";
     $result = mysqli_query($conn, $query);
     if ($study_coursesopen_id=="" && $study_student_id="") {
         echo "<script type=\"text/javascript\">";

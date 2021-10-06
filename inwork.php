@@ -14,7 +14,7 @@
 	$work_name = $_POST["work_name"];
     $work_detail = $_POST["work_detail"];
     $work_enddate = $_POST["work_enddate"];
-    $work_status = $_POST["work_status"];
+    $work_status = 1;
 
     if (isset($_POST['submit']) && isset($_FILES['work_file'])) {
 

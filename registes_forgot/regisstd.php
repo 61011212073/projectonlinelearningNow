@@ -30,37 +30,11 @@
 
     //เช็คข้อมูลซ้ำ
 
-    echo "<pre>";
-            print_r($_FILES['student_profile']);
-            echo "</pre>";
-
     $query = "SELECT student_id FROM student WHERE student_id='$student_id'";
     $result = mysqli_query($conn, $query);
 
-        if (isset($_POST['submit']) && isset($_FILES['student_profile'])) {
 
-            
     
-            $img_name = $_FILES['student_profile']['name'];
-            $img_size = $_FILES['student_profile']['size'];
-            $tmp_name = $_FILES['student_profile']['tmp_name'];
-            $error = $_FILES['student_profile']['error'];
-            
-            if ($error == 0) {
-                if ($img_size > 12500000) {
-                    $em = "Sorry, your file is too large.";
-                    header("Location: addexam.php?error=$em");
-                }
-            else {
-                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
-                $img_ex_lc = strtolower($img_ex);
-    
-                $allowed_exs = array("jpeg", "png", "jpg"); 
-    
-                if (in_array($img_ex_lc, $allowed_exs)) {
-                    $new_img_name = uniqid("Profile", true).'.'.$img_ex_lc;
-                    $img_upload_path = 'uploadphoto/'.$new_img_name;
-                    move_uploaded_file($tmp_name, $img_upload_path);
                     if(mysqli_query($conn, $query)){
                         if(mysqli_num_rows($result)>0){
                             echo "<script type=\"text/javascript\">";
@@ -72,15 +46,15 @@
                         else{
                             $sql = "INSERT INTO student(student_id, student_prename_id,student_fname,student_lname,
                             student_phone,student_facebook,student_email,student_univercity_id,student_faculty_id,student_department_id,
-                            student_username,student_password,student_status,student_profile)
+                            student_username,student_password,student_status)
                                 VALUES ('$student_id', '$student_prename_id','$student_fname','$student_lname','$student_phone','$student_facebook',
                                 '$student_email','$student_univercity_id','$student_faculty_id','$student_department_id','$student_username',
-                                '$student_password',1,'$new_img_name')";
+                                '$student_password',1)";
                             mysqli_set_charset($conn, 'utf8');
                             if(mysqli_query($conn, $sql)){
                             echo "<script type=\"text/javascript\">";
                                             echo "alert(\"สมัครสำเร็จ\");";
-                                            header("Refresh:0; url=../index.html");
+                                            header("Refresh:0; url=../index.php");
                                             echo "</script>";
                                             exit();
                      } else{
@@ -88,17 +62,7 @@
                      }
                     }
                 }
-                }else {
-                    $em = "You can't upload files of this type";
-                    header("Location: adddocument.php?error=$em");
-                }
-            }
-
-
-
-        }
-    }
-
+    
 
 mysqli_close($conn);
 ?> 

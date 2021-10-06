@@ -153,6 +153,7 @@ if ($pagenum > 1) {
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -382,22 +383,7 @@ if ($pagenum > 1) {
                      }  
                 });  
            }            
-      });  
-      $(document).on('click', '.edit_status', function(){  
-           var employee_id = $(this).attr("id");  
-           if(employee_id != '')  
-           {  
-                $.ajax({  
-                     url:"../BasicData/prename/statuslec.php",  
-                     method:"POST",  
-                     data:{employee_id:employee_id},  
-                     success:function(data){  
-                          $('#employee_detail2').html(data);  
-                          $('#dataModal2').modal('show');  
-                     }  
-                });  
-           }            
-      });  
+      });
  });  
  </script>
 </body>
@@ -425,20 +411,6 @@ if ($pagenum > 1) {
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>  
                 <div class="modal-body" id="employee_detail1">  
-                </div>  
-               
-           </div>  
-      </div>  
- </div>  
- <div id="dataModal2" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
-      <div class="modal-dialog">  
-           <div class="modal-content">  
-                <div class="modal-header">  
-                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลคำนำหน้าชื่อ</h4>  
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>  
-                <div class="modal-body" id="employee_detail2">  
                 </div>  
                
            </div>  

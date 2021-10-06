@@ -180,6 +180,7 @@
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -276,19 +277,14 @@
                           <div >
                             <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาไทย)</label>
                             <!-- <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาไทย)" required name="subject_detail_thai"> -->
-                            <textarea class="th" name="subject_detail_thai" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาไทย)"></textarea>
+                            <textarea  name="subject_detail_thai" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาไทย)"></textarea>
                           </div>
                           <div >
                             <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาอังกฤษ)</label>
                             <!-- <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)" required name="subject_detail_english"> -->
-                            <textarea class="eng" name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
+                            <textarea name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
                           </div>
-                        <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                              <label for="pwd">สถานะ :</label>
-                              <!-- <input type="text" class="form-control" name="status_prename"> -->
-                              <input type="radio" required name="subject_status" value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                              <input type="radio" name="subject_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                      </div>
+                        <!--  -->
                     </div>
                     
                       <div class="modal-footer">
@@ -381,9 +377,9 @@
                 </tr>
                 <?php } ?>
               </tbody>
-              <div id="pagination_controls" style="font-family: Kanit, sans-serif;"><?php echo $paginationCtrls; ?></div>
-            </table>
-    
+              
+            </table><br>
+            <div id="pagination_controls" style="font-family: Kanit, sans-serif;"><?php echo $paginationCtrls; ?></div>
           </div>
       
       

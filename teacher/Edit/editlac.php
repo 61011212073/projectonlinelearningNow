@@ -15,17 +15,13 @@
         return $value; 
     }
 
-    $teacher_prename_id =$_POST["teacher_prename_id"];
+    $teacher_id = $_POST["teacher_id_id"];
 	$teacher_fname = clean($_POST["teacher_fname"]);
     $teacher_lname = clean($_POST["teacher_lname"]);
 	$teacher_phone = clean($_POST["teacher_phone"]);
     $teacher_email = clean($_POST["teacher_email"]);
-	$teacher_univercity_id  = $_POST["teacher_univercity_id"];
-    $teacher_faculty_id  = $_POST["teacher_faculty_id"];
-	$teacher_department_id  = $_POST["teacher_department_id"];
     $teacher_username = clean($_POST["teacher_username"]);
 	$teacher_password = $_POST["teacher_password"];
-	$teacher_status = $_POST["teacher_status"];
 
     //เช็คข้อมูลซ้ำ
     // $query = "SELECT preName_name FROM prename WHERE preName_name='$prename'";
@@ -39,21 +35,18 @@
                         //     exit();
                         // }
                         // else{
-                            $sql = "UPDATE `teacher` SET `teacher_prename_id`='$teacher_prename_id',
-                            `teacher_fname`='$teacher_fname',`teacher_lname`='$teacher_lname',
-                            `teacher_phone`='$teacher_phone',`teacher_email`='$teacher_email',
-                            `teacher_univercity_id`='$teacher_univercity_id',
-                            `teacher_faculty_id`='$teacher_faculty_id',
-                            `teacher_department_id`='$teacher_department_id',
-                            `teacher_username`='$teacher_username',`teacher_password`='$teacher_password',
-                            `teacher_status`='$teacher_status' 
-                            WHERE `teacher_id`='$teacher_id'";  
+                            $sql = "UPDATE teacher SET teacher_fname='$teacher_fname',
+                            teacher_lname='$teacher_lname',
+                            teacher_phone='$teacher_phone',
+                            teacher_email='$teacher_email',
+                            teacher_username='$teacher_username',
+                            teacher_password='$teacher_password' WHERE teacher_id_id=$teacher_id";  
                             
                                 mysqli_set_charset($conn, 'utf8');     
                                 if(mysqli_query($conn, $sql)){
                                 echo "<script type=\"text/javascript\">";
-                                echo "alert(\"เพิ่มอาจารย์สำเร็จ\");";
-                                 header("Refresh:0; url=../teacher.php");
+                                echo "alert(\"แก้ไขอาจารย์สำเร็จ\");";
+                                 header("Refresh:0; url=../editprofile.php");
                                 echo "</script>";
                                 exit();
                                 } else{

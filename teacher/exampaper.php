@@ -95,6 +95,7 @@
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -333,14 +334,6 @@
                         <option value="3">Three</option>
                       </select>
                       
-                    <div >
-                        <label for="validationCustom01" class="form-label" >ชื่อแบบฝึกหัด</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกแบบฝึกหัด" required>
-                        <div class="valid-feedback">
-                          Looks good!
-                        </div>
-                      </div>
-                      
                       <div >
                         <label for="formFile" class="form-label">ไฟล์แบบฝึกหัด</label>
                         <input class="form-control" type="file" id="formFile">
@@ -363,7 +356,7 @@
           </div>
         </td>
         <td data-label="การส่งงาน">
-            <a class="btn btn-primary" href="http://localhost:81/EdcationWeb_nsc/addExam1.php" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-plus"></i></a>
+            <a class="btn btn-primary" href="exams.php" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-plus"></i></a>
         </td>
                 </tr>
                 <!--  } -->
@@ -371,7 +364,7 @@
             </table>
     
           </div>
-          <div class="container">
+          <!-- <div class="container">
     <table id="myTable" class=" table order-list">
     <thead>
         <tr>
@@ -412,7 +405,7 @@
         </tr>
     </tfoot>
 </table>
-</div>
+</div> -->
           </section>
    <script>
      $(document).ready(function () {

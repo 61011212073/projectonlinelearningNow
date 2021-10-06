@@ -39,7 +39,7 @@
                         //     echo "</script>";
                         //     exit();
                         // }
-                        // else{
+                        // else{ 
                             $sql = "INSERT INTO teacher(teacher_id_id,teacher_prename_id, teacher_fname,teacher_lname,teacher_phone,teacher_email,teacher_univercity_id,
                                     teacher_faculty_id,teacher_department_id,teacher_username,teacher_password,teacher_status)
                                         VALUES ('$teacher_id_id','$teacher_prename_id', '$teacher_fname', '$teacher_lname', '$teacher_phone', '$teacher_email', '$teacher_univercity_id'

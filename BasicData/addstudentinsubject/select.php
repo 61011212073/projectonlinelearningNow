@@ -13,7 +13,8 @@
       FROM study 
       INNER JOIN coursesopen ON study.study_coursesopen_id=coursesopen.coursesopen_id
       INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
-      INNER JOIN student ON study.study_student_id=student.student_id";
+      INNER JOIN student ON study.study_student_id=student.student_id 
+      WHERE study_id = '".$_POST["employee_id"]."'";
       $result = mysqli_query($conn, $query);  
       $output .= '  
       <div class="table-responsive">  

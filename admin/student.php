@@ -420,7 +420,7 @@ $(document).ready(function(){
          if(employee_id != '')  
          {  
               $.ajax({  
-                   url:"../BasicData/student/select.php",  
+                   url:"../BasicData/student/edit.php",  
                    method:"POST",  
                    data:{employee_id:employee_id},  
                    success:function(data){  

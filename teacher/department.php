@@ -111,27 +111,35 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   -->
-           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
            <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
      <script src="../demo/main.js"></script>
      <script type="text/javascript">
 		$(document).ready(function(){
-			$("#authors").change(function(){
-				var aid = $("#authors").val();
+			$("#univercity").change(function(){
+				var id_uivarcity = $(this).val();
 				$.ajax({
 					url: 'data.php',
 					method: 'post',
-					data: 'aid=' + aid
-				}).done(function(books){
-					console.log(books);
-					books = JSON.parse(books);
-					$('#books').empty();
-					books.forEach(function(book){
-						$('#books').append('<option value="'+book.faculty_id+'">' + book.faculty_name + '</option>')
-					})
+					data: {id:id_uivarcity,function:'uivarcity'},
+          success: function(data){
+            // console.log(data);
+            $('#faculty').html(data);
+          }
+				})
+				})
+        $("#faculty").change(function(){
+				var id_faculty = $(this).val();
+				$.ajax({
+					url: 'teacher/data.php',
+					method: 'post',
+					data: {id:id_faculty,function:'faculty'},
+          success: function(data){
+            // console.log(data);
+            $('#department').html(data);
+          }
+				})
 				})
 			})
-		}) 
 	</script>
    </head>
 <body>
@@ -180,6 +188,7 @@
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -248,18 +257,18 @@
                     <div class="modal-body">
                       <form class="row g-3 needs-validation" novalidate action="./Add/insertdpm.php" method='post'>
                         <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                        <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id" id="authors">
-                            <option selected>เลือกมหาวิทยาลัย</option>
+                        <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id" id="univercity">
+                            <option selected disabled>-เลือกมหาวิทยาลัย-</option>
                             <?php 
-                              require 'data.php';
-                              $authors = loadAuthors();
-                              foreach ($authors as $author) {
-                                echo "<option id='".$author['univercity_id']."' value='".$author['univercity_id']."'>".$author['univercity_thname']."</option>";
-                              }
+                               while($rows=mysqli_fetch_row($result1)){
+                                $uni_id=$rows[0];
+                                $uni_name=$rows[1];
+                                echo "<option value='$uni_id'>$uni_name</option>";
+                            }
 		                    	 ?>
                           </select> 
                           <label for="validationCustom01" class="form-label" >คณะ</label>
-                          <select class="form-select form-control" aria-label="Default select example" name="department_faculty_id" id="books">
+                          <select class="form-select form-control" aria-label="Default select example" name="department_faculty_id" id="faculty">
                             
                           </select> 
                         <div>

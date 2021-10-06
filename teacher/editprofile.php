@@ -9,6 +9,7 @@
     header('location: ../index.html');
   }
   require("conn.php");
+
   $username=$_SESSION['teacher_username'];
   $sql="SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
   teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
@@ -20,6 +21,9 @@
   WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
   $result1=mysqli_query($conn,$sql);
+
+
+  
   $result2=mysqli_query($conn,$sql);
 
   mysqli_query($conn,"SET CHARACTER SET UTF8");
@@ -31,6 +35,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
   <head>
     <meta charset="UTF-8">
     <title> Online Education </title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets1/images/logo3.png">
     <link rel="stylesheet" href="./menu/style.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -114,6 +119,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -177,17 +183,15 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
 								<div class="mt-3">
 								<?php while($row=mysqli_fetch_array($result1)){ ?>	
                                 <h4><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></h4>
-								<?php }?>
+								
                       <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;">Full Stack Developer</p>
                       <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;">Bay Area, San Francisco, CA</p>
-                      <div class="col-sm-12">
-                      <a class="btn btn-info "  href="editProfile.php"  style="font-family: 'Kanit', sans-serif;">Edit</a>
-                    </div>
+                <?php }?>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card mt-3">
+              <!-- <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -195,17 +199,17 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                     <span class="text-secondary" style="font-family: 'Kanit', sans-serif;">ต้าเก้ออออออ</span>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
             <?php while($row=mysqli_fetch_array($result2)){ ?>
 			 
        <div class="col-lg-8">	
-         <form action="../BasicData/Edit/editlac.php" method="post">
+         <form action="Edit/editlac.php" method="post">
          <div class="card">
            <div class="card-body">
              <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">รหัสบัตรประชาชน</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">รหัสบัตรประชาชน</h6>
                </div>
                <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                  <input type="text" class="form-control" value=" <?php echo $row['teacher_id_id'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_id_id" readonly/>
@@ -214,15 +218,15 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
              <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">คำนำหน้าชื่อ</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">คำนำหน้าชื่อ</h6>
                </div>
                <div class="col-sm-9 text-secondary">
-                 <input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name">
+                 <input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name" readonly/>
                </div>
              </div>
              <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">ชื่อ</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">ชื่อ</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value=" <?php echo $row['teacher_fname'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_fname">
@@ -230,7 +234,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
              <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">นามสกุล</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">นามสกุล</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value="<?php echo $row['teacher_lname'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_lname">
@@ -238,7 +242,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
              <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">เบอร์โทรศัพท์</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">เบอร์โทรศัพท์</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value="<?php echo $row['teacher_phone'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_phone">
@@ -246,7 +250,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">อีเมล</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">อีเมล</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value="<?php echo $row['teacher_email'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_email">
@@ -254,7 +258,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">มหาวิทยาลัย</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">มหาวิทยาลัย</h6>
                </div>
                <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                  <input type="text" class="form-control" value=" <?php echo $row['univercity_thname'];?>" style="font-family: 'Kanit', sans-serif;" name="univercity_thname" readonly/>
@@ -263,7 +267,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">คณะ</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">คณะ</h6>
                </div>
                <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                  <input type="text" class="form-control" value=" <?php echo $row['faculty_name'];?>" style="font-family: 'Kanit', sans-serif;" name="faculty_name" readonly/>
@@ -272,7 +276,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">ภาควิชา</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">ภาควิชา</h6>
                </div>
                <div class="col-sm-9 text-secondary" style="font-family: 'Kanit', sans-serif;">
                  <input type="text" class="form-control" value="<?php echo $row['department_name'];?>" style="font-family: 'Kanit', sans-serif; display:block;" name="department_name" readonly/>
@@ -280,7 +284,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">ชื่อผู้ใช้</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">ชื่อผู้ใช้</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value="<?php echo $row['teacher_username'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_username">
@@ -288,7 +292,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
              </div>
                            <div class="row mb-3">
                <div class="col-sm-3">
-                 <h6 class="mb-0">รหัสผ่าน</h6>
+                 <h6 class="mb-0" style="font-family: 'Kanit', sans-serif;">รหัสผ่าน</h6>
                </div>
                <div class="col-sm-9 text-secondary">
                  <input type="text" class="form-control" value="<?php echo $row['teacher_password'];?>" style="font-family: 'Kanit', sans-serif;" name="teacher_password">

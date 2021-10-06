@@ -17,7 +17,7 @@
     $username=$_SESSION['student_username'];
     $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
     student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
-    department.department_name,student.student_username,student.student_password,student.student_status,student.student_profile 
+    department.department_name,student.student_username,student.student_password,student.student_status
     FROM student 
     INNER JOIN prename ON student.student_prename_id =prename.preName_id 
     INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
@@ -50,9 +50,9 @@
 <meta name="keywords" content="academy, course, education, elearning, learning, education html template, university template, college template, school template, online education template, tution center template">
 
 <!-- SITE TITLE -->
-<title>Eduglobal - Education & Courses HTML Template</title>
+<title>Online Education</title>
 <!-- Favicon Icon -->
-<link rel="shortcut icon" type="image/x-icon" href="assets2/images/logo3.png">
+<link rel="shortcut icon" type="image/x-icon" href="assets1/images/logo3.png">
 <!-- Animation CSS -->
 <link rel="stylesheet" href="assets2/css/animate.css" />	
 <!-- Latest Bootstrap min CSS -->
@@ -185,9 +185,9 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<?php while($row=mysqli_fetch_array($result3)){ ?>	
-							<img src="../uploadphoto/<?=$row["student_profile"]?>" alt="Admin" class="rounded-circle" width="130">
 								
+							<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="130">
+								<?php while($row=mysqli_fetch_array($result3)){ ?>	
 								<div class="mt-3">
 								
                                 <h4><?php echo $row['student_fname'];?> <?php echo $row['student_lname'];?></h4>
@@ -195,9 +195,9 @@
 								<p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $row['department_name'];?></p>
                       <p class="text-muted font-size-sm" style="font-family: 'Kanit', sans-serif;"><?php echo $row['faculty_name'].' '.$row['univercity_thname'];?></p>
 					  <?php }?>
-                      <div class="col-sm-12">
+                      <!-- <div class="col-sm-12">
                       <a class="btn btn-info "  href="editProfile.php"  style="font-family: 'Kanit', sans-serif;">Edit</a>
-                    </div>
+                    </div> -->
                     </div>
                   </div>
                 </div>
@@ -215,7 +215,7 @@
 			<?php while($row=mysqli_fetch_array($result4)){ ?>
 			 
 				<div class="col-lg-8">	
-					<form action="../BasicData/Edit/editstd.php" method="post">
+					<form action="Edit/editstd.php" method="post">
 					<div class="card">
 						<div class="card-body">
 							<div class="row mb-3">
@@ -231,7 +231,7 @@
 									<h6 class="mb-0">คำนำหน้าชื่อ</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name">
+									<input type="text" class="form-control" value="<?php echo $row['preName_name'];?>" style="font-family: 'Kanit', sans-serif;" name="preName_name" readonly/>
 								</div>
 							</div>
 							<div class="row mb-3">

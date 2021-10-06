@@ -74,7 +74,7 @@
 					$('#books').empty();
 					books.forEach(function(book){
 						$('#books').append('<tr>'+
-              '<td data-label="ลำดับ">1</td>'+
+              // '<td data-label="ลำดับ">1</td>'+
               '<td data-label="รายวิชา">'+book.subject_engname+'</td>'+
               '<td data-label="รหัสนิสิต">'+book.student_id+'</td>'+
               '<td data-label="ชื่อ">'+book.student_fname+'</td>'+
@@ -133,6 +133,7 @@
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -247,7 +248,7 @@
         <table>
           <thead>
             <tr>
-              <th scope="col">ลำดับ</th>
+              <!-- <th scope="col">ลำดับ</th> -->
               <th scope="col">รายวิชา</th>
               <th scope="col">รหัสนิสิต</th>
               <th scope="col">ชื่อ</th>
@@ -320,7 +321,7 @@ $(document).ready(function(){
          <div class="modal-content">  
               <div class="modal-header">  
                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลนิสิตในรายวิขา</h4>  
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลนิสิตในรายวิชา</h4>  
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>  
               <div class="modal-body" id="employee_detail">  

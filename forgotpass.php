@@ -31,7 +31,7 @@
                <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-               <form action="forgot/forgotstd.php" class="login" method="post">
+               <form action="registes_forgot/forgotstd.php" class="login" method="post">
                   <div class="field">
                      <input type="text" placeholder="รหัสนิสิต" required name="student_id">
                   </div>
@@ -52,15 +52,15 @@
                     ไม่ใช่สมาชิก? <a href="index.html">สมัครสมาชิก ตอนนี้</a>
                   </div> -->
                </form>
-               <form action="#" class="signup">
+               <form action="registes_forgot/forgotled.php" method="POST" class="signup">
                   <div class="field">
-                     <input type="text" placeholder="เลขบัตรประชาชน" required name="">
+                     <input type="text" placeholder="เลขบัตรประชาชน" required name="teacher_id_id">
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="ชื่อผู้ใช้งาน" required name="">
+                     <input type="text" placeholder="ชื่อผู้ใช้งาน" required name="teacher_username">
                   </div>
                   <div class="field">
-                     <input type="password" placeholder="รหัสผ่านใหม่" required name="">
+                     <input type="password" placeholder="รหัสผ่านใหม่" required name="teacher_password">
                   </div>
                   <div class="field btn">
                      <div class="btn-layer"></div>

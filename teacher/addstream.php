@@ -25,13 +25,16 @@
      $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status 
      FROM coursesopen 
      INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
-     INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id";
+     INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+     WHERE teacher_username='$username'";
      $result = mysqli_query($conn,$sql);
     
      $sql1="SELECT live.live_id,subject.subject_engname,live.live_story,live.live_link,live.live_datetime 
      FROM live 
      INNER JOIN coursesopen ON live.live_coursesopen_id=coursesopen.coursesopen_id 
-     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+     INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+     WHERE teacher_username='$username'";
      $result1 = mysqli_query($conn,$sql1);
 ?>
 <!DOCTYPE html>
@@ -100,6 +103,7 @@
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
           <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -208,6 +212,7 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
+                  <th scope="col">รายวิชา</th>
                   <th scope="col">ชื่อไลฟ์</th>
                   <th scope="col">ลิงก์ไลฟ์</th>
                  
@@ -220,30 +225,87 @@
                 <?php $i=0; while($row=mysqli_fetch_array($result1)){ $i=$i+1?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i;?></td>
+                  <td data-label="รายวิชา"><?php echo $row['subject_engname']?></td>
                   <td data-label="ชื่อไลฟ์"><?php echo $row['live_story']?></td>
                   <td data-label="ลิงก์ไลฟ์"><a href="<?php echo $row['live_link']?>">รับชม</a></td>
-                  
                   <td>
-                  <button type="button" name="edit"  id="<?php echo $row["vdo_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+                  <button type="button" name="edit"  id="<?php echo $row["live_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
             </td>  
             <td>
-                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["vdo_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
-            </td>  
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["live_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>   
+        </td>
                 </tr>
-                <?php }?>
+                <?php } ?>
               </tbody>
             </table>
     
           </div>
-          <!-- <center>
-                <iframe width="424" height="240" src="https://www.youtube.com/embed/zcLFGBuj3Yc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </center><br> -->
-      
-      
-                  </section>
+          </section>
 
 <script src="menu/script.js"></script>
-
+<script>  
+ $(document).ready(function(){  
+     
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/live/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });  
+      $(document).on('click', '.edit_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"../BasicData/live/edit.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail1').html(data);  
+                          $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      });
+ });  
+ </script>
 </body>
 </html>
-</html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลไลฟ์</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  
+ <div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลไลฟ์</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail1">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  

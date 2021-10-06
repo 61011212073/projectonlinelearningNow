@@ -17,7 +17,7 @@
     $username=$_SESSION['student_username'];
     $sql2="SELECT student.student_id,prename.preName_name,student.student_fname,student.student_lname,
     student.student_phone,student.student_facebook,student.student_email,univercity.univercity_thname,faculty.faculty_name,
-    department.department_name,student.student_username,student.student_password,student.student_status,student.student_profile
+    department.department_name,student.student_username,student.student_password,student.student_status
     FROM student 
     INNER JOIN prename ON student.student_prename_id =prename.preName_id 
     INNER JOIN univercity ON student.student_univercity_id=univercity.univercity_id 
@@ -83,9 +83,8 @@
     .columns {
     column-count: 3;
     column-rule: 2px solid #ddd;
-    column-gap: 1.5rem;
-  -webkit-column-gap: 1.5rem;
-  -moz-column-gap: 1.5rem;
+    -moz-column-count: 5;
+    -webkit-column-count: 3;
   }
 </style>
 
@@ -109,7 +108,7 @@
                 <!--<img class="logo_light" src="assets2/images/logo_white.png" alt="logo" />
                 <img class="logo_dark" src="assets2/images/logo_dark.png" alt="logo" />
                 <img class="logo_default" src="assets2/images/logo_dark.png" alt="logo" />-->
-                <img  src="assets2/images/logo1.png" alt="logo" />
+                <img  src="../assets1/images/logoo.png" alt="logo" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="ion-android-menu"></span> </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -165,10 +164,10 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <?php while($rows=mysqli_fetch_array($result3)){ ?>
-                    <img src="../uploadphoto/<?=$rows["student_profile"]?>" alt="Admin" class="rounded-circle" width="130">
-                    <div class="mt-3">
                     
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="profileImg" width="110">
+                    <div class="mt-3">
+                    <?php while($rows=mysqli_fetch_array($result3)){ ?>
                       <h4><?php echo $rows['student_fname'];?> <?php echo $rows['student_lname'];?></h4>
                      
                       <p class="text-secondary mb-1" style="font-family: 'Kanit', sans-serif;"><?php echo $rows['department_name'];?></p>
@@ -302,12 +301,6 @@
                     <?php echo $row['student_password'];?>
                     </div>
                   </div>
-                  <!-- <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-info "  href="editProfile.php">Edit</a>
-                    </div>
-                  </div> -->
                 </div>
               </div>
 
@@ -356,7 +349,7 @@
                         <font style="font-family: 'Kanit', sans-serif;">
                           <div class="blog_content bg-white columns">
                             <?php 
-                                $sql3="SELECT * FROM document WHERE document_coursesopen_id=".$row['study_coursesopen_id'];
+                                $sql3="SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id=".$row['study_coursesopen_id'];
                                 $resultdocument=mysqli_query($conn,$sql3);
                                 
                                 $sql_vdo="SELECT * FROM vdo WHERE vdo_coursesopen_id =".$row['study_coursesopen_id'];
@@ -365,7 +358,7 @@
                                 $sql_live="SELECT * FROM live WHERE live_coursesopen_id =".$row['study_coursesopen_id'];
                                 $live=mysqli_query($conn,$sql_live);
                                 
-                                $sql_work="SELECT * FROM work WHERE work_courseopen_id =".$row['study_coursesopen_id'];
+                                $sql_work="SELECT * FROM work WHERE work_status=1 AND work_courseopen_id =".$row['study_coursesopen_id'];
                                 $work=mysqli_query($conn,$sql_work);
 
 

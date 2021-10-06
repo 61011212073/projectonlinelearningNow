@@ -329,55 +329,8 @@
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["work_date"];?></td>
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["work_enddate"];?></td>
       <td>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-      <i class="fas fa-upload"></i>
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title font-color" id="staticBackdropLabel" > การส่งงาน</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate>
-                        <!-- <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                        <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>เลือกรายวิชา</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select> -->
-                          
-                     
-                        <div >
-                            <label for="validationCustom01" class="form-label" >ชื่องาน</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่องาน" required>
-                          </div>
-                          <div >
-                          <label for="formFile" class="form-label">ไฟล์งาน</label>
-                          <input class="form-control" type="file" id="formFile">
-                          </div>
-                          
-                        <!-- <div class="col-12">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">สถานะการใช้งาน</label>
-                          </div>
-                        </div> -->
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                      <button type="button" class="btn btn-success">ส่งงาน</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        </div>
-      </td>
+          <button type="button" name="edit"  id="<?php echo $row["work_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+      </td>  
       <!-- <td>
       <a class="btn btn-primary" href="sentlecture.php" role="button"> <i class="fa fa-clipboard"></i></a>
      
@@ -421,6 +374,39 @@
 <script src="assets2/js/jquery.parallax-scroll.js"></script>
 <!-- scripts js --> 
 <script src="assets2/js/scripts.js"></script>
-
+<script>  
+$(document).ready(function(){  
+   
+    $(document).on('click', '.edit_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/course/select.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail').html(data);  
+                        $('#dataModal').modal('show');  
+                   }  
+              });  
+         }            
+    });  
+});  
+</script>
 </body>
 </html>
+<div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  

@@ -1,15 +1,34 @@
 <?php 
 	require 'DbConnect.php';
+	
+	if(isset($_POST["function"]) && $_POST["function"] == 'uivarcity') {
+		require ('conn.php');
 
-	if(isset($_POST['aid'])) {
-		$db = new DbConnect;
-		$conn = $db->connect();
-
-		$stmt = $conn->prepare("SELECT * FROM faculty WHERE faculty_uivarcity_id = " . $_POST['aid']);
-		$stmt->execute();
-		$books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		echo json_encode($books);
+		$id=$_POST['id'];
+		$sql="SELECT * FROM faculty WHERE faculty_uivarcity_id ='$id' AND faculty_status=1";
+		$uni=mysqli_query($conn,$sql);
+		echo '<option selected disabled>-เลือกคณะ-</option>';
+		foreach($uni as $value){
+			echo '<option value="'.$value['faculty_id'].'">'.$value['faculty_name'].'</option>';
+		}
+		exit();
 	}
+
+	if(isset($_POST["function"]) && $_POST["function"] == 'faculty') {
+		require ('conn.php');
+
+		$id=$_POST['id'];
+		$sql="SELECT * FROM department WHERE department_faculty_id ='$id' AND department_status=1";
+		$uni=mysqli_query($conn,$sql);
+		echo '<option selected disabled>-เลือกภาควิชา-</option>';
+		foreach($uni as $value){
+			echo '<option value="'.$value['department_id'].'">'.$value['department_name'].'</option>';
+		}
+		exit();
+	}
+
+
+
 	if(isset($_POST['subject'])) {
 		$db = new DbConnect;
 		$conn = $db->connect();
@@ -38,15 +57,6 @@
 		$authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $authors;
 	}
-
-	function loadAuthors() {
-		$db = new DbConnect;
-		$conn = $db->connect();
-
-		$stmt = $conn->prepare("SELECT * FROM univercity");
-		$stmt->execute();
-		$authors = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		return $authors;
-	}
+ 
 
  ?>

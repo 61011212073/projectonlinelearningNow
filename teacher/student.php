@@ -166,6 +166,7 @@ $result4 = mysqli_query($conn,$sql4);
           <li><a href="department.php" style="font-family: 'Kanit', sans-serif;">- ภาควิชา</a></li>
           <li><a href="course.php" style="font-family: 'Kanit', sans-serif;">- หลักสูตร</a></li>
           <li><a href="subject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชา</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>

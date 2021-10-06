@@ -22,10 +22,18 @@
     $result2=mysqli_query($conn,$sql2);
     
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username'";
     $result = mysqli_query($conn,$sql);
 
-    $sql1="SELECT * FROM vdo ORDER BY vdo_id DESC";
+    $sql1="SELECT vdo.vdo_id,subject.subject_engname,vdo.vdo_name,vdo_link,	vdo_datetime,vdo_status 
+    FROM vdo 
+    INNER JOIN coursesopen ON vdo.vdo_coursesopen_id=coursesopen.coursesopen_id 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username' ORDER BY vdo_id DESC";
     $result1 = mysqli_query($conn,$sql1);
 
 ?>
@@ -122,14 +130,14 @@
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
       <?php while($row=mysqli_fetch_array($result2)){ ?>
-    <a href="editprofile.php">
+    <a href="teacher/editprofile.php">
       <div class="name-job">
         <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
         <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
     </a>
       <?php }?>
-      <a href="hometeacher1.php?logout='1'">
+      <a href="teacher/hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
@@ -170,7 +178,7 @@
             <form action="invdo.php" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="usr" style="font-family: 'Kanit', sans-serif;">รายวิชาที่เปิดสอน :</label>
-                    <select name="vdo_coursesopen_id" style="font-family: 'Kanit', sans-serif;">
+                    <select class="form-select form-control" name="vdo_coursesopen_id" style="font-family: 'Kanit', sans-serif;">
                     <option style="font-family: 'Kanit', sans-serif;">-เลือกรายวิชาที่เปิดสอน-</option>
                         <?php
                             while($rows=mysqli_fetch_row($result)){
@@ -220,12 +228,14 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
+                  <th scope="col">รายวิชา</th>
                   <th scope="col">ชื่อวิดีทัศน์</th>
                   <th scope="col">ไฟล์วิดีทัศน์</th>
                  
                   <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
+                  
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
                 </tr>
               </thead>
               <tbody>
@@ -234,6 +244,7 @@
                  ?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i;?></td>
+                  <td data-label="รายวิชา"><?php echo $row["subject_engname"];?></td>
                   <td data-label="ชื่อวิชา"><?php echo $row['vdo_name'];?></td>
                   <!-- <td data-label="ไฟล์วิดีทัศน์"><?php //echo $row['vdo_link'];?></td> -->
                   <td data-label="ไฟล์วิดีทัศน์"><a href="uploadvdo/<?=$row['vdo_link']?>" class="video_popup video_play"><span class="ripple"><?php echo $row['vdo_name']; ?><i class="ion-play"></i></span></a></td>
@@ -299,5 +310,67 @@
 
 <script src="menu/script.js"></script>
 
+<script>  
+ $(document).ready(function(){  
+        $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/vdo/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });  
+      $(document).on('click', '.edit_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/vdo/edit.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail1').html(data);  
+                          $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      });
+ });  
+ </script>
 </body>
-</html>
+</html>  
+ <div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขวีดีทัศน์</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail1">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div> 
+ <div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">รายละเอียดวีดีทัศน์</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div> 

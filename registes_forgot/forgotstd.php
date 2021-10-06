@@ -14,10 +14,10 @@
     //    echo "Records added successfully.";
         echo "<script type=\"text/javascript\">";
         echo "alert(\"แก้ไขรหัสผ่านสำเร็จ\");";
-        header("Refresh:0; url=../index.html");
+        header("Refresh:0; url=../index.php");
         echo "</script>";
         exit();
     } else{
         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
     }
-?>
+?> 

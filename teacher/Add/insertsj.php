@@ -20,10 +20,10 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $subject_course_id  = $_POST["subject_course_id"];
 	$subject_detail_thai = clean($_POST["subject_detail_thai"]);
     $subject_detail_english	 = clean($_POST["subject_detail_english"]);
-    $subject_status = $_POST["subject_status"];
+    $subject_status = 1;
 
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT subject_engname FROM subject WHERE subject_engname='$subject_engname'";
+    $query = "SELECT subject_id FROM subject WHERE subject_id='$subject_id'";
     $result = mysqli_query($conn, $query);
     if ($subject_engname=="" && $subject_thname=="" && $subject_id=="") {
         echo "<script type=\"text/javascript\">";

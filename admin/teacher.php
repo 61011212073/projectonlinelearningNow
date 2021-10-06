@@ -409,7 +409,7 @@ $(document).ready(function(){
          if(employee_id != '')  
          {  
               $.ajax({  
-                   url:"../BasicData/teacher/select.php",  
+                   url:"../BasicData/teacher/edit.php",  
                    method:"POST",  
                    data:{employee_id:employee_id},  
                    success:function(data){  

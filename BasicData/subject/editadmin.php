@@ -47,11 +47,11 @@
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >รายละเอียดภาษาไทย</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_detail_thai" value="'.$row["subject_detail_thai"].'">
+                              <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_thai"].'</textarea>
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >รายละเอียดภาษาอังกฤษ</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_detail_english" value="'.$row["subject_detail_english"].'">
+                              <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_english"].'</textarea>
                         </div>
                         <!--<div>
                               <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>

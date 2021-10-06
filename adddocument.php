@@ -24,10 +24,18 @@
     mysqli_query($conn,"SET CHARACTER SET UTF8");
     $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname 
     FROM coursesopen 
-    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username'";
     $result = mysqli_query($conn,$sql);
+    $result3 = mysqli_query($conn,$sql);
 
-    $sql1="SELECT * FROM document ORDER BY document_id DESC";
+    $sql1="SELECT document.document_id,subject.subject_engname,document.document_name,document.document_file,document.document_datetime,document_status 
+    FROM document 
+    INNER JOIN coursesopen ON document.document_coursesopen_id=coursesopen.coursesopen_id 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id
+    WHERE teacher_username='$username' ORDER BY document_id DESC";
     $result1 = mysqli_query($conn,$sql1);
 
 ?>
@@ -50,6 +58,22 @@
      <script src="demo/main.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
      <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+     <script type="text/javascript">
+		$(document).ready(function(){
+			$("#subject").change(function(){
+				var id_subject = $(this).val();
+				$.ajax({
+					url: 'data.php',
+					method: 'post',
+					data: {id:id_subject,function:'subject'},
+          success: function(data){
+            // console.log(data);
+            $('#document').html(data);
+          }
+				})
+				})
+			})
+	</script>
    </head>
 <body>
   <div class="sidebar close">
@@ -124,14 +148,14 @@
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
       <?php while($row=mysqli_fetch_array($result2)){ ?>
-    <a href="editprofile.php">
+    <a href="teacher/editprofile.php">
       <div class="name-job">
         <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
         <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
     </a>
       <?php }?>
-      <a href="hometeacher1.php?logout='1'">
+      <a href="teacher/hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
@@ -155,8 +179,13 @@
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลเอกสารการสอน
               </button>&nbsp;&nbsp;
-              <select name="" id="" class="btn btn-primary">
-            <option value="">-ค้นหารายวิชา-</option>
+              <select id="subject" class="btn btn-primary">
+            <option selected disabled>-ค้นหารายวิชา-</option>
+            <?php 
+                  foreach ($result as $row) {
+                    echo "<option value='".$row['coursesopen_id']."'>".$row['subject_engname']."</option>";
+                  }
+                ?>
           </select>
               
               <!-- Modal -->
@@ -174,7 +203,7 @@
                     <select class="form-select form-control" aria-label="Default select example" name="document_coursesopen_id" style="font-family: 'Kanit', sans-serif;">
                     <option style="font-family: 'Kanit', sans-serif;">-เลือกรายวิชาที่เปิดสอน-</option>
                         <?php
-                            while($rows=mysqli_fetch_row($result)){
+                            while($rows=mysqli_fetch_row($result3)){
                                 $uni_id=$rows[0];
                                 $uni_name=$rows[1];
                                 echo "<option value='$uni_id' style='font-family: Kanit, sans-serif;'>$uni_name</option>";
@@ -191,15 +220,6 @@
                     <label for="usr" style="font-family: 'Kanit', sans-serif;">ไฟล์หนังสือ & เอกสารประกอบการสอน :</label>
                     <input type="file" required class="form-control" name="document_file" style="font-family: 'Kanit', sans-serif;">
                 </div>
-                <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                    <label for="pwd" style="font-family: 'Kanit', sans-serif;">สถานะ :</label>
-                    <input type="text" class="form-control" name="status_prename">
-                    <input type="radio" name="document_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                    <input type="radio" name="document_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                </div> -->
-                
-                
-           
             </div>
             
             <!-- Modal footer -->
@@ -222,75 +242,78 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
+                  <th scope="col">รายวิชา</th>
                   <th scope="col">ชื่อเอกสาร</th>
                   <th scope="col">ไฟล์เอกสารประกอบการสอน</th>
-                 
-                  <th scope="col">สถานะการใช้งาน</th>
-                  <th scope="col">รายละเอียด</th>
+                 <th scope="col">สถานะการใช้งาน</th>
                   <th scope="col">แก้ไขข้อมูล</th>
+                  <th scope="col">รายละเอียด</th>
+                  
                 </tr>
               </thead>
-              <tbody>
-              <?php $i=0; while($row = mysqli_fetch_array($result1)){ $i=$i+1 ?>
-                <tr>
-                  <td data-label="ลำดับ"><?php echo $i;?></td>
-                  <td data-label="ชื่อวิชา"><?php echo $row['document_name']; ?></td>
-                  <td data-label="ไฟล์เอกสารประกอบการสอน"><a href="uploadbook/<?=$row["document_file"]?>"><?php echo $row["document_name"];?></a></td>
-                  
-                  <td data-label="สถานะการใช้งาน">
-                  <?php
+              <tbody id="document">
+              <tr>
+              <?php $i=0;
+                foreach($result1 as $row){ 
                     if ($row["document_status"]==1) {
-                      echo '<div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'" checked>
-                    </div>';
+                      $status= '<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'" checked>
+                          </div>';
                     }
                     else if ($row["document_status"]==0) {
-                      echo '<div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'">
-                    </div>';
+                      $status='<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="icon'.$row["document_id"].'">
+                          </div>';
                     }
-                ?>
-                <script>
-                    $(function() {
-                      $('#icon<?php echo $row['document_id']; ?>').change(function() {
-                        var ch_val = $(this).prop('checked');
-                        var rel = <?php echo $row['document_id']; ?>;
+                   ?> <script>
+                          $(function() {
+                            $('#icon<?php echo $row["document_id"];?>').change(function() {
+                            var ch_val = $(this).prop('checked');
+                            // var rel = $(this).val();
+                            var rel = <?php echo $row["document_id"];?>;
 
-                        if(ch_val==true){
-                          var status = 1;
-                        }
-                        if(ch_val==false){
-                          var status = 0;
-                        }
+                            if(ch_val==true){
+                              var status = 1;
+                            }
+                            if(ch_val==false){
+                              var status = 0;
+                            }
 
-                        $.ajax({
-                            url: 'status/statusdoc.php',
-                            type: 'POST',
-                            data: {id: rel, value: status},
-                            success: function (data) {
-                              console.log(data);
-                              }
-                          });
+                            $.ajax({
+                              url: 'status/statusdoc.php',
+                              type: 'POST',
+                              data: {id: rel, value: status},
+                              success: function (data) {
+                                console.log(data);
+                                }
+                              });
 
-                    
-                      })
-                    })
-                </script>
-                  </td>
-                  <td>
-                  <button type="button" name="edit"  id="<?php echo $row["document_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
-            </td>  
-            <td>
-                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["document_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
-            </td>   
-        </td>
+                          
+                            })
+                          })
+                    </script>
+                <?php
+                  $i=$i+1;
+                  echo '<tr>
+                      <td> '.$i.'</td>
+                      <td data-label="รายวิชา">'.$row["subject_engname"].'</td>
+                      <td data-label="ชื่อวิชา">'.$row['document_name'].'</td>
+                      <td data-label="ไฟล์เอกสารประกอบการสอน"><a href="uploadbook/'.$row["document_file"].'">ดาวน์โหลด</a></td>
+                      <td data-label="สถานะการใช้งาน">'.$status.'</td>
+                      <td><button type="button" name="edit"  id="'.$row["document_id"].'" class="btn btn-info btn-xs edit_data"><i class="fas fa-edit"></i></button> </td>  
+                      <td>
+                        <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="'.$row["document_id"].'" class="btn btn-info btn-xs view_data"><i class="far fa-eye"></i></button>
+                      </td>  
+                    </tr>'; 
+                   } ?>
                 </tr>
-                <?php } ?>
               </tbody>
             </table>
     
           </div>
           </section>
+
+
 
 <script src="menu/script.js"></script>
   <!-- <script src="../dist/vertical-responsive-menu.min.js"></script> -->
@@ -320,38 +343,67 @@
   </script>
 
 <script>  
-$(document).ready(function(){  
-   
-    $(document).on('click', '.view_data', function(){  
-         var employee_id = $(this).attr("id");  
-         if(employee_id != '')  
-         {  
-              $.ajax({  
-                   url:"../BasicData/prename/select.php",  
-                   method:"POST",  
-                   data:{employee_id:employee_id},  
-                   success:function(data){  
-                        $('#employee_detail').html(data);  
-                        $('#dataModal').modal('show');  
-                   }  
-              });  
-         }            
-    });  
-});  
-</script>
+ $(document).ready(function(){  
+     
+      $(document).on('click', '.view_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/document/select.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail').html(data);  
+                          $('#dataModal').modal('show');  
+                     }  
+                });  
+           }            
+      });  
+      $(document).on('click', '.edit_data', function(){  
+           var employee_id = $(this).attr("id");  
+           if(employee_id != '')  
+           {  
+                $.ajax({  
+                     url:"BasicData/document/edit.php",  
+                     method:"POST",  
+                     data:{employee_id:employee_id},  
+                     success:function(data){  
+                          $('#employee_detail1').html(data);  
+                          $('#dataModal1').modal('show');  
+                     }  
+                });  
+           }            
+      });
+ });  
+ </script>
 </body>
 </html>
 <div id="dataModal" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
-    <div class="modal-dialog">  
-         <div class="modal-content">  
-              <div class="modal-header">  
-                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลเอกสารการสอน</h4>  
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>  
-              <div class="modal-body" id="employee_detail">  
-              </div>  
-             
-         </div>  
-    </div>  
-</div>  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลเอกสาร</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  
+ <div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+      <div class="modal-dialog">  
+           <div class="modal-content">  
+                <div class="modal-header">  
+                     <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                     <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลเอกสาร</h4>  
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>  
+                <div class="modal-body" id="employee_detail1">  
+                </div>  
+               
+           </div>  
+      </div>  
+ </div>  

@@ -12,9 +12,9 @@
     mysqli_query($conn,"SET CHARACTER SET UTF8"); 
     $document_coursesopen_id  = $_POST["document_coursesopen_id"];
 	$document_name = $_POST["document_name"];
-    $document_status = $_POST["document_status"];
+    // $document_status = $_POST["document_status"];
     // $document_file = $_FILES['document_file'];
-    print_r($_FILES['document_file']);
+    // print_r($_FILES['document_file']);
 
     if (isset($_POST['submit']) && isset($_FILES['document_file'])) {
 
@@ -62,7 +62,7 @@
                     //         echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
                     //     }
                     $sql = "INSERT INTO document(document_coursesopen_id,document_name,document_file,document_status) 
-                    VALUES('$document_coursesopen_id','$document_name','$new_img_name','$document_status')";
+                    VALUES('$document_coursesopen_id','$document_name','$new_img_name',1)";
                      mysqli_set_charset($conn, 'utf8');
                     if(mysqli_query($conn, $sql)){
                      //    echo "Records added successfully.";

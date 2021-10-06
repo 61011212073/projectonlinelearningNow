@@ -266,23 +266,25 @@
                     <div class="small_divider"></div>
                 </div>
             </div>
-            <?php while($row=mysqli_fetch_array($news)){ ?>
+            
             <div class="testimonial_box">
-                <div class="testimonial_img">
-                    <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
-                </div>
-                <div class="testi_meta">
-                    <div class="testi_user">
-                        <h6 style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_name"];?></h6>
-                        <span class="text_default" style="font-family: 'Kanit', sans-serif;"><?php echo $row["teacher_fname"]." ".$row["teacher_lname"];?></span>
+                <?php while($row=mysqli_fetch_array($news)){ ?>
+                    <div class="testimonial_img">
+                        <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
                     </div>
-                    <div class="testi_desc">
-                        <p style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_detail"]?></p>
-                    </div>
-                </div>
+                    <div class="testi_meta">
+                        <div class="testi_user">
+                            <h6 style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_name"];?></h6>
+                            <span class="text_default" style="font-family: 'Kanit', sans-serif;"><?php echo $row["teacher_fname"]." ".$row["teacher_lname"];?></span>
+                        </div>
+                        <div class="testi_desc">
+                            <p style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_detail"]?></p>
+                        </div>
+                    </div><hr>
+                <?php } ?>
             </div>
-            <hr>
-            <?php } ?>
+            <br>
+           
             <!-- <div class="testimonial_box">
                 <div class="testimonial_img">
                     <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
