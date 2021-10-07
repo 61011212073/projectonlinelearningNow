@@ -33,6 +33,11 @@
     $sql="SELECT * FROM work WHERE work_courseopen_id ='$subject'"; //แบบปกติ
     $result = mysqli_query($conn,$sql);
 
+    $sql_send="SELECT * FROM sendwork 
+    INNER JOIN work ON sendwork.sendwork_workorder=work.work_id
+    INNER JOIN student ON sendwork.sendwork_student_id=student.student_id
+    WHERE sendwork_workorder=''  AND sendwork_student_id=''";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -316,7 +321,7 @@
       <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่สั่งงาน</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">การส่งงาน</th>
-      <!-- <th scope="col">ดูการส่งงาน</th> -->
+      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">สถานะการส่งงาน</th> -->
 
     </tr>
   </thead>
@@ -379,12 +384,13 @@ $(document).ready(function(){
    
     $(document).on('click', '.edit_data', function(){  
          var employee_id = $(this).attr("id");  
+         var username = <?php echo $username?>;
          if(employee_id != '')  
          {  
               $.ajax({  
-                   url:"../BasicData/course/select.php",  
+                   url:"../BasicData/sendwork/send.php",  
                    method:"POST",  
-                   data:{employee_id:employee_id},  
+                   data:{employee_id:employee_id,username:username},  
                    success:function(data){  
                         $('#employee_detail').html(data);  
                         $('#dataModal').modal('show');  
@@ -401,7 +407,7 @@ $(document).ready(function(){
          <div class="modal-content">  
               <div class="modal-header">  
                    <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
-                   <h4 class="modal-title"  id="staticBackdropLabel">ตารางแสดงข้อมูลหลักสูตร</h4>  
+                   <h4 class="modal-title"  id="staticBackdropLabel">ส่งงาน</h4>  
                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>  
               <div class="modal-body" id="employee_detail">  

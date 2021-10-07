@@ -179,7 +179,7 @@
 <!-- END HEADER --> 
 
 <!-- START SECTION BREADCRUMB -->
-<section class="page-title-light breadcrumb_section parallax_bg overlay_bg_50" data-parallax-bg-image="assets1/images/imm.jpg">
+<section class="page-title-light breadcrumb_section parallax_bg overlay_bg_50" data-parallax-bg-image="assets1/images/123.jpg">
 	<div class="container">
     	<div class="row align-items-center">
         	<div class="col-sm-6">

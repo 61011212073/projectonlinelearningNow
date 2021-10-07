@@ -23,15 +23,21 @@
     WHERE student_username='$username'";
     $result2=mysqli_query($conn,$sql2);
 
+    $std_id=mysqli_fetch_assoc(mysqli_query($conn,$sql2));
+
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    // $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
-    // $result = mysqli_query($conn,$sql);
 
-
-     $subject=$_GET['subject'];
+     $subject=$_GET['exam'];
     // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
-    $sql="SELECT * FROM exampapers WHERE exampapers_coursesopen_id ='$subject'"; //แบบปกติ
+    $sql="SELECT subject.subject_id,subject.subject_engname,exampapers.exampapers_category 
+    FROM exampapers 
+    INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
+    WHERE exampapers_id='$subject'"; 
     $result = mysqli_query($conn,$sql);
+
+    $sql_exam;
+    $examans;
 
 ?> 
 <!DOCTYPE html>
@@ -170,55 +176,71 @@
 </header>
 <!-- END HEADER --> 
 <section >
-	<div class="container">	
-    <div class="row justify-content-center">
-        	<div class="col-xl-6 col-lg-8">
-            	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                    <div class="heading_s1 text-center" >
-                        <h2>ข้อสอบ</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="container">
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
-      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อเอกสารสอบ</th>
-      <th scope="col" style="font-family: 'Kanit', sans-serif;">ประเภทข้อสอบ</th>
-      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th> -->
-      <th scope="col" style="font-family: 'Kanit', sans-serif;">เข้าสอบ</th>
-      <!-- <th scope="col">ดูการส่งงาน</th> -->
-
-    </tr>
-  </thead>
-  <tbody>
-  <?php $i=0; while($row = mysqli_fetch_array($result)){ $i=$i+1 ?>
-    <tr>
-      <th scope="row" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></th>
-      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["exampapers_name"];?></td>
-      <td style="font-family: 'Kanit', sans-serif;"><?php 
-      if ($row["exampapers_category"]==1) {
-          echo "สอบย่อย";
-      }
-      else if ($row["exampapers_category"]==2) {
-        echo "สอบกลางภาค";
-    }
-     else if ($row["exampapers_category"]==3) {
-        echo "สอบปลายภาค";
-    }
-      ?></td>
-      <td>
-        <a href="examans.php?exam=<?php echo $row["exampapers_id"]?>"><button type="button" class="btn btn-primary" ><i class="fas fa-upload"></i></button></a>
-      </td>
-    </tr>
-    <?php } ?>
-  </tbody>
-</table>
-</div>
+<font face="'Kanit', sans-serif">    
+         <div class="container" align="center">   
+                <h2 align="center"><b style="color:#009879;">การสอบอัตนัย</b></h2> <hr> 
+                
+                <div class="form-group" >  
+                     <form action="" method="post">  
+                          <div class="table-responsive" > 
+                              <table class="content-table">
+                                   <thead>
+                                        <tr>
+                                             <td>รหัสวิชา</td>
+                                             <td>ชื่อวิชา</td>
+                                             <td>สอบประจำภาคการศึกษา</td>
+                                             <!-- <td>วันที่-เวลา</td> -->
+                                             <td>รหัสนิสิต</td>
+                                        </tr>
+                                   <thead>
+                                   <tbody>
+                                   <?php while($row=mysqli_fetch_array($result)){ ?>
+                                        <tr>
+                                             <td><?php echo $row["subject_id"]?></td>
+                                             <td><?php echo $row["subject_engname"]?></td>
+                                             <!-- <td><?php // echo $row[""]?></td> -->
+                                             <td><?php echo $row["exampapers_category"]?></td>
+                                             
+                                             <td><input type="text" name="examans_std_std" value="<?php echo $std_id["student_id"]?>" readonly/></td>
+                                        </tr>
+                                        <?php }?>
+                                   </tbody>
+                              <table>
+                               <table class="content-table"> 
+                                   <thead>
+                                        <tr>
+                                             <td>ลำดับ</td>
+                                             <td>โจทย์</td>
+                                             <td>คำตอบนิสิต</td>
+                                             
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                   
+                                        {% for i in range(datas|length) %}
+                                             <tr> 
+                                                  <td>{{i+1}}</td>
+                                                  
+                                                  <td>
+                                                       <input type="text" name="examans_std_examaddword" value="{{num[i]}}">
+                                                  
+                                                  {{datas[i].2}}
+                                                  </td>
+                                                  <!--<td><option name="examans_std_examaddword" value="{{num[i]}}"></option></td>-->
+                                                  <td><input type="text" name="examans_std_answer" placeholder="เพิ่มคำตอบ"></td>
+                                             </tr>
+                                        
+                                        
+                                        {% endfor %}
+                                   </tbody>
+                               </table>  
+                               <button type="submit" name="submit" id="submit" class="btn btn-success"/>ส่งคำตอบ</button>
+                               <button class="btn btn-success" ><a href="/store" style="color: white;">กลับ</a></button>
+                          </div>  
+                     </form>  
+                </div>  
+           </div> 
+          </font> 
        
 </section>
 
