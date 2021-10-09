@@ -27,17 +27,19 @@
 
     mysqli_query($conn,"SET CHARACTER SET UTF8");
 
-     $subject=$_GET['exam'];
+     $exam=$_GET['exam'];
     // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
-    $sql="SELECT subject.subject_id,subject.subject_engname,exampapers.exampapers_category 
-    FROM exampapers 
+    $sql="SELECT subject.subject_id,subject.subject_engname,examAddwords_question,examAddwords_answer,examAddwords_fullscore,examAddwords_keyword,exampapers.exampapers_category
+    FROM examaddwords 
+    INNER JOIN exampapers ON examaddwords.examAddwords_exampapers_id=exampapers.exampapers_id 
     INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id 
-    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id 
-    WHERE exampapers_id='$subject'"; 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    WHERE exampapers_id='$exam'"; 
     $result = mysqli_query($conn,$sql);
+    $sub=mysqli_fetch_assoc($result);
 
-    $sql_exam;
-    $examans;
+    $sql_exam="SELECT * FROM examaddwords where examAddwords_exampapers_id='$exam'";
+    $examans=mysqli_query($conn,$sql_exam);
 
 ?> 
 <!DOCTYPE html>
@@ -50,6 +52,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Eduglobal - Education & Courses HTML Template">
 <meta name="keywords" content="academy, course, education, elearning, learning, education html template, university template, college template, school template, online education template, tution center template">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
 <!-- SITE TITLE -->
 <title>Online Education </title>
@@ -80,7 +83,7 @@
 <link rel="stylesheet" id="layoutstyle" href="assets2/color/theme.css" />
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <link href="style1.css" rel="stylesheet">
-  <script src="main.js"></script>
+  <!-- <script src="main.js"></script> -->
 
 <style>
 * {
@@ -181,7 +184,7 @@
                 <h2 align="center"><b style="color:#009879;">การสอบอัตนัย</b></h2> <hr> 
                 
                 <div class="form-group" >  
-                     <form action="" method="post">  
+                     <form action="exam_std.php" method="post">  
                           <div class="table-responsive" > 
                               <table class="content-table">
                                    <thead>
@@ -194,18 +197,29 @@
                                         </tr>
                                    <thead>
                                    <tbody>
-                                   <?php while($row=mysqli_fetch_array($result)){ ?>
+                                   
                                         <tr>
-                                             <td><?php echo $row["subject_id"]?></td>
-                                             <td><?php echo $row["subject_engname"]?></td>
+                                             <td><?php echo $sub["subject_id"]?></td>
+                                             <td><?php echo $sub["subject_engname"]?></td>
                                              <!-- <td><?php // echo $row[""]?></td> -->
-                                             <td><?php echo $row["exampapers_category"]?></td>
+                                             <td><?php if ($sub["exampapers_category"]==1) {
+                                                  echo "สอบย่อย";
+                                                  }
+                                                  else if ($sub["exampapers_category"]==2) {
+                                                  echo "สอบกลางภาค";
+                                                  }
+                                                  else if ($sub["exampapers_category"]==3) {
+                                                  echo "สอบปลายภาค";
+                                                  }
+                                                  ?>
+                                             </td>
                                              
                                              <td><input type="text" name="examans_std_std" value="<?php echo $std_id["student_id"]?>" readonly/></td>
                                         </tr>
-                                        <?php }?>
+                                       
                                    </tbody>
                               <table>
+                               <form action="" method="post" id="insert">    
                                <table class="content-table"> 
                                    <thead>
                                         <tr>
@@ -217,25 +231,30 @@
                                    </thead>
                                    <tbody>
                                    
-                                        {% for i in range(datas|length) %}
+                                   <?php $i=0; while($row=mysqli_fetch_array($examans)){ $i=$i+1;?>
                                              <tr> 
-                                                  <td>{{i+1}}</td>
+                                                  
+                                                  <td><?php echo $i;?></td>
                                                   
                                                   <td>
-                                                       <input type="text" name="examans_std_examaddword" value="{{num[i]}}">
+                                                       <input type="hidden" name="examans_std_examaddwords[]" value="<?php echo $row["examAddwords_id"]?> ">
+                                                       <?php echo $row["examAddwords_question"]?> 
                                                   
-                                                  {{datas[i].2}}
                                                   </td>
-                                                  <!--<td><option name="examans_std_examaddword" value="{{num[i]}}"></option></td>-->
-                                                  <td><input type="text" name="examans_std_answer" placeholder="เพิ่มคำตอบ"></td>
+                                                  <td><input type="text" name="examans_std_answer[]" placeholder="เพิ่มคำตอบ" required></td>
+                                                 
                                              </tr>
-                                        
-                                        
-                                        {% endfor %}
+                                                  
+                                            
+                                             <?php }?>
+                                             
+                                             
                                    </tbody>
+                                   
                                </table>  
-                               <button type="submit" name="submit" id="submit" class="btn btn-success"/>ส่งคำตอบ</button>
-                               <button class="btn btn-success" ><a href="/store" style="color: white;">กลับ</a></button>
+                               <button type="submit" id="submit" class="btn btn-success"/>ส่งคำตอบ</button>
+                               <button class="btn btn-success" ><a href="" style="color: white;">กลับ</a></button>
+                               </form>
                           </div>  
                      </form>  
                 </div>  
@@ -244,7 +263,39 @@
        
 </section>
 
+<script>
+$(function() {
+     $('#insert').change(function() {
+     
+     var rel ="เข้าแล้ว" ;
+     <?php // echo $row['examAddwords_id']; ?>
+     console.log(rel);
 
+     // if(ch_val==true){
+     //      var status = 1;
+     // }
+     // if(ch_val==false){
+     //      var status = 0;
+     // }
+
+     // $.ajax({
+     //      url: '../teacher/status/statusdepartment.php',
+     //      type: 'POST',
+     //      data: {id: rel, value: status,},
+     //      async: false,
+     //      success: function (data) {
+     //           // console.log(data);
+     //           }
+     //      });
+
+     
+     // })
+     })
+// $('#insert').submit(function(){
+//      console.log($(this).serialize());
+//      return false;
+});
+</script>
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a> 
 
 <!-- Latest jQuery --> 
