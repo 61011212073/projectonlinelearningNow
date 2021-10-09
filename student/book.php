@@ -183,30 +183,40 @@
         </div>
         <br>
         <br>
-        <div align="center">
+       
 
-<table class="content-table" >
+<div class="container">
+<table class="table">
   <thead>
     <tr>
-    <th>ลำดับ</th>
-      <th>ชื่อเอกสารประกอบการสอน</th>
-      <th>ไฟล์เอกสารประกอบการสอน</th>
-      <th scope="col">วันที่และเวลา</th>
-      <!-- <th>สถานะการใช้งาน</th> -->
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อเอกสารประกอบการสอน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ไฟล์เอกสารประกอบการสอน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลา</th>
+      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">การส่งงาน</th> -->
+      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">สถานะการส่งงาน</th> -->
+
     </tr>
   </thead>
   <tbody>
   <?php $i=0; while($row = mysqli_fetch_array($result)){ $i=$i+1 ?>
     <tr>
-      <td><?php echo $i;?></td>
-      <td><?php echo $row['document_name']; ?></td>
-      <td><a href="../uploadbook/<?=$row["document_file"]?>" style="color:blue"><?php echo $row["document_name"];?></a></td>
-      <td><?php echo $row['document_datetime'];?></td>
+      <th scope="row" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></th>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['document_name']; ?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><a href="../uploadbook/<?=$row["document_file"]?>" style="color:blue"><?php echo $row["document_name"];?></a></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['document_datetime'];?></td>
+     
+      <!-- <td>
+      <a class="btn btn-primary" href="sentlecture.php" role="button"> <i class="fa fa-clipboard"></i></a>
+     
+      </td> -->
     </tr>
     <?php } ?>
   </tbody>
 </table>
 </div>
+
        
 </section>
 

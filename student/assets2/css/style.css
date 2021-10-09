@@ -36,11 +36,13 @@ body {
     -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing:grayscale;
 }
+
 h1,h2,h3,h4,h5,h6 {
 	color: #292b2c;
 	font-family: 'Kanit', sans-serif;
 	size: 50px;
 }
+
 p {
 	color:#888888;
 }
@@ -1173,7 +1175,7 @@ button:focus {
 	color: #333 !important;
 }
 .dark_skin .cart_list a:hover, .dark_skin .item_remove:hover {
-	color: #000 !important;
+	color: #292b2c !important;
 }
 
 .dropdown-toggle::after, .dropdown-toggler::after {

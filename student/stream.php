@@ -181,23 +181,34 @@ $subject=$_GET['subject'];
         <br>
 <div align="center">
 
-<table class="content-table" >
+
+
+<div class="container">
+<table class="table">
   <thead>
     <tr>
-    <th>ลำดับ</th>
-      <th>ชื่อไลฟ์สตรีม</th>
-      
-      <th>วันที่และเวลา</th>
-      <th>หน้าไลฟ์</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อไลฟ์สตรีม</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลา</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชมไลฟ์</th>
+      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">การส่งงาน</th> -->
+      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">สถานะการส่งงาน</th> -->
+
     </tr>
   </thead>
   <tbody>
   <?php $i=0; while($row = mysqli_fetch_array($result1)){ $i=$i+1 ?>
     <tr>
-      <td><?php echo $i;?></td>
-      <td><?php echo $row['live_story']; ?></td>
-      <td><?php echo $row['live_datetime'];?></td>
-      <td><a class="btn btn-primary" href="seestream.php?live=<?php echo $row['live_id'];?>" role="button"> <i class="fa fa-video"></i></a></td>
+      <th scope="row" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></th>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['live_story']; ?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['live_datetime'];?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><a class="btn btn-primary" href="seestream.php?live=<?php echo $row['live_id'];?>" role="button"> <i class="fa fa-video"></i></a></td>
+     
+      <!-- <td>
+      <a class="btn btn-primary" href="sentlecture.php" role="button"> <i class="fa fa-clipboard"></i></a>
+     
+      </td> -->
     </tr>
     <?php } ?>
   </tbody>

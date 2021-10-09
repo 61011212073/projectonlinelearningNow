@@ -179,7 +179,7 @@
 <!-- END HEADER --> 
 
 <!-- START SECTION BREADCRUMB -->
-<section class="page-title-light breadcrumb_section parallax_bg overlay_bg_50" data-parallax-bg-image="assets1/images/123.jpg">
+<section class="page-title-light breadcrumb_section parallax_bg overlay_bg_50" data-parallax-bg-image="assets1/images/44.png">
 	<div class="container">
     	<div class="row align-items-center">
         	<div class="col-sm-6">
@@ -201,62 +201,71 @@
 <!-- END SECTION BANNER -->
 
 
-<!-- START SECTION COUNTER -->
-<section class="bg_gray">
-    <div class="container">
-        <div class="row">
+<!-- START SECTION COUNTER style="background-color: #E5E0E0"-->
+<section class="bg_gray" >
+    <div class="container ">
+        <div class="row ">
             <div class="col-lg-3 col-md-3 col-6 ">
-                <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
-                	<div class="counter_icon">
-                    	<img src="assets1/images/students.png" alt="counter_icon1" />
+                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+                	<div class="counter_icon box_icon bg_danger mb-3">
+                    <img src="assets1/images/students1.png" alt="book" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result['totalstd']; ?></span></h3>
-                        <p style="font-family: 'Kanit', sans-serif;">นิสิต</p>
+                        <div class="intro_desc">
+                        <h5>นิสิต</h5>
+                    </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-6 ">
-                <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.03s">
-                    <div class="counter_icon">
-                    	<img src="assets1/images/bookshelf.png" alt="counter_icon2" />
+                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+                    <div class="counter_icon box_icon bg_light_green  mb-3">
+                        <img src="assets1/images/isub.png" alt="book" >
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result2['totalop']; ?></span></h3>
-                        <p style="font-family: 'Kanit', sans-serif;">รายวิชาที่เปิดสอน</p>
+                        <div class="intro_desc">
+                        <h5>รายวิชาที่เปิดสอน</h5>
+                    </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-6 ">
-                <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.04s">
-                    <div class="counter_icon">
-                    	<img src="assets1/images/female.png" alt="counter_icon3" />
+                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.04s">
+                    <div class="counter_icon box_icon bg_default mb-3">
+                    	<img src="assets1/images/teacher.png" alt="counter_icon3" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result1['totalled']; ?></span></h3>
-                        <p style="font-family: 'Kanit', sans-serif;">อาจารย์</p>
+                        <div class="intro_desc">
+                        <h5>อาจารย์</h5>
+                    </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-6 ">
-                <div class="box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.05s">
-                	<div class="counter_icon">
-                    	<img src="assets1/images/boo.png" alt="counter_icon4" />
+                <div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation box_counter counter_style1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.05s">
+                	<div class="counter_icon  box_icon bg_pink mb-3">
+                    	<img src="assets1/images/bookN.png" alt="counter_icon4" />
                     </div>
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result3['totalsub']; ?></span></h3>
-                        <p style="font-family: 'Kanit', sans-serif;">รายวิชา</p>
+                        <div class="intro_desc">
+                        <h5>รายวิชา</h5>
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br><br><br>
 
 <!-- END SECTION COUNTER -->
  
- <!-- START SECTION TESTIMONIAL -->
-<section>
-	<div class="container">
+ <!-- START SECTION TESTIMONIAL style="background-color: #E5E0E0"-->
+<section class="bg_gray" >
+	<div class="container" >
     	<div class="row justify-content-center">
         	<div class="col-md-6">
             	<div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
@@ -267,15 +276,16 @@
                 </div>
             </div>
             
-            <div class="testimonial_box">
+            <div class="testimonial_box ">
+                <hr>
                 <?php while($row=mysqli_fetch_array($news)){ ?>
                     <div class="testimonial_img">
-                        <img class="radius_all_5" src="assets1/images/rr.png" alt="client" width="50" height="50">
+                        <img class="radius_all_5 " src="assets1/images/newnews.png" alt="client" width="50" height="50">
                     </div>
                     <div class="testi_meta">
                         <div class="testi_user">
                             <h6 style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_name"];?></h6>
-                            <span class="text_default" style="font-family: 'Kanit', sans-serif;"><?php echo $row["teacher_fname"]." ".$row["teacher_lname"];?></span>
+                            <span class="text_black" style="font-family: 'Kanit', sans-serif;"><?php echo $row["teacher_fname"]." ".$row["teacher_lname"];?></span>
                         </div>
                         <div class="testi_desc">
                             <p style="font-family: 'Kanit', sans-serif;"><?php echo $row["news_detail"]?></p>

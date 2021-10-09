@@ -140,8 +140,8 @@
     </div>
 </header>
 <!-- END HEADER -->  
-<!-- START SECTION BLOG -->
-<section class="bg_gray">
+<!-- START SECTION BLOG style="background-color: #E5E0E0"-->
+<section class="bg_gray" >
 	<div class="container">
     	<div class="row">
 
@@ -159,10 +159,10 @@
           </nav> -->
           <!-- /Breadcrumb -->
     
-          <div class="row gutters-sm">
+          <div class="row gutters-sm"> 
             <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
+              <div class="card " >
+                <div class="card-body blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                   <div class="d-flex flex-column align-items-center text-center">
                     
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="profileImg" width="110">
@@ -192,7 +192,7 @@
             <?php while($row=mysqli_fetch_array($result4)){ ?>
             <div class="col-md-8">
               <div class="card mb-3">
-                <div class="card-body">
+                <div class="card-body blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                 <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0">รหัสนิสิต</h6>
@@ -310,9 +310,40 @@
 
         </div>
         <br><br>
+
+          <!-- ------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-md-12">
+            	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
+                	<h2 style="font-family: 'Kanit', sans-serif;">ตารางกิจกรรม</h2>
+                </div>
+            </div>
+            <br> 
+<table class="table">
+  <tbody>
+    <tr class="table-warning">
+      <th scope="col">รายการกิจกรรมที่ต้องทำ</th>
+      <th scope="col">วันที่และเวลาไลฟ์สตรีม</th>
+      <th scope="col">วันที่และเวลาสอบกลางภาค</th>
+      <th scope="col">วันที่และเวลาสอบปลายภาค</th>
+    </tr>
+    <tr>
+      <td>Foundation of Computer Science</td>
+      <td>-</td>
+      <td>-</td>
+      <td>27/10/64 - 15.00</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<hr>
+<br>
+
+
+        <!-- ------------------------------------------------------------------------------------------------------------- -->
         	<div class="col-md-12">
             	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                	<h2 style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</h2><hr>
+                	<h2 style="font-family: 'Kanit', sans-serif;">รายวิชาที่ลงทะเบียน</h2>
                 </div>
             </div> 
           <div class="row"> 
@@ -331,7 +362,7 @@
                         <font style="font-family: 'Kanit', sans-serif;">
                           <div class="blog_content bg-white" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
-                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_id']?></a></h6>
+                            <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px; "><?php echo $row['subject_id']?></a></h6>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
                             <p style="font-family: 'Kanit', sans-serif; height: 120px;"><?php echo $row['subject_detail_thai'];?></p>
                            </div>
@@ -346,7 +377,7 @@
                 <div class="col-12 col-md-8">
             	    <div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                 	      
-                        <font style="font-family: 'Kanit', sans-serif;">
+                        <font style="font-family: 'Kanit', sans-serif; ">
                           <div class="blog_content bg-white columns">
                             <?php 
                                 $sql3="SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id=".$row['study_coursesopen_id'];
@@ -376,7 +407,7 @@
                                       while ($document=mysqli_fetch_array($resultdocument)) {
                               ?>
                                                 <a href="../uploadbook/<?=$document["document_file"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                                  <i class="fa fa-file-pdf-o" style="font-size:24px"></i><?php echo ' '.$document["document_name"] ?>
+                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"] ?>
                                                 </a><br>
                               <?php
                                       
@@ -400,7 +431,7 @@
                                         
                                 ?>
                                             <a href="../uploadvdo/<?=$vdo1["vdo_link"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                              <i class="fa fa-file-movie-o" style="font-size:24px"></i><?php echo ' '.$vdo1["vdo_name"] ?>
+                                              <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"] ?>
                                             </a><br>
                                 <?php
                                         }
@@ -422,7 +453,7 @@
                                         while ($work1=mysqli_fetch_array($work)) {
                                 ?>
                                             <a href="../uploadwork/<?=$work1["work_file"]?>" style="font-family: 'Kanit', sans-serif;">
-                                            <i class="fas fa-file-alt" style="font-size:24px"></i><?php echo ' '.$work1["work_name"] ?>
+                                            <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"] ?>
                                             </a><br>
                                 <?php
                                           }
