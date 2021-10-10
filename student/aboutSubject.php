@@ -79,6 +79,7 @@
 <link rel="stylesheet" href="assets2/css/responsive.css" />
 <link rel="stylesheet" id="layoutstyle" href="assets2/color/theme.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <style>
     .columns {
     column-count: 3;
@@ -312,26 +313,40 @@
         <br><br>
 
           <!-- ------------------------------------------------------------------------------------------------------------- -->
+<?php 
+    $live_sub="SELECT live.live_id,subject.subject_engname,live.live_story,live.live_link,live.live_datetime 
+    FROM live 
+    INNER JOIN coursesopen ON live.live_coursesopen_id=coursesopen.coursesopen_id 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    INNER JOIN study ON coursesopen.coursesopen_id=study.study_coursesopen_id
+    INNER JOIN student ON study.study_student_id=student.student_id
+    WHERE student_username='$username' ORDER BY live_id DESC";
+    $livesub=mysqli_query($conn,$live_sub);
+?>
           <div class="col-md-12">
             	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
-                	<h2 style="font-family: 'Kanit', sans-serif;">ตารางกิจกรรม</h2>
+                	<h2 style="font-family: 'Kanit', sans-serif;">ตารางเวลาเรียน</h2>
                 </div>
             </div>
             <br> 
 <table class="table">
   <tbody>
     <tr class="table-warning">
-      <th scope="col">รายการกิจกรรมที่ต้องทำ</th>
-      <th scope="col">วันที่และเวลาไลฟ์สตรีม</th>
-      <th scope="col">วันที่และเวลาสอบกลางภาค</th>
-      <th scope="col">วันที่และเวลาสอบปลายภาค</th>
-    </tr>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">รายวิชา</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อเรื่อง</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลาไลฟ์สตรีม</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">รับชม</th>
+      <!-- <th scope="col">วันที่และเวลาสอบปลายภาค</th> -->
+    </tr><?php while($row=mysqli_fetch_array($livesub)){?>
     <tr>
-      <td>Foundation of Computer Science</td>
-      <td>-</td>
-      <td>-</td>
-      <td>27/10/64 - 15.00</td>
-    </tr>
+      
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["subject_engname"]?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["live_story"]?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["live_datetime"]?></td>
+      <td><a href="seestream.php?live=<?php echo $row["live_id"]?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a></td>
+      <!-- <td>-</td> -->
+     
+    </tr> <?php }?>
     
   </tbody>
 </table>
@@ -339,6 +354,37 @@
 <hr>
 <br>
 
+ <!-- ------------------------------------------------------------------------------------------------------------- -->
+ <?php 
+ 
+ ?>
+ <div class="col-md-12">
+            	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
+                	<h2 style="font-family: 'Kanit', sans-serif;">ตารางการสอบ</h2>
+                </div>
+            </div>
+            <br> 
+<table class="table">
+  <tbody>
+    <tr class="table-warning">
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">รายการ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลาที่สอบ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลาสิ้นสุด</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">เข้าสอบ</th>
+    </tr>
+    <tr>
+      <td style="font-family: 'Kanit', sans-serif;">Foundation of Computer Science</td>
+      <td style="font-family: 'Kanit', sans-serif;">27/10/64 - 15.00</td>
+      <!-- <td>-</td> -->
+      <td style="font-family: 'Kanit', sans-serif;">27/10/64 - 15.00</td>
+      <td><button class="btn btn-primary"><i class="fas fa-pen-square"></i></button></td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<hr>
+<br>
 
         <!-- ------------------------------------------------------------------------------------------------------------- -->
         	<div class="col-md-12">
@@ -380,16 +426,18 @@
                         <font style="font-family: 'Kanit', sans-serif; ">
                           <div class="blog_content bg-white columns">
                             <?php 
-                                $sql3="SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id=".$row['study_coursesopen_id'];
+                                // $sql3="SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id=".$row['study_coursesopen_id']."ORDER BY document_id DESC";
+                                
+                                $sql3='SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id="'.$row["study_coursesopen_id"].'" ORDER BY document_id DESC';
                                 $resultdocument=mysqli_query($conn,$sql3);
                                 
-                                $sql_vdo="SELECT * FROM vdo WHERE vdo_coursesopen_id =".$row['study_coursesopen_id'];
+                                $sql_vdo='SELECT * FROM vdo WHERE vdo_coursesopen_id ="'.$row['study_coursesopen_id'].'" ORDER BY vdo_id DESC';
                                 $vdo=mysqli_query($conn,$sql_vdo);
 
-                                $sql_live="SELECT * FROM live WHERE live_coursesopen_id =".$row['study_coursesopen_id'];
+                                $sql_live='SELECT * FROM live WHERE live_coursesopen_id ="'.$row['study_coursesopen_id'].'" ORDER BY live_id DESC';
                                 $live=mysqli_query($conn,$sql_live);
                                 
-                                $sql_work="SELECT * FROM work WHERE work_status=1 AND work_courseopen_id =".$row['study_coursesopen_id'];
+                                $sql_work='SELECT * FROM work WHERE work_status=1 AND work_courseopen_id ="'.$row['study_coursesopen_id'].'" ORDER BY work_id DESC';
                                 $work=mysqli_query($conn,$sql_work);
 
 
@@ -404,13 +452,24 @@
                             <p>
                               <?php 
                                     if ($resultdoc['countdoc']>=1 && $resultdoc['countdoc']<=5) {
+                                      $star=true;
                                       while ($document=mysqli_fetch_array($resultdocument)) {
+                                        if ($star==true) {
+                                        
                               ?>
                                                 <a href="../uploadbook/<?=$document["document_file"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"] ?>
+                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"].' ' ?><i class="far fa-star"></i>
                                                 </a><br>
+                                                <?php $star=false ?>
                               <?php
-                                      
+                                        }
+                                        else{
+                                      ?>
+                                            <a href="../uploadbook/<?=$document["document_file"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
+                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"].' ' ?>
+                                                </a><br>
+                                      <?php      
+                                        }
                                       }
                                     }
                                     else if($resultdoc['countdoc']>5){
@@ -427,13 +486,25 @@
                             <p>
                               <?php 
                                       if ($resultvdo['countvdo']>=1 && $resultvdo['countvdo']<=5) {
+                                        $star=true;
                                           while ($vdo1=mysqli_fetch_array($vdo)) {
+                                            if ($star==true) {
                                         
                                 ?>
                                             <a href="../uploadvdo/<?=$vdo1["vdo_link"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                              <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"] ?>
+                                              <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"].' ' ?><i class="far fa-star"></i>
                                             </a><br>
+                                            <?php $star=false ?>
                                 <?php
+                                            }
+                                            else{
+                                              ?>
+                                                <a href="../uploadvdo/<?=$vdo1["vdo_link"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
+                                                <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"].' ' ?>
+                                              </a><br>
+
+                                              <?php 
+                                            }
                                         }
                                         }
                                       else if($resultvdo['countvdo']>5){
@@ -450,12 +521,28 @@
                             <p>
                               <?php 
                                       if ($resultwork['countwork']>=1 && $resultwork['countwork']<=5) {
+                                        $star=true;
                                         while ($work1=mysqli_fetch_array($work)) {
+                                          if ($star==true) {
                                 ?>
                                             <a href="../uploadwork/<?=$work1["work_file"]?>" style="font-family: 'Kanit', sans-serif;">
-                                            <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"] ?>
-                                            </a><br>
+                                              <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"].' ' ?><i class="far fa-star"></i>
+                                            </a>
+                                            <br>
+                                            <?php $star=false ?>
                                 <?php
+                                          }
+                                          else{
+
+                                            ?>
+
+                                            <a href="../uploadwork/<?=$work1["work_file"]?>" style="font-family: 'Kanit', sans-serif;">
+                                              <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"] ?>
+                                            </a>
+                                            <br>
+
+                                            <?php
+                                          }
                                           }
                                         }
                                       else if($resultwork['countwork']>5){

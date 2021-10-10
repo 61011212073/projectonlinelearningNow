@@ -28,10 +28,14 @@
     WHERE teacher_username='$username'";
     $result = mysqli_query($conn,$sql);
 
-    $sql1="SELECT subject.subject_engname,exampapers.exampapers_id,exampapers.exampapers_name,exampapers.exampapers_category,exampapers.exampapers_status 
-    FROM exampapers 
-    INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id
-    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+    $exam=$_GET["exam"];
+
+    $sql1="SELECT DISTINCT student.student_id,student.student_fname,student.student_lname 
+    FROM examans_std
+    INNER JOIN student ON examans_std.examans_std_std=student.student_id
+    INNER JOIN examaddwords ON examans_std.examans_std_examaddwords=examaddwords.examAddwords_id
+    INNER JOIN exampapers ON examaddwords.examAddwords_exampapers_id=exampapers.exampapers_id
+    WHERE exampapers.exampapers_id=$exam";
     $result1 = mysqli_query($conn,$sql1);
 
 ?>
@@ -54,6 +58,7 @@
     
      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
      <script src="../demo/main.js"></script>
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
   <div class="sidebar close">
@@ -154,12 +159,12 @@
 
     <section>
       <div class="container-fluid">
-        <h3>ตารางแสดงเอกสารสอบ</h3>
+        <h3>ตารางแสดงตรวจข้อสอบ</h3>
               <br>
               
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
+              <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลเอกสารสอบ
-              </button>&nbsp;&nbsp;
+              </button>&nbsp;&nbsp; -->
               <!-- <select name="" id="" class="btn btn-primary">
             <option value="">-ค้นหารายวิชา-</option>
           </select> -->
@@ -172,10 +177,10 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate action="Add/addexam.php" method="post">
+                      <form class="row g-3 needs-validation" novalidate>
                         <label for="validationCustom01" class="form-label" >รายวิชาที่เปิดสอน</label>
-                        <select class="form-select form-control" aria-label="Default select example" name="exampapers_coursesopen_id">
-                            <option selected disabled>-เลือกรายวิชาที่เปิดสอน-</option>
+                        <select class="form-select form-control" aria-label="Default select example">
+                            <option selected>-เลือกรายวิชาที่เปิดสอน-</option>
                             <?php
                             while($rows=mysqli_fetch_row($result)){
                                 $uni_id=$rows[0];
@@ -187,14 +192,14 @@
                           
                         <div >
                             <label for="validationCustom01" class="form-label">กรอกชื่อเอกสาร</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อเอกสาร" name="exampapers_name" required>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อเอกสาร" required>
                           </div>
                           
                           <div >
                             <label for="formFile" class="form-label">ประเภทการสอบ</label>
                             <!-- <input class="form-control" type="file" id="formFile"> -->
-                            <select class="form-select form-control" aria-label="Default select example" name="exampapers_category">
-                                <option selected disabled>-ประเภทของการสอบ-</option>
+                            <select class="form-select form-control" aria-label="Default select example">
+                                <option selected>-ประเภทของการสอบ-</option>
                                 <option value="1">สอบย่อย</option>
                                 <option value="2">สอบกลางภาค</option>
                                 <option value="3">สอบปลายภาค</option>
@@ -211,7 +216,7 @@
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                      <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
+                      <button type="button" class="btn btn-success">บันทึกข้อมูล</button>
                     </div>
                      </form>
                   </div>
@@ -227,13 +232,12 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
-                  <th scope="col">รายวิชา</th>
-                  <th scope="col">ชื่อเอกสารสอบ</th>
-                  <th scope="col">ประเภทข้อสอบ</th>
+                  <th scope="col">รหัสนิสิต</th>
+                  <th scope="col">ชื่อ-นามสกุล</th>
                   <!-- <th scope="col">สถานะการใช้งาน</th> -->
-                  <th scope="col">รายละเอียด</th>
-                  <th scope="col">แก้ไขข้อมูล</th>
-                  <th scope="col">เพิ่มข้อสอบ</th>
+                  <!-- <th scope="col">รายละเอียด</th>
+                  <th scope="col">แก้ไขข้อมูล</th> -->
+                  <th scope="col">ตรวจข้อสอบ</th>
                 </tr>
               </thead>
               <tbody>
@@ -241,36 +245,12 @@
                 <?php $i=0; while($row = mysqli_fetch_array($result1)){ $i=$i+1  ?>
                 <tr>
                   <td data-label="ลำดับ"><?php echo $i?></td>
-                  <td data-label="รายวิชา"><?php echo $row["subject_engname"]?></td>
-                  <td data-label="ชื่อเอกสารสอบ"><?php echo $row["exampapers_name"]?></td>
-                  <td style="font-family: 'Kanit', sans-serif;">
-                  <?php 
-                    if ($row["exampapers_category"]==1) {
-                        echo "สอบย่อย";
-                    }
-                    else if ($row["exampapers_category"]==2) {
-                      echo "สอบกลางภาค";
-                    }
-                    else if ($row["exampapers_category"]==3) {
-                      echo "สอบปลายภาค";
-                    }
-                    ?></td>
+                  <td data-label="รายวิชา"><?php echo $row["student_id"]?></td>
+                  <td data-label="ชื่อเอกสารสอบ"><?php echo $row["student_fname"]." ".$row["student_lname"]?></td>
                   
-                  <!-- <td data-label="สถานะการใช้งาน">
-                  
-                  </td> -->
-                  <td data-label="รายละเอียด">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #14746f; border-color: #14746f;">
-                <i class="fa fa-eye"></i>
-              </button>
-        </td>
-        <td data-label="แก้ไขข้อมูล">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="background-color: #036666; border-color: #036666;" >
-            <i class="fa fa-edit"></i>
-          </button>
-        </td>
+                 
         <td data-label="การส่งงาน">
-            <a class="btn btn-primary" href="exams.php?exam=<?php echo $row["exampapers_id"]?>" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-plus"></i></a>
+            <a class="btn btn-primary" href="check.php?std_id=<?php echo $row["student_id"]?>&exam=<?php echo $exam?>" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-plus"></i></a>
         </td>
                 </tr>
                 <?php } ?>

@@ -203,7 +203,7 @@ $subject=$_GET['subject'];
       <th scope="row" style="font-family: 'Kanit', sans-serif;"><?php echo $i;?></th>
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['live_story']; ?></td>
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row['live_datetime'];?></td>
-      <td style="font-family: 'Kanit', sans-serif;"><a class="btn btn-primary" href="seestream.php?live=<?php echo $row['live_id'];?>" role="button"> <i class="fa fa-video"></i></a></td>
+      <td style="font-family: 'Kanit', sans-serif;"><a class="btn btn-primary" href="seestream.php?live=<?php echo $row['live_id'];?>&subject=<?php echo $subject?>" role="button"> <i class="fa fa-video"></i></a></td>
      
       <!-- <td>
       <a class="btn btn-primary" href="sentlecture.php" role="button"> <i class="fa fa-clipboard"></i></a>

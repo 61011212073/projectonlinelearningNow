@@ -213,7 +213,7 @@
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result['totalstd']; ?></span></h3>
                         <div class="intro_desc">
-                        <h5>นิสิต</h5>
+                        <h5 style="font-family: 'Kanit', sans-serif;">นิสิต</h5>
                     </div>
                     </div>
                 </div>
@@ -226,7 +226,7 @@
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result2['totalop']; ?></span></h3>
                         <div class="intro_desc">
-                        <h5>รายวิชาที่เปิดสอน</h5>
+                        <h5 style="font-family: 'Kanit', sans-serif;">รายวิชาที่เปิดสอน</h5>
                     </div>
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result1['totalled']; ?></span></h3>
                         <div class="intro_desc">
-                        <h5>อาจารย์</h5>
+                        <h5 style="font-family: 'Kanit', sans-serif;">อาจารย์</h5>
                     </div>
                     </div>
                 </div>
@@ -252,7 +252,7 @@
                     <div class="counter_content">
                         <h3 class="counter_text"><span class="counter"><?php echo $result3['totalsub']; ?></span></h3>
                         <div class="intro_desc">
-                        <h5>รายวิชา</h5>
+                        <h5 style="font-family: 'Kanit', sans-serif;">รายวิชา</h5>
                     </div>
                     </div>
                 </div>

@@ -232,13 +232,13 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
         </ul>
       </li>
       <li>
-        <a href="student.php">
+        <a href="std.php">
           <!-- <i class='bx bx-line-chart' ></i> -->
           <i class='bx bx-user' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="student.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
+          <li><a class="link_name" href="std.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
         </ul>
       </li>
       <li>
@@ -258,7 +258,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
           <li><a href="../addexam.php" style="font-family: 'Kanit', sans-serif;">- แบบฝึกหัด</a></li>
           <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
-          <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="checkexam.php" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
           <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>

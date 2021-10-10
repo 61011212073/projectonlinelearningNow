@@ -120,7 +120,8 @@
           <li><a href="addexam.php" style="font-family: 'Kanit', sans-serif;">- แบบฝึกหัด</a></li>
           <li><a href="teacher/addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
           <li><a href="teacher/exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
-          <li><a href="#" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="teacher/checkexam.php" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="teacher/news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -179,14 +180,14 @@
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
                 เพิ่มข้อมูลเอกสารการสอน
               </button>&nbsp;&nbsp;
-              <select id="subject" class="btn btn-primary">
+              <!-- <select id="subject" class="btn btn-primary">
             <option selected disabled>-ค้นหารายวิชา-</option>
             <?php 
-                  foreach ($result as $row) {
-                    echo "<option value='".$row['coursesopen_id']."'>".$row['subject_engname']."</option>";
-                  }
+                  // foreach ($result as $row) {
+                  //   echo "<option value='".$row['coursesopen_id']."'>".$row['subject_engname']."</option>";
+                  // }
                 ?>
-          </select>
+          </select> -->
               
               <!-- Modal -->
               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >

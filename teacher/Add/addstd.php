@@ -27,7 +27,7 @@
     $student_department_id = $_POST["student_department_id"];
     $student_username = $_POST["student_username"];
     $student_password = $_POST["student_password"];
-	$student_status = $_POST["student_status"];
+	$student_status = 1;
     //เช็คข้อมูลซ้ำ
     $query = "SELECT student_id FROM student WHERE student_id='$student_id'";
     $result = mysqli_query($conn, $query);

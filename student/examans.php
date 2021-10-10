@@ -28,6 +28,7 @@
     mysqli_query($conn,"SET CHARACTER SET UTF8");
 
      $exam=$_GET['exam'];
+     $subject=$_GET['subject'];
     // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
     $sql="SELECT subject.subject_id,subject.subject_engname,examAddwords_question,examAddwords_answer,examAddwords_fullscore,examAddwords_keyword,exampapers.exampapers_category
     FROM examaddwords 
@@ -194,6 +195,7 @@
                                              <td>สอบประจำภาคการศึกษา</td>
                                              <!-- <td>วันที่-เวลา</td> -->
                                              <td>รหัสนิสิต</td>
+                                             <td>ชื่อ-นามสกุล</td>
                                         </tr>
                                    <thead>
                                    <tbody>
@@ -214,12 +216,13 @@
                                                   ?>
                                              </td>
                                              
-                                             <td><input type="text" name="examans_std_std" value="<?php echo $std_id["student_id"]?>" readonly/></td>
+                                             <td><input type="hidden" name="examans_std_std" value="<?php echo $std_id["student_id"]?>" readonly/><?php echo $std_id["student_id"]?></td>
+                                             <td><?php echo $std_id["student_fname"]." ".$std_id["student_lname"]?></td>
                                         </tr>
                                        
                                    </tbody>
                               <table>
-                               <form action="" method="post" id="insert">    
+                               <!-- <form action="" method="post" id="insert">     -->
                                <table class="content-table"> 
                                    <thead>
                                         <tr>
@@ -253,10 +256,12 @@
                                    
                                </table>  
                                <button type="submit" id="submit" class="btn btn-success"/>ส่งคำตอบ</button>
-                               <button class="btn btn-success" ><a href="" style="color: white;">กลับ</a></button>
-                               </form>
+                               <!-- </form> -->
+                               
                           </div>  
-                     </form>  
+                     </form>  <br><a href="exam.php?subject=<?php echo $subject?>" style="color: white;">
+                               <button class="btn btn-danger" >กลับ</button></a>
+                               <hr>
                 </div>  
            </div> 
           </font> 

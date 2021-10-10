@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="usr" style="font-family: Kanit, sans-serif;">วันและเวลาไลฟ์ :</label>
-                    <input type="text" required class="form-control" name="live_link" style="font-family: Kanit, sans-serif;" value="'.$row["live_datetime"].'" readonly/>
+                    <input type="text" required class="form-control" name="live_datetime" style="font-family: Kanit, sans-serif;" value="'.$row["live_datetime"].'" readonly/>
                 </div><br>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" name="submit" style="font-family: Kanit, sans-serif;">แก้ไข</button>

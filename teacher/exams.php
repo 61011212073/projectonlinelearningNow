@@ -8,6 +8,8 @@
        unset($_SESSION['teacher_username']);
        header('location: ../index.html');
      }
+
+
      require("conn.php");
      $username=$_SESSION['teacher_username'];
      $sql2="SELECT teacher.teacher_id,prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
@@ -28,18 +30,29 @@
      INNER JOIN teacher ON coursesopen.coursesopen_teacher_id=teacher.teacher_id";
      $result = mysqli_query($conn,$sql);
     
+     $exams=$_GET["exam"];
+    //  echo $exams;
+
      $sql_exam="SELECT subject.subject_engname,examAddwords_id,exampapers.exampapers_name,examAddwords_question,examAddwords_answer,examAddwords_fullscore,examAddwords_keyword
      FROM examaddwords
      INNER JOIN exampapers ON examaddwords.examAddwords_exampapers_id=exampapers.exampapers_id
      INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id
-     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id";
+     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+     WHERE exampapers_id='$exams'";
      $exam=mysqli_query($conn,$sql_exam);
+
+     $sub=mysqli_fetch_assoc(mysqli_query($conn,"SELECT subject.subject_engname,examAddwords_id,exampapers.exampapers_name,examAddwords_question,examAddwords_answer,examAddwords_fullscore,examAddwords_keyword
+     FROM examaddwords
+     INNER JOIN exampapers ON examaddwords.examAddwords_exampapers_id=exampapers.exampapers_id
+     INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id
+     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+     WHERE exampapers_id='$exams'"));
 ?>
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
 <html lang="en" dir="ltr">
   <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> Online Education </title>
     <link rel="stylesheet" href="menu/menu.css">
     <link rel="shortcut icon" type="image/x-icon" href="../assets1/images/logo3.png">
@@ -146,61 +159,6 @@
 		display: none;
 	}
 </style>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-	var actions = $("table td:last-child").html();
-	// Append table with add row form on add new button click
-    $(".add-new").click(function(){
-		$(this).attr("disabled", "disabled");
-		var index = $("table tbody tr:last-child").index();
-        var row = '<tr>' +
-            '<td><input type="text" class="form-control" name="name" id="name"></td>' +
-            '<td><input type="text" class="form-control" name="department" id="department"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-            '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
-			'<td>' + actions + '</td>' +
-        '</tr>';
-    	$("table").append(row);		
-		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-	// Add row on add button click
-	$(document).on("click", ".add", function(){
-		var empty = false;
-		var input = $(this).parents("tr").find('input[type="text"]');
-        input.each(function(){
-			if(!$(this).val()){
-				$(this).addClass("error");
-				empty = true;
-			} else{
-                $(this).removeClass("error");
-            }
-		});
-		$(this).parents("tr").find(".error").first().focus();
-		if(!empty){
-			input.each(function(){
-				$(this).parent("td").html($(this).val());
-			});			
-			$(this).parents("tr").find(".add, .edit").toggle();
-			$(".add-new").removeAttr("disabled");
-		}		
-    });
-	// Edit row on edit button click
-	$(document).on("click", ".edit", function(){		
-        $(this).parents("tr").find("td:not(:last-child)").each(function(){
-			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-		});		
-		$(this).parents("tr").find(".add, .edit").toggle();
-		$(".add-new").attr("disabled", "disabled");
-    });
-	// Delete row on delete button click
-	$(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-		$(".add-new").removeAttr("disabled");
-    });
-});
-</script>
    </head>
 <body>
   <div class="sidebar close">
@@ -301,113 +259,85 @@ $(document).ready(function(){
       <div class="container-fluid">
         <h3>ตารางแสดงข้อสอบ</h3>
               <br>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title font-color" id="staticBackdropLabel" > เพิ่มข้อมูลไลฟ์</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate action="./Add/insertlive.php" method="POST">
-                        <label for="validationCustom01" class="form-label" >รายวิชา</label>
-                        <select class="form-select form-control" aria-label="Default select example" name="live_coursesopen_id">
-                            <option selected>-เลือกรายวิชา-</option>
-                            <?php
-                                  while($rows=mysqli_fetch_row($result)){
-                                      $uni_id=$rows[0];
-                                      $uni_name=$rows[1];
-                                      echo "<option value='$uni_id'>$uni_name</option>";
-                                  }
-                              ?> 
-                          </select>
-                          
-                        <div >
-                            <label for="validationCustom01" class="form-label" >ชื่อไลฟ์</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="ชื่อไลฟ์" required name="live_story">
-                          </div>
-                          <div >
-                            <label for="validationCustom01" class="form-label" >ลิงก์ไลฟ์</label>
-                            <input type="url" class="form-control" id="validationCustom01" placeholder="ลิงก์ไลฟ์" required name="live_link">
-                                  <!-- <input type="url" name="" id=""> -->
-                          </div>
-                      
-                    </div>
-                      <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
-                        <button type="submit" class="btn btn-success">บันทึกข้อมูล</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
            
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>ข้อสอบวิชา <b>Problem Solving for Computer Science</b></h2></div>
+                    <div class="col-sm-8"><h2>ข้อสอบวิชา 
+                      <b><?php //
+                            if (!isset($sub["subject_engname"])) {
+                              echo "ไม่มีชื่อรายวิชา";
+                            }
+                            else{
+                              echo $sub["subject_engname"];
+                            }
+                      
+                      ?></b>
+                    </h2></div>
                 </div>
             </div>
             <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>โจทย์</th>
-                        <th>คำตอบ</th>
-                        <th>คะแนน</th>
-                        <th>คำสำคัญ</th>
-                        <th>ตัวเลือก</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  <?php while($row=mysqli_fetch_array($exam)){?>
-                    <tr>
-                        <td><?php echo $row["examAddwords_question"];?></td>
-                        <td><?php echo $row["examAddwords_answer"];?></td>
-                        <td><?php echo $row["examAddwords_fullscore"];?></td>
-                        <td><?php echo $row["examAddwords_keyword"];?></td>
-                        <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <!-- <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> -->
-                        </td>
-                    </tr>
-                    <?php }?>
-                    <!--<tr>
-                        <td>Peter Parker</td>
-                        <td>Customer Service</td>
-                        <td>(313) 555-5735</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                     <tr>
-                        <td>Fran Wilson</td>
-                        <td>Human Resources</td>
-                        <td>(503) 555-9931</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                        </td>
-                    </tr>       -->
-                </tbody>
-            </table>
+                  <thead>
+                      <tr>
+                          <th>ลำดับ</th>
+                          <th>โจทย์</th>
+                          <th>คำตอบ</th>
+                          <th>คะแนน</th>
+                          <th>คำสำคัญ</th>
+                          <th>ตัวเลือก</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                    <?php $i=0; while($row=mysqli_fetch_array($exam)){ $i=$i+1;?>
+                      <tr >
+                          <td><?php echo $i;?></td>
+                          <td><?php echo $row["examAddwords_question"];?></td>
+                          <td><?php echo $row["examAddwords_answer"];?></td>
+                          <td><?php echo $row["examAddwords_fullscore"];?></td>
+                          <td><?php echo $row["examAddwords_keyword"];?></td>
+                          <td>
+                          
+                          </td>
+                      </tr>
+                      <?php }?>
+                  </tbody>
+              </table><hr>
+            <form action="Add/addexam.php?exampaper=<?php echo $exams?>" method="post">
+              <table class="table table-bordered" id="myTbl">
+                  <thead>
+                      <tr>
+                          <th>โจทย์</th>
+                          <th>คำตอบ</th>
+                          <th>คะแนน</th>
+                          <th>คำสำคัญ</th>
+                          <th>ตัวเลือก</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                      <tr id="firstTr">
+                        <td width="519"><input type="text" name="data1[]" id="data1[]" required /></td>
+                        <td width="519"><input type="text" name="data2[]" id="data2[]" required /></td>
+                        <td width="519"><input type="text" name="data3[]" id="data3[]" required /></td>
+                        <td width="519"><input type="text" name="data4[]" id="data4[]" required /></td>
+                      </tr>
+                  </tbody>
+              </table>
+            
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-12">
-                        <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>เพิ่มโจทย์</button>
+                        <!-- <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>เพิ่มโจทย์</button> -->
+                        <button id="removeRow" class="btn btn-danger add-new" type="button"><i class="fa fa-delete"></i>-</button>
+                         
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button id="addRow" class="btn btn-info add-new" type="button"><i class="fa fa-plus"></i></button> 
+                        <button id="submit" class="btn btn-info add-new" type="submit">เพิ่มโจทย์</button> 
                     </div>
                 </div>
             </div>
+          </form>
         </div>
-    </div>     
-
+    </div>
               
             </section>
             
@@ -415,7 +345,21 @@ $(document).ready(function(){
             <br>
           
                   </section>
-
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $("#addRow").click(function(){
+            $("#myTbl").append($("#firstTr").clone());
+        });
+        $("#removeRow").click(function(){
+            if($("#myTbl tr").size()>2){
+                $("#myTbl tr:last").remove();
+            }else{
+                alert("ต้องมีข้อสอบอย่างน้อย 1 ข้อ");
+            }
+        });          
+    });
+    </script>
 <script src="menu/script.js"></script>
 
 </body>

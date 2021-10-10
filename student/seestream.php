@@ -24,10 +24,16 @@ WHERE student_username='$username'";
 $result2=mysqli_query($conn,$sql2);
 
 $live=$_GET['live'];
+$subject=$_GET['subject'];
 
     mysqli_query($conn,"SET CHARACTER SET UTF8");
-    $sql="SELECT coursesopen.coursesopen_id,subject.subject_engname FROM coursesopen INNER JOIN subject ON coursesopen.coursesopen_id=subject.subject_id";
+    $sql="SELECT subject.subject_engname,subject.subject_detail_thai 
+    FROM coursesopen 
+    INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+    WHERE coursesopen_id=$subject";
     $result = mysqli_query($conn,$sql);
+
+    $sub=mysqli_fetch_assoc($result);
 
     $sql1="SELECT * FROM live WHERE live_id ='$live'";
     $result1 = mysqli_query($conn,$sql1);
@@ -189,8 +195,8 @@ $live=$_GET['live'];
                         <div class="heading_s1"> 
                           <h2><?php echo $row['live_story'];?></h2>
                         </div>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary</p>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                        <p><?php echo $sub['subject_detail_thai']?></p>
+                        <!-- <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p> -->
                         <!-- <ul class="list_none list_item">
                         </ul> -->
                     </div>

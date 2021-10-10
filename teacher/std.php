@@ -1,18 +1,23 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin_username'])) {
-  header('location: ../student.php');
-}
-if (isset($_GET['logout'])) {
-  session_destroy();
-  unset($_SESSION['admin_username']);
-  header('location: ../index.php');
-}
-require("conn.php");
-mysqli_query($conn,"SET CHARACTER SET UTF8");
-mysqli_query($conn,"SET CHARACTER SET UTF8");
-$username=$_SESSION['admin_username'];
-  $sql="SELECT admin_fname,admin_lname FROM admin WHERE admin_username='$username'";
+  session_start();
+  if (!isset($_SESSION['teacher_username'])) {
+    header('location: ../login.php');
+  }
+  if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['teacher_username']);
+    header('location: ../index.php');
+  }
+  require("conn.php");
+  $username=$_SESSION['teacher_username'];
+  $sql="SELECT prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
+  teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
+  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
+  FROM teacher 
+  INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 
+  INNER JOIN faculty ON teacher.teacher_faculty_id =faculty.faculty_id 
+  INNER JOIN department ON teacher.teacher_department_id=department.department_id 
+  WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
 // $sql="SELECT * FROM prename";
 // $result = mysqli_query($conn,$sql);
@@ -111,11 +116,12 @@ $result4 = mysqli_query($conn,$sql4);
      <link href="../demo/style.css" rel="stylesheet">
      <script src="../demo/main.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
    </head>
 
 <body style="font-family: Kanit, sans-serif;">
 <div class="sidebar close">
-    <div class="logo-details">
+<div class="logo-details">
       <i><img src="image/logo1.png" alt="profileImg" style="width: 40px;  height:40px;"></i>
       <!-- <img src="image/logo1.png" alt="profileImg" style="width: 50px;  height:12px;"> -->
       <span class="logo_name">MSU Education</span>
@@ -123,31 +129,43 @@ $result4 = mysqli_query($conn,$sql4);
     </div>
     <ul class="nav-links">
       <li>
-        <a href="homeadmin.php">
+        <a href="hometeacher1.php">
           <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">HOME</span>
+          <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="homeadmin.php">HOME</a></li>
+          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</a></li>
         </ul>
       </li>
       <li>
-        <a href="teacher.php">
-        <i class='bx bx-user' ></i>
-          <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลอาจารย์</span>
-        </a>
-        <ul class="sub-menu blank">
-          <li><a class="link_name" href="teacher.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลอาจารย์</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="student.php">
+        <a href="std.php">
           <!-- <i class='bx bx-line-chart' ></i> -->
           <i class='bx bx-user' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="student.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
+          <li><a class="link_name" href="std.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name" style="font-family: 'Kanit', sans-serif;">การทำงานอาจารย์</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="#" style="font-family: 'Kanit', sans-serif;">การทำงานอาจารย์</a></li>
+          <li><a href="opensubject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชาที่เปิดสอน</a></li>
+          <li><a href="addstudentinsubject.php" style="font-family: 'Kanit', sans-serif;">- นิสิตในรายวิชา</a></li>
+          <li><a href="../adddocument.php" style="font-family: 'Kanit', sans-serif;">- เอกสารการสอน</a></li>
+          <li><a href="../addvdo.php" style="font-family: 'Kanit', sans-serif;">- วีดิทัศน์</a></li>
+          <li><a href="../addexam.php" style="font-family: 'Kanit', sans-serif;">- แบบฝึกหัด</a></li>
+          <li><a href="addstream.php" style="font-family: 'Kanit', sans-serif;">- ไลฟ์</a></li>
+          <li><a href="exampaper.php" style="font-family: 'Kanit', sans-serif;">- ข้อสอบ</a></li>
+          <li><a href="checkexam.php" style="font-family: 'Kanit', sans-serif;">- ตรวจข้อสอบ</a></li>
+          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
@@ -166,26 +184,27 @@ $result4 = mysqli_query($conn,$sql4);
           <li><a href="department.php" style="font-family: 'Kanit', sans-serif;">- ภาควิชา</a></li>
           <li><a href="course.php" style="font-family: 'Kanit', sans-serif;">- หลักสูตร</a></li>
           <li><a href="subject.php" style="font-family: 'Kanit', sans-serif;">- รายวิชา</a></li>
-          <li><a href="news.php" style="font-family: 'Kanit', sans-serif;">- ข่าวสาร</a></li>
         </ul>
       </li>
       <li>
     <div class="profile-details">
-      <div class="profile-content">
+    <div class="profile-content">
         <!-- <img src="image/profile.jpg" alt="profileImg"> -->
         <img src="image/logo1.png" alt="profileImg" style="width: 55px;  height:55px;">
       </div>
       <?php while($row=mysqli_fetch_array($result)){ ?>
+    <a href="editprofile.php">
       <div class="name-job">
-        <div class="profile_name"><?php echo $row['admin_fname'];?></div>
-        <div class="job"><?php echo $row['admin_lname'];?></div>
+        <div class="profile_name" style="font-family: 'Kanit', sans-serif; font-size: 14px;"><?php echo $row['teacher_fname'];?> <?php echo $row['teacher_lname'];?></div>
+        <div class="job" style="font-family: 'Kanit', sans-serif;">Teacher</div>
       </div>
+    </a>
       <?php }?>
-      <a href="homeadmin.php?logout='1'">
+      <a href="hometeacher1.php?logout='1'">
         <i class='bx bx-log-out' ></i>
       </a>
     </div>
-  </li>
+  </li> 
 </ul>
   </div>
   <section class="home-section">
@@ -195,7 +214,7 @@ $result4 = mysqli_query($conn,$sql4);
     </div>
     <div class="wrapper">
 
-<section>
+    <section>
       <div class="container-fluid">
         <h3>ตารางแสดงข้อมูลนิสิต</h3>
 
@@ -295,12 +314,6 @@ $result4 = mysqli_query($conn,$sql4);
                             <label for="validationCustom01" class="form-label" >รหัสผ่าน</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกรหัสผ่าน" required name="student_password">
                           </div>
-                          <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                              <label for="pwd">สถานะ :</label>
-                              <!-- <input type="text" class="form-control" name="status_prename"> -->
-                              <input type="radio" name="student_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                              <input type="radio" name="student_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                          </div>
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -325,7 +338,7 @@ $result4 = mysqli_query($conn,$sql4);
                             <th scope="col">นามสกุล</th>
                             <th scope="col">ชื่อผู้ใช้</th>
                             <th scope="col">รหัสผ่าน</th>
-                            <th scope="col">สถานะการใช้งาน</th>  
+                            <!-- <th scope="col">สถานะการใช้งาน</th>   -->
                             <th scope="col">แก้ไขข้อมูล</th>
                             <th scope="col">รายละเอียด</th>
                           
@@ -340,24 +353,22 @@ $result4 = mysqli_query($conn,$sql4);
                   <td data-label="นามสกุล"><?php echo $row[3];?></td>
                   <td data-label="ชื่อผู้ใช้"><?php echo $row['student_username'];?></td>
                   <td data-label="รหัสผ่าน"><?php echo $row['student_password'];?></td>
-                  <td data-label="สถานะการใช้งาน">
-                    <!-- <div>
-                      <div class="form-check form-switch" >
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                      </div>
-                    </div> -->
+                  <!-- <td data-label="สถานะการใช้งาน">
                     <?php
-                        if ($row['student_status'] == "1") {
-                          echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
-                       }
-                      else{
-                         echo "<a style='color:red;'>ปิดการใช้งาน</a>";
-                      }
+                      //   if ($row['student_status'] == "1") {
+                      //     echo "<a style='color:#228B22;'>เปิดการใช้งาน</a>";
+                      //  }
+                      // else{
+                      //    echo "<a style='color:red;'>ปิดการใช้งาน</a>";
+                      // }
                       ?>
-                  </td>
-                  <td><input type="button" name="edit" value="Edit" id="<?php echo $row["student_id"]; ?>" class="btn btn-info btn-xs edit_data" /></td>  
-              <td><input type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["student_id"]; ?>" class="btn btn-info btn-xs view_data" /></td> 
+                  </td> -->
+                  <td>
+                  <button type="button" name="edit"  id="<?php echo $row["student_id"]; ?>" class="btn btn-info btn-xs edit_data"><i class='fas fa-edit'></i></button>
+            </td>  
+            <td>
+                  <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["student_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
+            </td>   
 
                 </tr>
                 <?php } ?>
@@ -417,6 +428,21 @@ $(document).ready(function(){
               });  
          }            
     });  
+    $(document).on('click', '.edit_data', function(){  
+         var employee_id = $(this).attr("id");  
+         if(employee_id != '')  
+         {  
+              $.ajax({  
+                   url:"../BasicData/student/edit.php",  
+                   method:"POST",  
+                   data:{employee_id:employee_id},  
+                   success:function(data){  
+                        $('#employee_detail1').html(data);  
+                        $('#dataModal1').modal('show');  
+                   }  
+              });  
+         }            
+    });  
 });  
 </script>
 </body>
@@ -435,5 +461,20 @@ $(document).ready(function(){
          </div>  
     </div>  
 </div>  
+<div id="dataModal1" class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog">  
+         <div class="modal-content">  
+              <div class="modal-header">  
+                   <!-- <button type="button" class="close" data-dismiss="modal">&times;</button>   -->
+                   <h4 class="modal-title"  id="staticBackdropLabel">แก้ไขข้อมูลนิสิต</h4>  
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>  
+              <div class="modal-body" id="employee_detail1">  
+              </div>  
+             
+         </div>  
+    </div>  
+</div>  
+
 
 

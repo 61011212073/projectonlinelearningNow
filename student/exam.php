@@ -212,7 +212,7 @@
     }
       ?></td>
       <td>
-        <a href="examans.php?exam=<?php echo $row["exampapers_id"]?>"><button type="button" class="btn btn-primary" ><i class="fas fa-upload"></i></button></a>
+        <a href="examans.php?exam=<?php echo $row["exampapers_id"]?>&subject=<?php echo $subject?>"><button type="button" class="btn btn-primary" ><i class="fas fa-upload"></i></button></a>
       </td>
     </tr>
     <?php } ?>
