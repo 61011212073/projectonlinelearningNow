@@ -30,7 +30,7 @@
 
      $subject=$_GET['subject'];
     // $sql2="SELECT * FROM document ORDER BY document_id DESC "; //เรียงลำดับจากมากไปน้อย
-    $sql="SELECT * FROM exampapers WHERE exampapers_coursesopen_id ='$subject'"; //แบบปกติ
+    $sql="SELECT * FROM exampapers WHERE exampapers_coursesopen_id ='$subject' ORDER BY exampapers_id DESC"; //แบบปกติ
     $result = mysqli_query($conn,$sql);
 
 ?> 
@@ -189,7 +189,8 @@
       <th scope="col" style="font-family: 'Kanit', sans-serif;">ลำดับ</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อเอกสารสอบ</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">ประเภทข้อสอบ</th>
-      <!-- <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่ส่งงาน</th> -->
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่เริ่ม</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่สิ้นสุด</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">เข้าสอบ</th>
       <!-- <th scope="col">ดูการส่งงาน</th> -->
 
@@ -211,6 +212,8 @@
         echo "สอบปลายภาค";
     }
       ?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["exampapers_date"];?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["exampapers_enddate"];?></td>
       <td>
         <a href="examans.php?exam=<?php echo $row["exampapers_id"]?>&subject=<?php echo $subject?>"><button type="button" class="btn btn-primary" ><i class="fas fa-upload"></i></button></a>
       </td>

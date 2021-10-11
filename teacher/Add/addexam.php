@@ -62,13 +62,14 @@ require("conn.php");
 
         }
     }
-    if(isset($_POST["exampapers_coursesopen_id"]) && isset($_POST["exampapers_name"]) && isset($_POST["exampapers_category"])){
+    if(isset($_POST["exampapers_coursesopen_id"]) && isset($_POST["exampapers_name"]) && isset($_POST["exampapers_category"]) && isset($_POST["exampapers_enddate"])){
         $exampapers_coursesopen_id=$_POST["exampapers_coursesopen_id"];
         $exampapers_name=$_POST["exampapers_name"];
         $exampapers_category=$_POST["exampapers_category"];
+        $exampapers_enddate=$_POST["exampapers_enddate"];
 
-        $sql_exam="INSERT INTO exampapers(exampapers_coursesopen_id,exampapers_name,exampapers_category,exampapers_status) 
-        VALUE('$exampapers_coursesopen_id','$exampapers_name','$exampapers_category',1)";
+        $sql_exam="INSERT INTO exampapers(exampapers_coursesopen_id,exampapers_name,exampapers_category,exampapers_status,exampapers_enddate) 
+        VALUE('$exampapers_coursesopen_id','$exampapers_name','$exampapers_category',1,'$exampapers_enddate')";
         
         mysqli_set_charset($conn, 'utf8');
         if(mysqli_query($conn,$sql_exam)){

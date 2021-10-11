@@ -1,3 +1,36 @@
+<?php
+  session_start();
+  if (!isset($_SESSION['teacher_username'])) {
+    header('location: ../login.php');
+  }
+  if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['teacher_username']);
+    header('location: ../index.php');
+  }
+  require("conn.php");
+  $username=$_SESSION['teacher_username'];
+  $sql2="SELECT teacher.teacher_id,prename.preName_name,teacher.teacher_fname,teacher.teacher_lname,teacher.teacher_phone,
+  teacher.teacher_email,univercity.univercity_thname,faculty.faculty_name,department.department_name,
+  teacher.teacher_username,teacher.teacher_password,teacher.teacher_status
+  FROM teacher 
+  INNER JOIN prename ON teacher.teacher_prename_id =prename.preName_id 
+  INNER JOIN univercity ON teacher.teacher_univercity_id=univercity.univercity_id 
+  INNER JOIN faculty ON teacher.teacher_faculty_id =faculty.faculty_id 
+  INNER JOIN department ON teacher.teacher_department_id=department.department_id 
+  WHERE teacher_username='$username'";
+  $result2=mysqli_query($conn,$sql2);
+
+  $work=$_GET["work"];
+
+  $send_work="SELECT sendwork.sendwork_id,sendwork.sendwork_student_id,sendwork.sendwork_datetime,student.student_id,student.student_fname,student.student_lname,sendwork.sendwork_sendwork 
+  FROM sendwork
+  INNER JOIN work ON sendwork.sendwork_workorder=work.work_id
+  INNER JOIN student ON sendwork.sendwork_student_id=student.student_id
+  WHERE work.work_id='$work'";
+  $send=mysqli_query($conn,$send_work);
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -72,24 +105,25 @@
   <thead>
     <tr>
       <th scope="col">ลำดับ</th>
-      <th scope="col">รหัสรายวิชา</th>
       <th scope="col">รหัสนิสิต</th>
-      <th scope="col">วันที่และเวลา</th>
-      <th scope="col">คะแนนเต็ม</th>
-      <th scope="col">คะแนนที่ได้</th>
+      <th scope="col">ชื่อ-นามสกุล</th>
+      <th scope="col">วันที่และเวลาที่ส่ง</th>
+      <th scope="col">งานที่ส่ง</th>
+      <!-- <th scope="col">คะแนนที่ได้</th> -->
 
     </tr>
   </thead>
   <tbody>
+    <?php $i=0; while($row=mysqli_fetch_array($send)){ $i+=1;?>
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>15</td>
-      <td>10</td>
+      <th scope="row"><?php echo $i;?></th>
+      <td><?php echo $row["student_id"]?></td>
+      <td><?php echo $row["student_fname"]." ".$row["student_lname"]?></td>
+      <td><?php echo $row["sendwork_datetime"]?></td>
+      <!-- <td>15</td> -->
+      <td><a href="../uploadsend/<?=$row["sendwork_sendwork"]?>">ดาวน์โหลด</a></td> 
     </tr>
-   
+   <?php } ?>
   </tbody>
 </table>
 </div>

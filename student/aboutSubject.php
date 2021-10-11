@@ -314,7 +314,7 @@
 
           <!-- ------------------------------------------------------------------------------------------------------------- -->
 <?php 
-    $live_sub="SELECT live.live_id,subject.subject_engname,live.live_story,live.live_link,live.live_datetime 
+    $live_sub="SELECT live.live_id,subject.subject_engname,live.live_story,live.live_link,live.live_datetime,live_coursesopen_id
     FROM live 
     INNER JOIN coursesopen ON live.live_coursesopen_id=coursesopen.coursesopen_id 
     INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
@@ -343,7 +343,7 @@
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["subject_engname"]?></td>
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["live_story"]?></td>
       <td style="font-family: 'Kanit', sans-serif;"><?php echo $row["live_datetime"]?></td>
-      <td><a href="seestream.php?live=<?php echo $row["live_id"]?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a></td>
+      <td><a href="seestream.php?live=<?php echo $row["live_id"]?>&subject=<?php echo $row["live_coursesopen_id"]?>"><button class="btn btn-primary"><i class="far fa-eye"></i></button></a></td>
       <!-- <td>-</td> -->
      
     </tr> <?php }?>
@@ -356,7 +356,16 @@
 
  <!-- ------------------------------------------------------------------------------------------------------------- -->
  <?php 
- 
+        $sql_expp="SELECT exampapers.exampapers_id,exampapers.exampapers_coursesopen_id,subject.subject_engname,exampapers.exampapers_name,
+        exampapers.exampapers_category,exampapers.exampapers_status,exampapers.exampapers_date,exampapers.exampapers_enddate
+        FROM exampapers 
+        INNER JOIN coursesopen ON exampapers.exampapers_coursesopen_id=coursesopen.coursesopen_id 
+        INNER JOIN subject ON coursesopen.coursesopen_subject_id=subject.subject_id
+        INNER JOIN study ON coursesopen.coursesopen_id=study.study_coursesopen_id
+        INNER JOIN student ON study.study_student_id=student.student_id
+        WHERE student_username='$username' ORDER BY exampapers_id DESC";
+
+        $expp=mysqli_query($conn,$sql_expp);
  ?>
  <div class="col-md-12">
             	<div class="heading_s1 text-center animation" data-animation="fadeInUp" data-animation-delay="0.01s">
@@ -367,19 +376,36 @@
 <table class="table">
   <tbody>
     <tr class="table-warning">
-      <th scope="col" style="font-family: 'Kanit', sans-serif;">รายการ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">รายวิชา</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ชื่อเอกสารสอบ</th>
+      <th scope="col" style="font-family: 'Kanit', sans-serif;">ประเภทข้อสอบ</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลาที่สอบ</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">วันที่และเวลาสิ้นสุด</th>
       <th scope="col" style="font-family: 'Kanit', sans-serif;">เข้าสอบ</th>
     </tr>
+    <?php while($rows=mysqli_fetch_array($expp)){
+    ?>
     <tr>
-      <td style="font-family: 'Kanit', sans-serif;">Foundation of Computer Science</td>
-      <td style="font-family: 'Kanit', sans-serif;">27/10/64 - 15.00</td>
-      <!-- <td>-</td> -->
-      <td style="font-family: 'Kanit', sans-serif;">27/10/64 - 15.00</td>
-      <td><button class="btn btn-primary"><i class="fas fa-pen-square"></i></button></td>
+      
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $rows["subject_engname"]?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $rows["exampapers_name"]?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php 
+        if ($rows["exampapers_category"]==1) {
+            echo "สอบย่อย";
+        }
+        else if ($rows["exampapers_category"]==2) {
+          echo "สอบกลางภาค";
+        }
+        else if ($rows["exampapers_category"]==3) {
+            echo "สอบปลายภาค";
+        }
+      
+      ?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $rows["exampapers_date"]?></td>
+      <td style="font-family: 'Kanit', sans-serif;"><?php echo $rows["exampapers_enddate"]?></td>
+      <td><a href="exam.php?subject=<?php echo $rows["exampapers_coursesopen_id"] ?>"><button class="btn btn-primary"><i class="fas fa-pen-square"></i></button></a></td>
     </tr>
-    
+    <?php } ?>
   </tbody>
 </table>
 
@@ -458,7 +484,7 @@
                                         
                               ?>
                                                 <a href="../uploadbook/<?=$document["document_file"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"].' ' ?><i class="far fa-star"></i>
+                                                  <i class="fa fa-file-pdf-o" style="font-size:24px;  color:red; " ></i><?php echo ' '.$document["document_name"].' ' ?><i class="fas fa-star" style="color:red;"></i>
                                                 </a><br>
                                                 <?php $star=false ?>
                               <?php
@@ -492,7 +518,7 @@
                                         
                                 ?>
                                             <a href="../uploadvdo/<?=$vdo1["vdo_link"]?>" style="font-family: 'Kanit', sans-serif; height: 40px;">
-                                              <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"].' ' ?><i class="far fa-star"></i>
+                                              <i class="fa fa-file-movie-o" style="font-size:24px;  color:blue;"></i><?php echo ' '.$vdo1["vdo_name"].' ' ?><i class="fas fa-star" style="color:red;"></i>
                                             </a><br>
                                             <?php $star=false ?>
                                 <?php
@@ -526,7 +552,7 @@
                                           if ($star==true) {
                                 ?>
                                             <a href="../uploadwork/<?=$work1["work_file"]?>" style="font-family: 'Kanit', sans-serif;">
-                                              <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"].' ' ?><i class="far fa-star"></i>
+                                              <i class="fas fa-file-alt" style="font-size:24px;  color:#f0c419;"></i><?php echo ' '.$work1["work_name"].' ' ?><i class="fas fa-star" style="color:red;"></i>
                                             </a>
                                             <br>
                                             <?php $star=false ?>

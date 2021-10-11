@@ -297,7 +297,7 @@
                   <button type="button" name="view" value="view" data-bs-target="#staticBackdrop" id="<?php echo $row["work_id"]; ?>" class="btn btn-info btn-xs view_data"><i class='far fa-eye'></i></button>
             </td> 
         <td data-label="การส่งงาน">
-            <a class="btn btn-primary" href="report.php" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-clipboard"></i></a>
+            <a class="btn btn-primary" href="teacher/report.php?work=<?php echo $row["work_id"]?>" role="button" style="background-color: #14746f; border-color: #14746f;"> <i class="fa fa-clipboard"></i></a>
            
 </td>
                 </tr>

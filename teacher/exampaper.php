@@ -54,6 +54,7 @@
     
      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
      <script src="../demo/main.js"></script>
+     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
    </head>
 <body>
   <div class="sidebar close">
@@ -185,7 +186,7 @@
                         ?> 
                           </select>
                           
-                        <div >
+                          <div >
                             <label for="validationCustom01" class="form-label">กรอกชื่อเอกสาร</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกชื่อเอกสาร" name="exampapers_name" required>
                           </div>
@@ -202,6 +203,10 @@
                             </select>
                             </div>
                           
+                            <div >
+                            <label for="validationCustom01" class="form-label">วันที่ส่งข้อสอบ</label>
+                            <input type="datetime-local" class="form-control" id="validationCustom01" name="exampapers_enddate" required>
+                          </div>
                             <!-- <div class="form-group" style="font-family: Kanit, sans-serif;">
                                 <label for="pwd" style="font-family: Kanit, sans-serif;">สถานะ :</label>
                                 <input type="radio" required name="" value="1"> เปิดการใช้งาน
