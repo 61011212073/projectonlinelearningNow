@@ -265,7 +265,7 @@
                           </div>
                           <label for="validationCustom01" class="form-label" >หลักสูตร</label>
                           <select class="form-select form-control" aria-label="Default select example" name="subject_course_id">
-                              <option selected>เลือกหลักสูตร</option>
+                              <option selected disabled>เลือกหลักสูตร</option>
                               <?php
                                   while($rows=mysqli_fetch_row($results)){
                                       $uni_id=$rows[0];

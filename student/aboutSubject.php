@@ -432,14 +432,14 @@
                           </a>
                         </div>
                         <font style="font-family: 'Kanit', sans-serif;">
-                          <div class="blog_content bg-white" >
+                          <div class="blog_content bg-cream" >
                             <?php $subject=$row['study_coursesopen_id']; $_SESSION['study_coursesopen_id']=$subject; ?>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px; "><?php echo $row['subject_id']?></a></h6>
                             <h6 class="blog_title"><a href="homelec.php?subb=<?php echo $subject?>" style="font-family: 'Kanit', sans-serif; height: 40px;"><?php echo $row['subject_engname']?></a></h6>
                             <p style="font-family: 'Kanit', sans-serif; height: 120px;"><?php echo $row['subject_detail_thai'];?></p>
                            </div>
                         </font>
-                        <div class="blog_footer bg-white radius_lbrb_10">
+                        <div class="blog_footer bg-cream radius_lbrb_10">
                               <ul class="list_none blog_meta">
                                   <li><a href="#" style="font-family: 'Kanit', sans-serif;"><i class="ion-calendar"></i><?php echo $row['teacher_fname']; ?> <?php echo $row['teacher_lname'];?></a></li>
                               </ul>
@@ -450,7 +450,7 @@
             	    <div class="blog_post box_shadow1 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
                 	      
                         <font style="font-family: 'Kanit', sans-serif; ">
-                          <div class="blog_content bg-white columns">
+                          <div class="blog_content bg-cream columns">
                             <?php 
                                 // $sql3="SELECT * FROM document WHERE document_status=1 AND document_coursesopen_id=".$row['study_coursesopen_id']."ORDER BY document_id DESC";
                                 

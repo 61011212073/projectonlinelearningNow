@@ -264,7 +264,7 @@
                           <div >
                             <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาอังกฤษ)</label>
                             <!-- <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)" required name="subject_detail_english"> -->
-                            <textarea class="eng" name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
+                            <textarea class="" name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
                           </div>
                         <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                               <label for="pwd">สถานะ :</label>

@@ -223,7 +223,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     </div>
     <ul class="nav-links">
       <li>
-        <a href="#">
+        <a href="homeadmin1.php">
           <i class='bx bx-grid-alt' ></i>
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">หน้าหลัก</span>
         </a>
@@ -238,7 +238,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
           <span class="link_name" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</span>
         </a>
         <ul class="sub-menu blank">
-          <li><a class="link_name" href="std.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
+          <li><a class="link_name" href="../std.php" style="font-family: 'Kanit', sans-serif;">ข้อมูลนิสิต</a></li>
         </ul>
       </li>
       <li>

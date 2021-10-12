@@ -199,7 +199,7 @@ $subject=$_GET["subb"];
                     </div>
                 </div></a>
             </div>
-            <div class="col-lg-4 col-md-6"><a href="#">
+            <div class="col-lg-4 col-md-6"><a href="detailsubject.php">
             	<div class="icon_box text-center bg-white icon_box_style2 box_shadow2 radius_all_10 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
                 	<div class="box_icon bg_light_green mb-3" style="background-color: pink;">
                         <img src="assets2/images/detail.png" alt="instructors" />

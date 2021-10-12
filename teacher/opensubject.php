@@ -173,7 +173,7 @@
                   <form class="row g-3 needs-validation" novalidate action="../teacher/Add/insertopsj.php" method="POST">
                     <label for="validationCustom01" class="form-label" >รายวิชา</label>
                     <select class="form-select form-control" aria-label="Default select example" name="coursesopen_subject_id">
-                        <option selected>-เลือกรายวิชา-</option>
+                        <option selected disabled>-เลือกรายวิชา-</option>
                         <?php
                               while($rows=mysqli_fetch_row($result1)){
                                   $uni_id=$rows[0];

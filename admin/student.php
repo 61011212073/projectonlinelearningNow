@@ -221,7 +221,7 @@ $result4 = mysqli_query($conn,$sql4);
                         </div>
                         <label for="validationCustom01" class="form-label" >คำนำหน้าชื่อ</label>
                         <select class="form-select form-control" aria-label="Default select example" name="student_prename_id">
-                            <option selected>-เลือกคำนำหน้าชื่อ-</option>
+                            <option selected disabled>-เลือกคำนำหน้าชื่อ-</option>
                                 <?php
                                     while($rows=mysqli_fetch_row($result4)){
                                         $uni_id=$rows[0];
@@ -255,7 +255,7 @@ $result4 = mysqli_query($conn,$sql4);
                         </div>
                           <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
                           <select class="form-select form-control" aria-label="Default select example" name="student_univercity_id">
-                              <option selected>-เลือกมหาวิทยาลัย-</option>
+                              <option selected disabled>-เลือกมหาวิทยาลัย-</option>
                               <?php
                                   while($rows=mysqli_fetch_row($result1)){
                                       $uni_id=$rows[0];
@@ -266,7 +266,7 @@ $result4 = mysqli_query($conn,$sql4);
                             </select> 
                             <label for="validationCustom01" class="form-label" >คณะ</label>
                             <select class="form-select form-control" aria-label="Default select example" name="student_faculty_id">
-                                <option selected>-เลือกคณะ-</option>
+                                <option selected disabled>-เลือกคณะ-</option>
                                 <?php
                                     while($rows=mysqli_fetch_row($result2)){
                                         $uni_id=$rows[0];
@@ -277,7 +277,7 @@ $result4 = mysqli_query($conn,$sql4);
                               </select> 
                               <label for="validationCustom01" class="form-label" >ภาควิชา</label>
                               <select class="form-select form-control" aria-label="Default select example" name="student_department_id">
-                                  <option selected>-เลือกภาควิชา-</option>
+                                  <option selected disabled>-เลือกภาควิชา-</option>
                                   <?php
                                       while($rows=mysqli_fetch_row($result3)){
                                           $uni_id=$rows[0];
@@ -295,12 +295,12 @@ $result4 = mysqli_query($conn,$sql4);
                             <label for="validationCustom01" class="form-label" >รหัสผ่าน</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกรหัสผ่าน" required name="student_password">
                           </div>
-                          <div class="form-group" style="font-family: 'Kanit', sans-serif;">
+                          <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                               <label for="pwd">สถานะ :</label>
-                              <!-- <input type="text" class="form-control" name="status_prename"> -->
+                              <input type="text" class="form-control" name="status_prename">
                               <input type="radio" name="student_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
                               <input type="radio" name="student_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                          </div>
+                          </div> -->
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

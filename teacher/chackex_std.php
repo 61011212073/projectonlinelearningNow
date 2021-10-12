@@ -180,7 +180,7 @@
                       <form class="row g-3 needs-validation" novalidate>
                         <label for="validationCustom01" class="form-label" >รายวิชาที่เปิดสอน</label>
                         <select class="form-select form-control" aria-label="Default select example">
-                            <option selected>-เลือกรายวิชาที่เปิดสอน-</option>
+                            <option selected disabled>-เลือกรายวิชาที่เปิดสอน-</option>
                             <?php
                             while($rows=mysqli_fetch_row($result)){
                                 $uni_id=$rows[0];
