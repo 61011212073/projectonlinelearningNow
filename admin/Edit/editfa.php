@@ -37,15 +37,11 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         //     exit();
                         // }
                         // else{
-                                $sql1 = "UPDATE faculty SET faculty_uivarcity_id='$faculty_uivarcity_id',
-                                faculty_name='$faculty_name'
-                                WHERE faculty_id='$faculty_id'";
+                                $sql1 = "UPDATE faculty SET faculty_name='$faculty_name' WHERE faculty_id='$faculty_id'";
                                 
                                 if(mysqli_query($conn, $sql1)){
-                                //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";
-                                echo "alert(\"เพิ่มคณะสำเร็จ\");";
-                                // echo "window.history.back();";
+                                echo "alert(\"แก้ไขคณะสำเร็จ\");";
                                 header("Refresh:0; url=../faculty.php");
                                 echo "</script>";
                                 exit();

@@ -24,7 +24,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     $course_faculty_id = clean($_POST["course_faculty_id"]);
     // $course_status = $_POST["course_status"];
 
-    echo $course_univercity_id;
+    // echo $course_univercity_id;
 
     $query = "SELECT course_year_mco2 FROM course 
     WHERE course_year_mco2='$course_year_mco2' AND

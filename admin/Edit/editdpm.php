@@ -41,10 +41,7 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                             exit();
                         }
                         else{
-                            $sql1 = "UPDATE department SET department_name=$department_name,
-                            department_univarcity_id='$department_univarcity_id',
-                            department_faculty_id='$department_faculty_id'
-                            WHERE department_id='$department_id'";
+                            $sql1 = "UPDATE department SET department_name='$department_name' WHERE department_id='$department_id'";
                             
                             if(mysqli_query($conn, $sql1)){
                             //    echo "Records added successfully.";

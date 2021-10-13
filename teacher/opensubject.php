@@ -21,6 +21,8 @@
   WHERE teacher_username='$username'";
   $result=mysqli_query($conn,$sql);
 
+  $teacher=mysqli_fetch_assoc($result);
+
   mysqli_query($conn,"SET CHARACTER SET UTF8");
   mysqli_query($conn,"SET CHARACTER SET UTF8"); 
   $sql11="SELECT subject.subject_engname,coursesopen.coursesopen_term,coursesopen.coursesopen_schoolyear,teacher.teacher_fname,teacher.teacher_lname,coursesopen.coursesopen_status,coursesopen.coursesopen_id
@@ -170,14 +172,14 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form class="row g-3 needs-validation" novalidate action="../teacher/Add/insertopsj.php" method="POST">
+                  <form class="row g-3 needs-validation" novalidate action="Add/insertopsj.php" method="POST">
                     <label for="validationCustom01" class="form-label" >รายวิชา</label>
                     <select class="form-select form-control" aria-label="Default select example" name="coursesopen_subject_id">
                         <option selected disabled>-เลือกรายวิชา-</option>
                         <?php
-                              while($rows=mysqli_fetch_row($result1)){
-                                  $uni_id=$rows[0];
-                                  $uni_name=$rows[1];
+                              while($rows=mysqli_fetch_array($result1)){
+                                  $uni_id=$rows["subject_id"];
+                                  $uni_name=$rows["subject_engname"];
                                   echo "<option value='$uni_id'>$uni_name</option>";
                               }
                           ?> 
@@ -192,6 +194,7 @@
                         <label for="validationCustom01" class="form-label" >ปีการศึกษา</label>
                         <input type="text" class="form-control" id="validationCustom01" placeholder="ปีการศึกษา" required name="coursesopen_schoolyear">
                       </div>
+                      <input type="hidden" name="coursesopen_teacher_id" value="<?php echo $teacher["teacher_id"]?>">
                       
                     <!-- <div class="col-12">
                       <div class="form-check form-switch">

@@ -295,12 +295,6 @@ $result4 = mysqli_query($conn,$sql4);
                             <label for="validationCustom01" class="form-label" >รหัสผ่าน</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกรหัสผ่าน" required name="student_password">
                           </div>
-                          <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                              <label for="pwd">สถานะ :</label>
-                              <input type="text" class="form-control" name="status_prename">
-                              <input type="radio" name="student_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                              <input type="radio" name="student_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                          </div> -->
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->

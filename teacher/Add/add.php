@@ -18,8 +18,10 @@
         echo "</script>";
         exit();
     }else{
-        
-            if (isset($_FILES['sendwork_sendwork'])) {
+            // echo "<pre>";
+            // echo print_r($_FILES['sendwork_sendwork']);
+            // echo "</pre>";
+            // if (isset($_FILES['sendwork_sendwork'])) {
         
                 $img_name = $_FILES['sendwork_sendwork']['name'];
                 $img_size = $_FILES['sendwork_sendwork']['size'];
@@ -38,12 +40,12 @@
                         $allowed_exs = array("pdf","doc", "docx", "png", "pptx"); 
             
                         if (in_array($img_ex_lc, $allowed_exs)) {
-                            $new_img_name = uniqid("DocEDU", true).'.'.$img_ex_lc;
-                            $img_upload_path = 'uploadsend/'.$new_img_name;
+                            $new_img_name = uniqid("SENDEDU", true).'.'.$img_ex_lc; 
+                            $img_upload_path = '../../uploadsend/'.$new_img_name;
                             move_uploaded_file($tmp_name, $img_upload_path);
+
                             $sql_send="INSERT INTO sendwork(sendwork_student_id,sendwork_workorder,sendwork_sendwork) 
                             VALUE('$sendwork_student_id','$sendwork_workorder','$new_img_name')";
-                            // $send=mysqli_query($conn,$sql_send);
                             if(mysqli_query($conn, $sql_send)){
                                 echo "<script type=\"text/javascript\">";
                                 echo "alert(\"ส่งงานสำเร็จ\");";
@@ -64,7 +66,7 @@
         
                 }
             }
-    }
+
 
     
     

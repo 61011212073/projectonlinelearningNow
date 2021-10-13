@@ -211,7 +211,7 @@
                       <form class="row g-3 needs-validation" novalidate action="./Add/insertfa.php" method='post'>
                         <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
                         <select class="form-select form-control" aria-label="Default select example" name="faculty_uivarcity_id">
-                            <option selected>เลือกมหาวิทยาลัย</option>
+                            <option selected disabled>เลือกมหาวิทยาลัย</option>
                                   <?php
                                       while($rows=mysqli_fetch_row($results)){
                                           $uni_id=$rows[0];

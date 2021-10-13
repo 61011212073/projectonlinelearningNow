@@ -247,7 +247,7 @@
                           </div>
                           <label for="validationCustom01" class="form-label" >หลักสูตร</label>
                           <select class="form-select form-control" aria-label="Default select example" name="subject_course_id">
-                              <option selected>เลือกหลักสูตร</option>
+                              <option selected disabled>เลือกหลักสูตร</option>
                               <?php
                                   while($rows=mysqli_fetch_row($results)){
                                       $uni_id=$rows[0];
@@ -264,7 +264,7 @@
                           <div >
                             <label for="validationCustom01" class="form-label" >คำอธิบายรายวิชา(ภาษาอังกฤษ)</label>
                             <!-- <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)" required name="subject_detail_english"> -->
-                            <textarea class="" name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
+                            <textarea class="eng" name="subject_detail_english" cols="50" rows="5" placeholder="กรอกคำอธิบายรายวิชา(ภาษาอังกฤษ)"></textarea>
                           </div>
                         <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                               <label for="pwd">สถานะ :</label>
@@ -356,8 +356,8 @@
                 </tr>
                 <?php } ?>
               </tbody>
-              <div id="pagination_controls" style="font-family: Kanit, sans-serif;"><?php echo $paginationCtrls; ?></div>
-            </table>
+            </table><br>
+            <div id="pagination_controls" style="font-family: Kanit, sans-serif;"><?php echo $paginationCtrls; ?></div>
     
           </div>
       

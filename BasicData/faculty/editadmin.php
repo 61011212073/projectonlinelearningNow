@@ -28,18 +28,19 @@
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../admin/Edit/editfa.php" method="post">
-                        <div>
-                              <label for="validationCustom01" class="form-label" >รหัสคณะ</label>
-                              <input type="text" class="form-control th" id="validationCustom01" name="faculty_id" value="'.$row["faculty_id"].'" readonly/>
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>'.$sta.'
-                              <!--<input type="text" class="form-control th" id="validationCustom01" required name="univercity_thname" value="'.$row["univercity_thname"].'" readonly/>-->
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >คณะ</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคณะ" required name="faculty_name" value="'.$row["faculty_name"].'">
-                        </div>
+                <div>
+                <label for="validationCustom01" class="form-label" >รหัสคณะ</label>
+                <input type="text" class="form-control th" id="validationCustom01" name="faculty_id" value="'.$row["faculty_id"].'" readonly/>
+                  </div>
+                  <div>
+                        <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
+                        <input type="hidden" class="form-control th" id="validationCustom01" required name="faculty_uivarcity_id" value="'.$row["faculty_uivarcity_id"].'" readonly/>
+                        <input type="text" class="form-control th" id="validationCustom01" required name="" value="'.$row["univercity_thname"].'" readonly/>
+                  </div>
+                  <div>
+                        <label for="validationCustom01" class="form-label" >คณะ</label>
+                        <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคณะ" required name="faculty_name" value="'.$row["faculty_name"].'">
+                  </div>
                         <!--<div>
                               <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>
                               '.$status.'

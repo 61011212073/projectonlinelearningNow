@@ -15,14 +15,6 @@
     //        <table class="table table-bordered">';  
       while($row = mysqli_fetch_array($result))  
       {  
-          if ($row['subject_status'] == "1") {
-               $status="<input type='radio' name='subject_status' checked value='1'> เปิดการใช้งาน
-               <input type='radio' name='subject_status'value='0'> ปิดการใช้งาน";
-            }
-           else{
-               $status="<input type='radio' name='subject_status' value='1'> เปิดการใช้งาน
-               <input type='radio' name='subject_status' checked value='0'> ปิดการใช้งาน";
-           }  
            $uni_id=$row["subject_course_id"];
            $uni_name=$row["course_thname"];
            $sta='
@@ -43,7 +35,9 @@
                               <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_thname" value="'.$row["subject_thname"].'" >
                         </div>
                         <div>
-                              <label for="validationCustom01" class="form-label" >หลักสูตร</label>'.$sta.'
+                              <label for="validationCustom01" class="form-label" >หลักสูตร</label>
+                              <input type="hidden" class="form-control th" id="validationCustom01" required name="subject_course_id" value="'.$row["subject_course_id"].'" >
+                              <input type="text" class="form-control th" id="validationCustom01" required name="" value="'.$row["course_thname"].'" readonly/>
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >รายละเอียดภาษาไทย</label>
@@ -51,12 +45,8 @@
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >รายละเอียดภาษาอังกฤษ</label>
-                              <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_english"].'</textarea>
+                              <textarea  name="subject_detail_english" cols="50" rows="5">'.$row["subject_detail_english"].'</textarea>
                         </div>
-                        <!--<div>
-                              <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>
-                              '.$status.'
-                        </div>-->
                     
                     <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="บันทึกข้อมูล">

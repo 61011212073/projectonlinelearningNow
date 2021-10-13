@@ -258,7 +258,8 @@
               <thead>
                 <tr>
                   <th scope="col">ลำดับ</th>
-                  <th scope="col">มหาวิทยาลัย</th> 
+                  <th scope="col">มหาวิทยาลัย(ภาษาไทย)</th>
+                  <th scope="col">มหาวิทยาลัย(ภาษาอังกฤษ)</th> 
                   <th scope="col">สถานะการใช้งาน</th>
                   <th scope="col">แก้ไขข้อมูล</th>
                   <th scope="col">รายละเอียด</th>
@@ -273,6 +274,7 @@
                         <?php echo $i;?>
                       </td>
                       <td data-label="มหาวิทยาลัย"><?php echo $row[1];?></td>
+                      <td data-label="มหาวิทยาลัย"><?php echo $row[2];?></td>
                       <td data-label="สถานะการใช้งาน">
                       <?php
                         if ($row["univercity_status"]==1) {

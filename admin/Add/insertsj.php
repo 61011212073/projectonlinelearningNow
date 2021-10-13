@@ -23,7 +23,9 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
     // $subject_status = $_POST["subject_status"];
 
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT subject_engname FROM subject WHERE subject_engname='$subject_engname'";
+    $query = "SELECT subject_engname FROM subject 
+    WHERE subject_engname='$subject_engname' AND subject_thname='$subject_thname'
+    AND subject_detail_thai='$subject_detail_thai' AND subject_detail_english='$subject_detail_english'";
     $result = mysqli_query($conn, $query);
     if ($subject_engname=="" && $subject_thname=="" && $subject_id=="") {
         echo "<script type=\"text/javascript\">";

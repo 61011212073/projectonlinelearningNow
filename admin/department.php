@@ -233,7 +233,7 @@
                       <form class="row g-3 needs-validation" novalidate action="./Add/insertdpm.php" method='post'>
                         <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
                         <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id" id="authors">
-                            <option selected>เลือกมหาวิทยาลัย</option>
+                            <option selected disabled>เลือกมหาวิทยาลัย</option>
                             <?php 
                               require 'data.php';
                               $authors = loadAuthors();

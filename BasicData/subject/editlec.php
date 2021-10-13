@@ -30,33 +30,31 @@
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/editsj.php" method="post">
-                        <div>
-                              <label for="validationCustom01" class="form-label" >รหัสวิชา</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_id" value="'.$row["subject_id"].'" readonly/>
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาอังกฤษ</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_engname" value="'.$row["subject_engname"].'" >
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาไทย</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_thname" value="'.$row["subject_thname"].'" >
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >หลักสูตร</label>'.$sta.'
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >รายละเอียดภาษาไทย</label>
-                              <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_thai"].'</textarea>
-                        </div>
-                        <div>
-                              <label for="validationCustom01" class="form-label" >รายละเอียดภาษาอังกฤษ</label>
-                              <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_english"].'</textarea>
-                        </div>
-                        <!--<div>
-                              <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>
-                              '.$status.'
-                        </div>-->
+                <div>
+                <label for="validationCustom01" class="form-label" >รหัสวิชา</label>
+                <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_id" value="'.$row["subject_id"].'" readonly/>
+          </div>
+          <div>
+                <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาอังกฤษ</label>
+                <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_engname" value="'.$row["subject_engname"].'" >
+          </div>
+          <div>
+                <label for="validationCustom01" class="form-label" >ชื่อวิชาภาษาไทย</label>
+                <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="subject_thname" value="'.$row["subject_thname"].'" >
+          </div>
+          <div>
+                <label for="validationCustom01" class="form-label" >หลักสูตร</label>
+                <input type="hidden" class="form-control th" id="validationCustom01" required name="subject_course_id" value="'.$row["subject_course_id"].'" >
+                <input type="text" class="form-control th" id="validationCustom01" required name="" value="'.$row["course_thname"].'" readonly/>
+          </div>
+          <div>
+                <label for="validationCustom01" class="form-label" >รายละเอียดภาษาไทย</label>
+                <textarea  name="subject_detail_thai" cols="50" rows="5">'.$row["subject_detail_thai"].'</textarea>
+          </div>
+          <div>
+                <label for="validationCustom01" class="form-label" >รายละเอียดภาษาอังกฤษ</label>
+                <textarea  name="subject_detail_english" cols="50" rows="5">'.$row["subject_detail_english"].'</textarea>
+          </div>
                     
                     <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="บันทึกข้อมูล">

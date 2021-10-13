@@ -27,9 +27,8 @@
              </div>
             <div class="form-group">
                  <label for="usr" style="font-family: Kanit, sans-serif;">ชื่อแบบฝึกหัด :</label>
-                 <select class="form-select form-control" name="sendwork_workorder" style="font-family: Kanit, sans-serif;">
-                    <option style="font-family: Kanit, sans-serif;" value="'.$row["work_id"].'">'.$row["work_name"].'</option>
-                    </select>
+                    <input type="hidden" required class="form-control" name="sendwork_workorder" style="font-family: Kanit, sans-serif;" value="'.$row["work_id"].'" readonly/>
+                    <input type="text" required class="form-control" name="" style="font-family: Kanit, sans-serif;" value="'.$row["work_name"].'" readonly/>
              </div>
              <div class="form-group">
                  <label for="usr" style="font-family: Kanit, sans-serif;">ส่งไฟล์แบบฝึกหัด :</label>

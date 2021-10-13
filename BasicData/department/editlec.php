@@ -36,25 +36,23 @@
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/editdpm.php" method="post">
                         <div>
-                              <label for="validationCustom01" class="form-label" >รหัสภาควิชา</label>
-                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="department_id" value="'.$row["department_id"].'" readonly/>
+                              <!--<label for="validationCustom01" class="form-label" >รหัสภาควิชา</label>-->
+                              <input type="hidden" class="form-control th" id="validationCustom01" required name="department_id" value="'.$row["department_id"].'" readonly/>
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >ชื่อภาควิชา</label>
                               <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="department_name" value="'.$row["department_name"].'">
                         </div>
                         <div>
-                        <label for="validationCustom01" class="form-label" >คณะ</label>'.$sta1.'
-                       <!-- <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="faculty_name" value="'.$row["faculty_name"].'"readonly/>-->
+                        <label for="validationCustom01" class="form-label" >คณะ</label>
+                       <input type="hidden" class="form-control th" id="validationCustom01" required name="department_faculty_id" value="'.$row["department_faculty_id"].'"readonly/>
+                       <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="" value="'.$row["faculty_name"].'"readonly/>
                   </div>
                         <div>
-                              <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>'.$sta.'
-                              <!--<input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="univercity_thname" value="'.$row["univercity_thname"].'"readonly/>-->
+                              <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
+                              <input type="hidden" class="form-control th" id="validationCustom01" required name="department_univarcity_id" value="'.$row["department_univarcity_id"].'"readonly/>
+                              <input type="text" class="form-control th" id="validationCustom01" placeholder="กรอกคำนำหน้าชื่อ" required name="" value="'.$row["univercity_thname"].'"readonly/>
                         </div>
-                        <!--<div>
-                              <label for="validationCustom01" class="form-label" >สถานะการใช้งาน</label>
-                              '.$status.'
-                        </div>-->
                     
                     <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="บันทึกข้อมูล">

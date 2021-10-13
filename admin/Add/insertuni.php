@@ -14,12 +14,14 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
         $value = trim($value);
         return $value; 
     }
-    $univercity = clean($_POST["univercity"]);
+    $univercity = clean($_POST["univercity_thname"]);
+    $univercity_engname=clean($_POST["univercity_engname"]);
     $univercity_thcode = clean($_POST["univercity_thcode"]);
     $univercity_engcode = clean($_POST["univercity_engcode"]);
 	// $status_univercity = $_POST["status_univercity"];
     //เช็คข้อมูลซ้ำ
-    $query = "SELECT univercity_thname,univercity_thcode,univercity_engcode FROM univercity WHERE univercity_thname='$univercity'";
+    $query = "SELECT univercity_thname,univercity_thcode,univercity_engcode FROM univercity WHERE univercity_thname='$univercity' AND univercity_engname='$univercity_engname' AND
+    univercity_thcode='$univercity_thcode' AND univercity_engcode='$univercity_engcode'";
     $result = mysqli_query($conn, $query);
     if ($univercity=="" && $univercity_thcode=="" && $univercity_thcode=="") {
         echo "<script type=\"text/javascript\">";
@@ -36,8 +38,8 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                 exit();
             }
             else{
-                    $sql1 = "INSERT INTO univercity(univercity_thname,univercity_thcode,univercity_engcode,univercity_status )
-                            VALUES ('$univercity','$univercity_thcode','$univercity_engcode',1)";
+                    $sql1 = "INSERT INTO univercity(univercity_thname,univercity_engname,univercity_thcode,univercity_engcode,univercity_status )
+                            VALUES ('$univercity','$univercity_engname','$univercity_thcode','$univercity_engcode',1)";
                     if(mysqli_query($conn, $sql1)){
                     //    echo "Records added successfully.";
                     echo "<script type=\"text/javascript\">";

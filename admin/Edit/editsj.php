@@ -44,16 +44,13 @@ mysqli_query($conn,"SET CHARACTER SET UTF8");
                         else{
                                 $sql1 = "UPDATE subject SET subject_engname='$subject_engname',
                                 subject_thname='$subject_thname',
-                                subject_course_id='$subject_course_id',
                                 subject_detail_thai='$subject_detail_thai',
                                 subject_detail_english='$subject_detail_english'
                                 WHERE subject_id='$subject_id'";
 
                                 if(mysqli_query($conn, $sql1)){
-                                //    echo "Records added successfully.";
                                 echo "<script type=\"text/javascript\">";
                                 echo "alert(\"แก้ไขรายวิชาสำเร็จ\");";
-                                // echo "window.history.back();";
                                 header("Refresh:0; url=../subject.php");
                                 echo "</script>";
                                 exit();

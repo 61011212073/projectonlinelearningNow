@@ -78,11 +78,8 @@
         }
             }
 
-    $sql1="SELECT * FROM faculty";
-    $results = mysqli_query($conn,$sql1);
-    
-    $sql2="SELECT * FROM department";
-    $resultss = mysqli_query($conn,$sql2);
+            $sql1="SELECT * FROM univercity WHERE univercity_status=1";
+            $result1 = mysqli_query($conn,$sql1);
 ?>
 <!DOCTYPE html>
 <!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
@@ -108,24 +105,34 @@
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
      <script src="../demo/main.js"></script>
      <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-     <script type="text/javascript">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+ <script type="text/javascript">
 		$(document).ready(function(){
-			$("#authors").change(function(){
-				var aid = $("#authors").val();
+			$("#univercity").change(function(){
+				var id_uivarcity = $(this).val();
 				$.ajax({
-					url: 'data.php',
+					url: '../teacher/data.php',
 					method: 'post',
-					data: 'aid=' + aid
-				}).done(function(books){
-					console.log(books);
-					books = JSON.parse(books);
-					$('#books').empty();
-					books.forEach(function(book){
-						$('#books').append('<option value="'+book.faculty_id+'">' + book.faculty_name + '</option>')
-					})
+					data: {id:id_uivarcity,function:'uivarcity'},
+          success: function(data){
+            console.log(data);
+            $('#faculty').html(data);
+          }
+				})
+				})
+        $("#faculty").change(function(){
+				var id_faculty = $(this).val();
+				$.ajax({
+					url: '../teacher/data.php',
+					method: 'post',
+					data: {id:id_faculty,function:'faculty'},
+          success: function(data){
+            console.log(data);
+            $('#department').html(data);
+          }
+				})
 				})
 			})
-		})
 	</script>
    </head>
 <body>
@@ -229,7 +236,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form class="row g-3 needs-validation" novalidate action="./Add/insertco.php" method="post">
+                      <form class="row g-3 needs-validation" novalidate action="Add/insertco.php" method="post">
                         <div >
                             <label for="validationCustom01" class="form-label" >ชื่อหลักสูตรภาษาไทย</label>
                             <input type="text" class="form-control th" name="course_thname" id="validationCustom01" placeholder="กรอกหลักสูตรภาษาไทย" required>
@@ -256,32 +263,25 @@
                             
                           </div>
                           <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
-                          <select class="form-select form-control" aria-label="Default select example" name="course_univercity_id" id="authors">
-                              <option selected>เลือกมหาวิทยาลัย</option>
-                              <?php 
-                              require 'data.php';
-                              $authors = loadAuthors();
-                              foreach ($authors as $author) {
-                                echo "<option id='".$author['univercity_id']."' value='".$author['univercity_id']."'>".$author['univercity_thname']."</option>";
-                              }
-		                    	 ?>
-                          </select> 
-                          <label for="validationCustom01" class="form-label" >คณะ</label>
-                          <select class="form-select form-control" aria-label="Default select example" name="course_faculty_id" id="books">
-                            
-                            </select> 
-                          
-                          <label for="validationCustom01" class="form-label" >ภาควิชา</label>
-                          <select class="form-select form-control" aria-label="Default select example" name="course_dpm_id">
-                              <option selected>เลือกภาควิชา</option>
-                              <?php
-                                  while($rows=mysqli_fetch_row($resultss)){
+                          <select class="form-select form-control" aria-label="Default select example" name="course_univercity_id" id="univercity">
+                            <option selected disabled>-เลือกมหาวิทยาลัย-</option>
+                              <!-- <option>เลือกภาควิชา</option> -->
+                            <?php
+                                  while($rows=mysqli_fetch_row($result1)){
                                       $uni_id=$rows[0];
                                       $uni_name=$rows[1];
                                       echo "<option value='$uni_id'>$uni_name</option>";
                                   }
                               ?> 
+                          </select> 
+                          <label for="validationCustom01" class="form-label" >คณะ</label>
+                          <select class="form-select form-control" aria-label="Default select example" name="course_faculty_id" id="faculty">
+                            
                             </select> 
+                          
+                          <label for="validationCustom01" class="form-label" >ภาควิชา</label>
+                          <select class="form-select form-control" aria-label="Default select example" name="course_dpm_id" id="department">
+                               
                             </select> 
                             <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
                                 <label for="pwd">สถานะ :</label>
@@ -377,8 +377,8 @@
                 </tr>
                 <?php } ?>
          </tbody>
-              <div id="pagination_controls"><?php echo $paginationCtrls; ?></div>
-            </table>
+        </table><br>
+        <div id="pagination_controls"><?php echo $paginationCtrls; ?></div> 
     
           </div>
       

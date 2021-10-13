@@ -24,7 +24,7 @@
            $uni_id=$row["faculty_uivarcity_id"];
            $uni_name=$row["univercity_thname"];
            $sta='
-           <select class="form-select form-control" aria-label="Default select example" name="faculty_uivarcity_id">
+           <select class="form-select form-control" aria-label="Default select example" name="faculty_uivarcity_id" readonly/>
                         <option value="'.$uni_id.'">'.$uni_name.'</option></select>';
            $output .= '  
                 <form class="row g-3 needs-validation" novalidate action="../teacher/Edit/editfa.php" method="post">
@@ -33,8 +33,9 @@
                               <input type="text" class="form-control th" id="validationCustom01" name="faculty_id" value="'.$row["faculty_id"].'" readonly/>
                         </div>
                         <div>
-                              <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>'.$sta.'
-                              <!--<input type="text" class="form-control th" id="validationCustom01" required name="univercity_thname" value="'.$row["univercity_thname"].'" readonly/>-->
+                              <label for="validationCustom01" class="form-label" >มหาวิทยาลัย</label>
+                              <input type="hidden" class="form-control th" id="validationCustom01" required name="faculty_uivarcity_id" value="'.$row["faculty_uivarcity_id"].'" readonly/>
+                              <input type="text" class="form-control th" id="validationCustom01" required name="" value="'.$row["univercity_thname"].'" readonly/>
                         </div>
                         <div>
                               <label for="validationCustom01" class="form-label" >คณะ</label>

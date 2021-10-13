@@ -288,13 +288,6 @@ if (isset($_GET['logout'])) {
                             <label for="validationCustom01" class="form-label" >รหัสผ่าน</label>
                             <input type="text" class="form-control" id="validationCustom01" placeholder="กรอกรหัสผ่าน" required name="teacher_password">
                           </div>
-                          <!-- <div class="form-group" style="font-family: 'Kanit', sans-serif;">
-                            <label for="pwd">สถานะ :</label>
-                            <input type="text" class="form-control" name="status_prename">
-                            <input type="radio" name="teacher_status" required value="1" style="font-family: 'Kanit', sans-serif;"> เปิดการใช้งาน
-                            <input type="radio" name="teacher_status" value="0" style="font-family: 'Kanit', sans-serif;"> ปิดการใช้งาน
-                        </div> -->
-                    
                     </div>
                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
@@ -332,9 +325,8 @@ if (isset($_GET['logout'])) {
                   <td data-label="ชื่อ"><?php echo $row[1];?></td>
                   <td data-label="นามสกุล"><?php echo $row['teacher_fname'];?></td>
                   <td data-label="ชื่อผู้ใช้"><?php echo $row['teacher_lname'];?></td>
-                  
-                  <td data-label="รหัสผ่าน"><?php echo $row[9];?></td>
                   <td data-label="ชื่อผู้ใช้"><?php echo $row['teacher_password'];?></td>
+                  <td data-label="รหัสผ่าน"><?php echo $row[9];?></td>
                   <!-- <td data-label="สถานะการใช้งาน">
                     <?php
                       //   if ($row['teacher_status'] == "1") {

@@ -260,7 +260,7 @@
                         <select class="form-select form-control" aria-label="Default select example" name="department_univarcity_id" id="univercity">
                             <option selected disabled>-เลือกมหาวิทยาลัย-</option>
                             <?php 
-                               while($rows=mysqli_fetch_row($result1)){
+                               while($rows=mysqli_fetch_row($results)){
                                 $uni_id=$rows[0];
                                 $uni_name=$rows[1];
                                 echo "<option value='$uni_id'>$uni_name</option>";
